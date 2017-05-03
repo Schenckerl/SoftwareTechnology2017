@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">TimemanagementTool</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="current_recording">Current recording</string>
+    <string name="tasks">Tasks</string>
+    <string name="statistics">Statistics</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="dashboard">Dashboard</string>
+</resources>
