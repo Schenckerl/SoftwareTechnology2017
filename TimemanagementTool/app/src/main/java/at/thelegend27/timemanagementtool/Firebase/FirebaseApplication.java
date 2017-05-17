@@ -166,4 +166,8 @@ public class FirebaseApplication extends Application {
     public FirebaseUser getCurrentFirebaseUser() {
         return FirebaseAuth.getInstance().getCurrentUser();
     }
+
+    public static void logoutCurrentFirebaseUser() {
+        FirebaseAuth.getInstance().signOut();
+    }
 }

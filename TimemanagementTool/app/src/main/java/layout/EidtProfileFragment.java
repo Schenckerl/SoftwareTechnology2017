@@ -87,7 +87,6 @@ public class EidtProfileFragment extends Fragment {
             String profileEmail = user.getEmail();
 
             firebaseApplication.updateUserProfile(getActivity(), user, profileName, loadingFrameLayout);
-
         }
     }
 

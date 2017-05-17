@@ -3,7 +3,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="layout.EidtProfileFragment"
-    android:id="@+id/edit_profile_fragment">
+    android:id="@+id/edit_profile_fragment"
+    android:descendantFocusability="beforeDescendants"
+    android:focusableInTouchMode="true">
 
     <LinearLayout
         android:layout_width="match_parent"
