@@ -5,17 +5,6 @@
     tools:context="layout.EidtProfileFragment"
     android:id="@+id/edit_profile_fragment">
 
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <ProgressBar
-            android:id="@+id/progressBar2"
-            style="?android:attr/progressBarStyle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-    </FrameLayout>
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -44,10 +33,22 @@
             android:textColor="@color/colorWhite" />
 
         <EditText
-            android:id="@+id/profile_password"
+            android:id="@+id/profile_old_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_32sdp"
+            android:hint="@string/edit_profile_old_password"
+            android:inputType="textPassword"
+            android:maxLines="1"
+            android:padding="@dimen/_12sdp"
+            android:textColor="@color/colorBlack"
+            android:textSize="@dimen/_12sdp" />
+
+        <EditText
+            android:id="@+id/profile_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_8sdp"
             android:hint="@string/edit_profile_password"
             android:inputType="textPassword"
             android:maxLines="1"
@@ -76,6 +77,22 @@
             android:padding="@dimen/_12sdp"
             android:text="@string/save_password"
             android:textColor="@color/colorWhite" />
+
     </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/edit_profile_laoding_framelayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorBlack"
+        android:visibility="invisible">
+
+        <ProgressBar
+            android:id="@+id/progressBar2"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical|center_horizontal" />
+    </FrameLayout>
 
 </FrameLayout>

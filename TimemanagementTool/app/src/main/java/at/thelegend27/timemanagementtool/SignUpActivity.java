@@ -16,6 +16,8 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 
+import at.thelegend27.timemanagementtool.Firebase.FirebaseApplication;
+
 public class SignUpActivity extends AppCompatActivity {
 
     private static final String TAG = SignUpActivity.class.getSimpleName();

@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 
+import at.thelegend27.timemanagementtool.Firebase.FirebaseApplication;
 import at.thelegend27.timemanagementtool.HelperClasses.Helper;
 
 public class LoginActivity extends AppCompatActivity {

@@ -117,8 +117,9 @@
     <string name="save_edit">Save edit</string>
     <string name="title_activity_edit_profile">EditProfileActivity</string>
     <string name="edit_profile_email">Email</string>
-    <string name="edit_profile_password">Password</string>
+    <string name="edit_profile_password">New password</string>
     <string name="save_name">Save name</string>
-    <string name="edit_profile_repeat_password">Repeat password</string>
+    <string name="edit_profile_repeat_password">Repeat new password</string>
     <string name="save_password">save password</string>
+    <string name="edit_profile_old_password">Old password</string>
 </resources>
