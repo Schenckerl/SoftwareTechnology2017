@@ -11,8 +11,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import layout.DashboardFragment;
+import layout.EidtProfileFragment;
 import layout.StatisticsFragment;
 import layout.TasksFragment;
 
@@ -101,6 +103,9 @@ public class TimemanagementActivity extends AppCompatActivity
             case R.id.nav_statistics:
                 fragment = new StatisticsFragment();
                 break;
+            case R.id.edit_profile_fragment:
+                fragment = new EidtProfileFragment();
+                break;
         }
 
         //replacing the fragment
@@ -112,5 +117,9 @@ public class TimemanagementActivity extends AppCompatActivity
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
+    }
+
+    public void editProfileButtonPressed(View view) {
+        displaySelectedScreen(R.id.edit_profile_fragment);
     }
 }

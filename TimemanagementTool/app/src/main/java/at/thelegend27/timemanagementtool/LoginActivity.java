@@ -16,6 +16,8 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 
+import at.thelegend27.timemanagementtool.HelperClasses.Helper;
+
 public class LoginActivity extends AppCompatActivity {
 
     private static final String TAG = LoginActivity.class.getSimpleName();
@@ -72,7 +74,7 @@ public class LoginActivity extends AppCompatActivity {
                     Toast.makeText(LoginActivity.this, "Login fields must be filled", Toast.LENGTH_LONG).show();
                     return;
                 }
-                if (!enteredEmail.contains("@")) {
+                if (!Helper.isValidEmail(enteredEmail)) {
                     Toast.makeText(LoginActivity.this, "Invalidate email entered", Toast.LENGTH_LONG).show();
                     return;
                 }

@@ -9,25 +9,16 @@ public class FirebaseUserEntity {
 
     private String name;
 
-    private String country;
-
-    private String phone;
-
-    private String birthday;
-
-    private String hobby;
+    private String password;
 
     public FirebaseUserEntity(){
     }
 
-    public FirebaseUserEntity(String uId, String email, String name, String country, String phone, String birthday, String hobby) {
+    public FirebaseUserEntity(String uId, String email, String name, String password) {
         this.uId = uId;
         this.email = email;
         this.name = name;
-        this.country = country;
-        this.phone = phone;
-        this.birthday = birthday;
-        this.hobby = hobby;
+        this.password = password;
     }
 
     public String getuId() {
@@ -42,19 +33,5 @@ public class FirebaseUserEntity {
         return name;
     }
 
-    public String getCountry() {
-        return country;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public String getBirthday() {
-        return birthday;
-    }
-
-    public String getHobby() {
-        return hobby;
-    }
+    public String getPassword() { return password; }
 }
