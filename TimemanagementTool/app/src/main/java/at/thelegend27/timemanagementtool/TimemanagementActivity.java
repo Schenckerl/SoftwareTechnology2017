@@ -17,6 +17,7 @@ import layout.DashboardFragment;
 import layout.EidtProfileFragment;
 import layout.StatisticsFragment;
 import layout.TasksFragment;
+import layout.Test;
 
 /**
  * Created by markusfriedl on 08/05/2017.
@@ -105,6 +106,9 @@ public class TimemanagementActivity extends AppCompatActivity
                 break;
             case R.id.edit_profile_fragment:
                 fragment = new EidtProfileFragment();
+                break;
+            case R.id.test:
+                fragment = new Test();
                 break;
         }
 

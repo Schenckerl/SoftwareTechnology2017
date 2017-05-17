@@ -14,6 +14,11 @@
             android:id="@+id/nav_statistics"
             android:icon="@drawable/ic_perm_contact_calendar_black_24dp"
             android:title="@string/statistics" />
+
+        <item
+            android:id="@+id/test"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="@string/test" />
     </group>
 
 </menu>
