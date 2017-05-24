@@ -9,4 +9,7 @@
     <color name="colorBlack">#a4000000</color>
     <color name="colorMild">#9d9c9c</color>
     <color name="colorDivider">#eae6e6</color>
+
+    <color name="colorRed">#DD2C00</color>
+    <color name="colorDarkGray">#888</color>
 </resources>
