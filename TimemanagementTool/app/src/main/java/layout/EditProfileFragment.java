@@ -16,7 +16,7 @@ import com.google.firebase.auth.FirebaseUser;
 import at.thelegend27.timemanagementtool.Firebase.FirebaseDatabaseHelper;
 import at.thelegend27.timemanagementtool.R;
 
-public class EidtProfileFragment extends Fragment {
+public class EditProfileFragment extends Fragment {
     private EditText editProfileName;
     private EditText editProfilePassword;
 

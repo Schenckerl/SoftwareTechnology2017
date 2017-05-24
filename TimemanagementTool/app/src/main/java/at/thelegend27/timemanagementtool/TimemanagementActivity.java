@@ -13,8 +13,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import layout.CheckedInFragment;
 import layout.DashboardFragment;
-import layout.EidtProfileFragment;
+import layout.EditProfileFragment;
 import layout.StatisticsFragment;
 import layout.TasksFragment;
 
@@ -41,7 +42,10 @@ public class TimemanagementActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        //setContentView(R.layout.fragment_dashboard);
         displaySelectedScreen(R.id.nav_dashboard);
+
+
     }
 
     @Override
@@ -94,9 +98,6 @@ public class TimemanagementActivity extends AppCompatActivity
 
         //initializing the fragment object which is selected
         switch (itemId) {
-            case R.id.nav_dashboard:
-                fragment = new DashboardFragment();
-                break;
             case R.id.nav_tasks:
                 fragment = new TasksFragment();
                 break;
@@ -104,11 +105,29 @@ public class TimemanagementActivity extends AppCompatActivity
                 fragment = new StatisticsFragment();
                 break;
             case R.id.edit_profile_fragment:
-                fragment = new EidtProfileFragment();
+                fragment = new EditProfileFragment();
                 break;
+            case R.id.nav_dashboard: {
+                fragment = new DashboardFragment();
+                break;
+            }
         }
 
         //replacing the fragment
+        if (fragment != null) {
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            ft.replace(R.id.content_frame, fragment);
+            ft.commit();
+        }
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+    }
+
+    public void createCheckedInFragment()
+    {
+        Fragment fragment = new CheckedInFragment();
+
         if (fragment != null) {
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
             ft.replace(R.id.content_frame, fragment);
