@@ -2,10 +2,6 @@ package at.thelegend27.timemanagementtool.database;
 
 import java.util.ArrayList;
 
-/**
- * Created by dominik on 17.05.17.
- */
-
 public class Department {
     public ArrayList<User> users;
     public int supervisor_id;

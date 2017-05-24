@@ -13,11 +13,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import layout.AdminFragment;
 import layout.DashboardFragment;
 import layout.EidtProfileFragment;
 import layout.StatisticsFragment;
 import layout.TasksFragment;
-import layout.Test;
 
 /**
  * Created by markusfriedl on 08/05/2017.
@@ -107,8 +107,8 @@ public class TimemanagementActivity extends AppCompatActivity
             case R.id.edit_profile_fragment:
                 fragment = new EidtProfileFragment();
                 break;
-            case R.id.test:
-                fragment = new Test();
+            case R.id.admin:
+                fragment = new AdminFragment();
                 break;
         }
 

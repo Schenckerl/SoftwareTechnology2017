@@ -14,36 +14,10 @@ public class DatabaseHelper {
 
     public static void addNewCompany(Company to_add){
         DatabaseReference md = FirebaseDatabase.getInstance().getReference("Companies");
-        md.push().setValue(to_add);
+        md.child(to_add.name).setValue(to_add);
     }
 
-    public static void addDepartmentToCompany(Department dep, Company comp){
-        DatabaseReference md = FirebaseDatabase.getInstance().getReference("Companies");
+    public static void addNewDepartment(String company, Department to_add){
 
-        md.orderByChild("name").equalTo("TL").addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                System.out.println("we found our company");
-            }
-
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-            }
-        });
     }
 }

@@ -16,9 +16,9 @@
             android:title="@string/statistics" />
 
         <item
-            android:id="@+id/test"
+            android:id="@+id/admin"
             android:icon="@drawable/ic_menu_manage"
-            android:title="@string/test" />
+            android:title="@string/administration"/>
     </group>
 
 </menu>

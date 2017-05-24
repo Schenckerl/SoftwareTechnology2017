@@ -122,4 +122,7 @@
     <string name="save_name">Save name</string>
     <string name="edit_profile_repeat_password">Repeat password</string>
     <string name="save_password">save password</string>
+    <string name="department">Department</string>
+    <string name="new_key">New</string>
+    <string name="administration">Administration</string>
 </resources>
