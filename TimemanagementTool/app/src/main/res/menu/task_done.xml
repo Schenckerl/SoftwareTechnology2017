@@ -2,10 +2,11 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/add_new_task"
+        android:id="@+id/task_done"
+        android:title="@string/task_done"
         android:orderInCategory="1"
-        android:title="@string/action_settings"
         app:showAsAction="always"
-        android:icon="@drawable/ic_note_add_white_24dp"
+        android:icon="@drawable/ic_check_circle_white_24dp"
         />
+
 </menu>

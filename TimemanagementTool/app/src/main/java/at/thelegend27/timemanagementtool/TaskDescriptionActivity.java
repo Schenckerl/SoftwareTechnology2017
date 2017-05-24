@@ -3,6 +3,7 @@ package at.thelegend27.timemanagementtool;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
+import android.view.Menu;
 import android.view.View;
 import android.widget.TextView;
 
@@ -47,5 +48,11 @@ public class TaskDescriptionActivity extends AppCompatActivity {
         //description.setMovementMethod(new ScrollingMovementMethod());
 
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.task_done, menu);
+        return true;
     }
 }

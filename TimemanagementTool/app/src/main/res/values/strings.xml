@@ -108,6 +108,7 @@
     <string name="menu_logout">Logout</string>
 
     <string name="profile_names">Display name</string>
+    <string name="task_done">Task done</string>
     <string name="induce_smile">Induce Smile</string>
     <string name="edit_profile_name">Name</string>
     <string name="edit_profile_country">Country</string>
