@@ -123,4 +123,12 @@
     <string name="save_password">save password</string>
     <string name="edit_profile_old_password">Old password</string>
     <string name="logout">Logout</string>
+    <string name="forename_hint">Forename</string>
+    <string name="surename_hint">Surename</string>
+    <string name="company_hint">Company name</string>
+
+    <plurals name="error_week_password">
+        <item quantity="one">Password not strong enough. Use at least %1$d character and a mix of letters and numbers</item>
+        <item quantity="other">Password not strong enough. Use at least %1$d characters and a mix of letters and numbers</item>
+    </plurals>
 </resources>
