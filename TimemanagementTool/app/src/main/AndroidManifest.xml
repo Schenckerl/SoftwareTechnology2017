@@ -35,6 +35,7 @@
             android:name=".TimemanagementActivity"
             android:label="TimemanagementActivity"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".TaskDescriptionActivity"></activity>
     </application>
 
 </manifest>
