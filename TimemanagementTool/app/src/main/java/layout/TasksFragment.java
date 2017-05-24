@@ -8,6 +8,8 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +26,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.ArrayList;
 import java.util.List;
 
+
+import at.thelegend27.timemanagementtool.AddNewTaskActivity;
 import at.thelegend27.timemanagementtool.R;
 import at.thelegend27.timemanagementtool.Task;
 import at.thelegend27.timemanagementtool.TaskAdaptor;
@@ -39,8 +43,9 @@ public class TasksFragment extends Fragment {
 
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         //returning our layout file
-        View view = inflater.inflate(R.layout.fragment_tasks, container, false);
+        setHasOptionsMenu(true);
 
+        View view = inflater.inflate(R.layout.fragment_tasks, container, false);
         output = new ArrayList<>();
 
 
@@ -51,6 +56,13 @@ public class TasksFragment extends Fragment {
         return view;
     }
 
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater)
+    {
+        inflater.inflate(R.menu.add_new_task, menu);
+        return;
+    }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
@@ -110,6 +122,17 @@ public class TasksFragment extends Fragment {
             }
         }
         return index;
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.add_new_task:
+                Intent intent = new Intent(getActivity(), AddNewTaskActivity.class);
+                startActivity(intent);
+                break;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     private void removeTask(int position) {

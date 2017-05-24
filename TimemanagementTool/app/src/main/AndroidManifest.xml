@@ -35,7 +35,10 @@
             android:name=".TimemanagementActivity"
             android:label="TimemanagementActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".TaskDescriptionActivity"></activity>
+        <activity android:name=".TaskDescriptionActivity" />
+        <activity android:name=".HelperClasses.AddNewFragmentActivity" />
+        <activity android:name=".AddNewFragmentActivity" />
+        <activity android:name=".AddNewTaskActivity"></activity>
     </application>
 
 </manifest>
