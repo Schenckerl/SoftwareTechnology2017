@@ -37,7 +37,7 @@ public class UserUtils {
                 });
     }
 
-    private static void createNewDbUser(User to_create){
+    public static void createNewDbUser(User to_create){
         Log.d(TAG, "creating new Db user");
         DatabaseReference db = FirebaseDatabase.getInstance().getReference();
         db.child("Users").child(to_create.uid).setValue(to_create.toMap());

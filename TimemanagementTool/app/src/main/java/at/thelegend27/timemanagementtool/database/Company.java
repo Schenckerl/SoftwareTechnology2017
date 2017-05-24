@@ -1,6 +1,8 @@
 package at.thelegend27.timemanagementtool.database;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by dominik on 17.05.17.
@@ -8,21 +10,24 @@ import java.util.ArrayList;
 
 public class Company {
     public String name;
-    public int id;
-    public ArrayList<User> users;
-    public ArrayList<Department> departments;
-    public int ceo_id;
+    public String id;
+    public String ceo_id;
 
     public Company(){
 
     }
 
-    public Company(String name, int id, ArrayList<User> users, ArrayList<Department> departments,
-                   int ceo_id){
+    public Company(String name, String id, String ceo_id){
         this.name = name;
         this.id = id;
-        this.users = users;
-        this.departments = departments;
         this.ceo_id = ceo_id;
+    }
+
+    public Map<String, Object> toMap(){
+        HashMap<String, Object> ret = new HashMap<>();
+        ret.put("company_id", id);
+        ret.put("ceo_id", ceo_id);
+
+        return ret;
     }
 }

@@ -20,6 +20,7 @@ import at.thelegend27.timemanagementtool.Firebase.FirebaseApplication;
 import at.thelegend27.timemanagementtool.HelperClasses.EmailFieldValidatorHelper;
 import at.thelegend27.timemanagementtool.HelperClasses.PasswordFieldValidatorHelper;
 import at.thelegend27.timemanagementtool.HelperClasses.RequiredFieldValidatorHelper;
+import at.thelegend27.timemanagementtool.database.User;
 
 public class SignUpActivity extends AppCompatActivity implements View.OnFocusChangeListener, View.OnClickListener {
     private static final int PASS_MIN_LENGTH = 6;
@@ -117,19 +118,21 @@ public class SignUpActivity extends AppCompatActivity implements View.OnFocusCha
             String enteredPassword = passwordInput.getText().toString();
             String enteredCompany = companyInput.getText().toString();
 
-            boolean isForeameValid = foreameFieldValidator.validate(enteredForename);
+            boolean isForenameValid = foreameFieldValidator.validate(enteredForename);
             boolean isSurenameValid = sureameFieldValidator.validate(enteredSurename);
             boolean isEmailValid = emailFieldValidator.validate(enteredEmail);
             boolean isPasswordValid= passwordFieldValidator.validate(enteredPassword);
             boolean isCompanyValid= companyFieldValidator.validate(enteredCompany);
 
-            if (!isForeameValid || !isSurenameValid || !isEmailValid || !isPasswordValid || !isCompanyValid) {
+            if (!isForenameValid || !isSurenameValid || !isEmailValid || !isPasswordValid || !isCompanyValid) {
                 //go ahead ans submit the form for all things are fine now
                 Toast.makeText(this, "Field Validations failed! Please check your inputs", Toast.LENGTH_SHORT).show();
                 return;
             }
+            String name = enteredSurename+ " " + enteredForename;
 
-            ((FirebaseApplication) getApplication()).createNewUser(SignUpActivity.this, enteredEmail, enteredPassword, loginError);
+            ((FirebaseApplication) getApplication()).createNewUser(SignUpActivity.this, enteredEmail,
+                    enteredPassword, loginError, name, enteredCompany);
         }
         else if (id == R.id.switch_login_text_view) {
             Intent signUpIntent = new Intent(SignUpActivity.this, LoginActivity.class);

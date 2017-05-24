@@ -20,8 +20,11 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
 
+import at.thelegend27.timemanagementtool.HelperClasses.UserUtils;
 import at.thelegend27.timemanagementtool.LoginActivity;
 import at.thelegend27.timemanagementtool.TimemanagementActivity;
+import at.thelegend27.timemanagementtool.database.DatabaseHelper;
+import at.thelegend27.timemanagementtool.database.User;
 
 /**
  * Created by markusfriedl on 08/05/2017.
@@ -68,9 +71,11 @@ public class FirebaseApplication extends Application {
         };
     }
 
-    public void createNewUser(final Context context, String email, String password, final TextView errorMessage) {
+    public void createNewUser(final Context context, final String email, String password, final TextView errorMessage, final String name,
+                              final String company_name) {
         firebaseAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener((Activity) context, new OnCompleteListener<AuthResult>() {
+                    String uid;
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         Log.d(TAG, "createUserWithEmail:onComplete:" + task.isSuccessful());
@@ -80,6 +85,10 @@ public class FirebaseApplication extends Application {
                             Toast.makeText(context, "User has been created", Toast.LENGTH_LONG).show();
                             Intent timemanagementIntent = new Intent(context, TimemanagementActivity.class);
                             context.startActivity(timemanagementIntent);
+                            User new_user = new User(0, null, 40, 0, 0, task.getResult().getUser().getUid(),name , email);
+                            new_user.setCeo();
+                            DatabaseHelper.createNewCompany(new_user, company_name);
+                            UserUtils.createNewDbUser(new_user);
                         }
                     }
                 });
