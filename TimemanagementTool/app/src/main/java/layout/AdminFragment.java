@@ -12,8 +12,11 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
+import at.thelegend27.timemanagementtool.HelperClasses.CurrentSession;
 import at.thelegend27.timemanagementtool.HelperClasses.UserUtils;
 import at.thelegend27.timemanagementtool.R;
+import at.thelegend27.timemanagementtool.database.DatabaseHelper;
+import at.thelegend27.timemanagementtool.database.Department;
 import at.thelegend27.timemanagementtool.database.User;
 import at.thelegend27.timemanagementtool.database.WorkingHour;
 
@@ -54,6 +57,16 @@ public class AdminFragment extends Fragment {
                 new_user = new User(department, null, target_hours, 0, 0, null, full_name, email);
 
                 UserUtils.registerUser(new_user, password);
+            }
+        });
+
+        final Button submit_dep  = (Button)view.findViewById(R.id.submit_dep);
+        submit_dep.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String department =( (EditText)view.findViewById(R.id.department_name)).getText().toString();
+                String supervisor = ((EditText)view.findViewById(R.id.department_supervisor)).getText().toString();
+                DatabaseHelper.createNewDepartment(department, supervisor);
             }
         });
     }

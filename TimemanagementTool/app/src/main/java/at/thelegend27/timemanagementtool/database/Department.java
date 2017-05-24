@@ -3,17 +3,15 @@ package at.thelegend27.timemanagementtool.database;
 import java.util.ArrayList;
 
 public class Department {
-    public ArrayList<User> users;
-    public int supervisor_id;
-    public int company_id;
+    public String company_id;
+    public String supervisor;
 
     public Department(){
 
     }
 
-    public Department(ArrayList<User> users, int supervisor_id, int company_id){
-        this.users = users;
-        this.supervisor_id = supervisor_id;
+    public Department(String company_id, String supervisor){
         this.company_id = company_id;
+        this.supervisor = supervisor;
     }
 }

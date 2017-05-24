@@ -8,6 +8,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.UUID;
 
+import at.thelegend27.timemanagementtool.HelperClasses.CurrentSession;
 import at.thelegend27.timemanagementtool.HelperClasses.UserUtils;
 
 /**
@@ -22,5 +23,11 @@ public class DatabaseHelper {
         db.child("Companies").child(company_name).setValue(new_company.toMap());
 
         UserUtils.createNewDbUser(ceo);
+    }
+
+    public static void createNewDepartment(String department_name, String department_supervisor){
+        DatabaseReference db = FirebaseDatabase.getInstance().getReference();
+        Department new_department = new Department(CurrentSession.getInstance().getCompany().id, department_supervisor);
+        db.child("Departments").child(department_name).setValue(new_department);
     }
 }

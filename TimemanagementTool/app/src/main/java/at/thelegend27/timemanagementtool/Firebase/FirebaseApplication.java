@@ -104,6 +104,8 @@ public class FirebaseApplication extends Application {
                             errorMessage.setText("Failed to login");
                         } else {
                             Toast.makeText(context, "User has been login", Toast.LENGTH_LONG).show();
+                            Log.d("Login", "User logged in fetching information");
+
                             Intent timemanagementIntent = new Intent(context, TimemanagementActivity.class);
                             context.startActivity(timemanagementIntent);
                         }

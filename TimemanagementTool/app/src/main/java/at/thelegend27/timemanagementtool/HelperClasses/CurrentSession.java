@@ -11,7 +11,7 @@ public class CurrentSession {
 
     private static CurrentSession instance;
 
-    public CurrentSession getInstance(){
+    public static CurrentSession getInstance(){
         if(instance == null){
             instance = new CurrentSession();
         }
@@ -22,4 +22,7 @@ public class CurrentSession {
     public void setCompany(Company company){this.company = company;}
     public void setDepartment(Department department){this.department = department;}
 
+    public User getCurrent_user() {return current_user;}
+    public Company getCompany() {return company;}
+    public Department getDepartment() {return department;}
 }
