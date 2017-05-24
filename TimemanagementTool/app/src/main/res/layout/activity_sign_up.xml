@@ -125,7 +125,7 @@
             style="@style/AppTheme.TextInputEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textPassword"
+            android:inputType="textPersonName|textCapWords"
             app:errorTextAppearance="@style/AppTheme.Text.ErrorText"
             app:hintTextAppearance="@style/AppTheme.Text.ErrorText" />
     </android.support.design.widget.TextInputLayout>

@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -37,6 +38,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnFocusCha
     private TextView switchLoginTextView;
     private TextView loginError;
     private FirebaseAuth mAuth;
+    private FrameLayout loadingFrameLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +61,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnFocusCha
         passwordInput = (TextInputEditText) findViewById(R.id.password);
         companyInput = (TextInputEditText) findViewById(R.id.company);
         switchLoginTextView = (TextView) findViewById(R.id.switch_login_text_view);
+        loadingFrameLayout = (FrameLayout) findViewById(R.id.sign_up_laoding_framelayout);
 
         TextInputLayout forenameWrapper = (TextInputLayout) findViewById(R.id.forename_wrapper);
         TextInputLayout surenameWrapper = (TextInputLayout) findViewById(R.id.surename_wrapper);
