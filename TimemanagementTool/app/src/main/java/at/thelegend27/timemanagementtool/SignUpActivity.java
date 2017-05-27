@@ -11,7 +11,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.FrameLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,7 +38,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnFocusCha
     private TextView switchLoginTextView;
     private TextView loginError;
     private FirebaseAuth mAuth;
-    private FrameLayout loadingFrameLayout;
+    private static ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,7 +61,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnFocusCha
         passwordInput = (TextInputEditText) findViewById(R.id.password);
         companyInput = (TextInputEditText) findViewById(R.id.company);
         switchLoginTextView = (TextView) findViewById(R.id.switch_login_text_view);
-        loadingFrameLayout = (FrameLayout) findViewById(R.id.sign_up_laoding_framelayout);
+        progressBar = (ProgressBar) findViewById(R.id.progressBarSignUp);
 
         TextInputLayout forenameWrapper = (TextInputLayout) findViewById(R.id.forename_wrapper);
         TextInputLayout surenameWrapper = (TextInputLayout) findViewById(R.id.surename_wrapper);
@@ -114,6 +114,8 @@ public class SignUpActivity extends AppCompatActivity implements View.OnFocusCha
         int id = view.getId();
 
         if (id == R.id.sign_up_button) {
+            visibilityProgressbarSignUp(View.VISIBLE);
+
             String enteredForename = forenameInput.getText().toString();
             String enteredSurename = surenameInput.getText().toString();
             String enteredEmail = emailInput.getText().toString();
@@ -129,6 +131,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnFocusCha
             if (!isForeameValid || !isSurenameValid || !isEmailValid || !isPasswordValid || !isCompanyValid) {
                 //go ahead ans submit the form for all things are fine now
                 Toast.makeText(this, "Field Validations failed! Please check your inputs", Toast.LENGTH_SHORT).show();
+                visibilityProgressbarSignUp(View.VISIBLE);
                 return;
             }
 
@@ -138,5 +141,9 @@ public class SignUpActivity extends AppCompatActivity implements View.OnFocusCha
             Intent signUpIntent = new Intent(SignUpActivity.this, LoginActivity.class);
             startActivity(signUpIntent);
         }
+    }
+
+    public static void visibilityProgressbarSignUp(int visibility) {
+        progressBar.setVisibility(visibility);
     }
 }

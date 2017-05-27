@@ -11,6 +11,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,6 +33,8 @@ public class LoginActivity extends AppCompatActivity {
     private TextView loginError;
 
     private FirebaseAuth mAuth;
+
+    private static ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +58,8 @@ public class LoginActivity extends AppCompatActivity {
         emailInput = (EditText) findViewById(R.id.email);
         passwordInput = (EditText) findViewById(R.id.password);
 
+        progressBar = (ProgressBar) findViewById(R.id.progressBarLogin);
+
         signUpText = (TextView) findViewById(R.id.register);
         signUpText.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -68,15 +73,19 @@ public class LoginActivity extends AppCompatActivity {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                visibilityProgressbarSignUp(View.VISIBLE);
+
                 String enteredEmail = emailInput.getText().toString();
                 String enteredPassword = passwordInput.getText().toString();
 
                 if (TextUtils.isEmpty(enteredEmail) || TextUtils.isEmpty(enteredPassword)) {
                     Toast.makeText(LoginActivity.this, "Login fields must be filled", Toast.LENGTH_LONG).show();
+                    visibilityProgressbarSignUp(View.VISIBLE);
                     return;
                 }
                 if (!BaseValidatorHelper.isValidEmail(enteredEmail)) {
                     Toast.makeText(LoginActivity.this, "Invalidate email entered", Toast.LENGTH_LONG).show();
+                    visibilityProgressbarSignUp(View.VISIBLE);
                     return;
                 }
 
@@ -97,5 +106,9 @@ public class LoginActivity extends AppCompatActivity {
         if (((FirebaseApplication) getApplication()).mAuthListener != null) {
             //mAuth.removeAuthStateListener(((FirebaseApplication)getApplication()).mAuthListener);
         }
+    }
+
+    public static void visibilityProgressbarSignUp(int visibility) {
+        progressBar.setVisibility(visibility);
     }
 }

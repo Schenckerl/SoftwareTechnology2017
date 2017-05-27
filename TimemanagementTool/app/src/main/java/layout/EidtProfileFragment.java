@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseUser;
@@ -23,7 +24,7 @@ public class EidtProfileFragment extends Fragment {
     private EditText editProfileOldPassword;
     private EditText editProfilePassword;
     private EditText editProfileRepeatPassword;
-    private FrameLayout loadingFrameLayout;
+    private ProgressBar progressBar;
 
     @Nullable
     @Override
@@ -42,7 +43,7 @@ public class EidtProfileFragment extends Fragment {
         editProfileOldPassword = (EditText)getView().findViewById(R.id.profile_old_password);
         editProfilePassword = (EditText)getView().findViewById(R.id.profile_password);
         editProfileRepeatPassword = (EditText)getView().findViewById(R.id.profile_repeat_password);
-        loadingFrameLayout = (FrameLayout)getView().findViewById(R.id.edit_profile_laoding_framelayout);
+        progressBar = (ProgressBar) getView().findViewById(R.id.progressBarEditProfil);
 
         Button saveEditButton = (Button)getView().findViewById(R.id.save_edit_button);
         final Button savePasswordButton = (Button)getView().findViewById(R.id.save_password_button);
@@ -79,14 +80,14 @@ public class EidtProfileFragment extends Fragment {
             return;
         }
 
-        loadingFrameLayout.setVisibility(View.VISIBLE);
+        progressBar.setVisibility(View.VISIBLE);
 
         if (user != null) {
             String userId = user.getProviderId();
             String id = user.getUid();
             String profileEmail = user.getEmail();
 
-            firebaseApplication.updateUserProfile(getActivity(), user, profileName, loadingFrameLayout);
+            firebaseApplication.updateUserProfile(getActivity(), user, profileName, progressBar);
         }
     }
 
@@ -106,14 +107,14 @@ public class EidtProfileFragment extends Fragment {
             return;
         }
 
-        loadingFrameLayout.setVisibility(View.VISIBLE);
+        progressBar.setVisibility(View.VISIBLE);
 
         if (user != null) {
             String userId = user.getProviderId();
             String id = user.getUid();
             String profileEmail = user.getEmail();
 
-            firebaseApplication.changeUserPassword(getActivity(), user, profileOldPassword, profilePassword, loadingFrameLayout);
+            firebaseApplication.changeUserPassword(getActivity(), user, profileOldPassword, profilePassword, progressBar);
         }
 
     }

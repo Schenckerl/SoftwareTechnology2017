@@ -80,4 +80,14 @@
         android:layout_below="@+id/login_button"
         android:layout_centerHorizontal="true"/>
 
+    <ProgressBar
+        android:id="@+id/progressBarLogin"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="false"
+        android:layout_centerInParent="true"
+        android:visibility="invisible"
+        android:layout_gravity="center_vertical|center_horizontal" />
+
 </RelativeLayout>
