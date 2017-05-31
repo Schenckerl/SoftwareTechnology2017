@@ -92,6 +92,7 @@
 
     <string name="email_hint">Email</string>
     <string name="password_hint">Password</string>
+    <string name="confirm_password_hint">Confirm password</string>
     <string name="login_button">LOGIN</string>
     <string name="sign_up">Sign up</string>
     <string name="no_text"> </string>
@@ -126,6 +127,12 @@
     <string name="forename_hint">Forename</string>
     <string name="surename_hint">Surename</string>
     <string name="company_hint">Company name</string>
+    <string name="invalid_email_address">Invalid Email Address</string>
+    <string name="missing_email_address">Missing Email Address</string>
+    <string name="short_password">Password not strong enough. Use at least 6 characters and a mix of letters and numbers</string>
+    <string name="password_must_be_same">Passwords must be the same</string>
+    <string name="confirm_field_empty">Confirm field can not be empty</string>
+    <string name="original_field_empty">Original Field can not be empty</string>
 
     <plurals name="error_week_password">
         <item quantity="one">Password not strong enough. Use at least %1$d character and a mix of letters and numbers</item>

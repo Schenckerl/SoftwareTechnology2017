@@ -82,19 +82,12 @@
 
     </LinearLayout>
 
-    <FrameLayout
-        android:id="@+id/edit_profile_laoding_framelayout"
+    <ProgressBar
+        android:id="@+id/progressBarEditProfil"
+        style="?android:attr/progressBarStyle"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/colorBlack"
-        android:visibility="invisible">
-
-        <ProgressBar
-            android:id="@+id/progressBar2"
-            style="?android:attr/progressBarStyle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical|center_horizontal" />
-    </FrameLayout>
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        android:layout_gravity="center_vertical|center_horizontal" />
 
 </FrameLayout>

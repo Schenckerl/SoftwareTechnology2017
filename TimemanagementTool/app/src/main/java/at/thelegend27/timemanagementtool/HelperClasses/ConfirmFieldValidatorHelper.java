@@ -3,6 +3,8 @@ package at.thelegend27.timemanagementtool.HelperClasses;
 import android.support.design.widget.TextInputLayout;
 import android.text.TextUtils;
 
+import at.thelegend27.timemanagementtool.R;
+
 /**
  * Created by markusfriedl on 24/05/2017.
  */
@@ -12,9 +14,9 @@ public class ConfirmFieldValidatorHelper extends BaseValidatorHelper {
 
     public ConfirmFieldValidatorHelper(TextInputLayout errorContainer) {
         super(errorContainer);
-        mErrorMessage = "Passwords must be the same";
-        mEmptyMessage = "Confirm field can not be empty";
-        mOtherFieldsEmptyMessage = "Original Field can not be empty";
+        mErrorMessage = errorContainer.getResources().getString(R.string.password_must_be_same);
+        mEmptyMessage = errorContainer.getResources().getString(R.string.confirm_field_empty);
+        mOtherFieldsEmptyMessage = errorContainer.getResources().getString(R.string.original_field_empty);
     }
 
     @Override

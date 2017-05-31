@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'jacoco'
 
 android {
     compileSdkVersion 25
@@ -10,11 +11,15 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
     }
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            testCoverageEnabled = true
         }
     }
 }
@@ -24,17 +29,31 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
+
+    // add this for intent mocking support
+    androidTestCompile('com.android.support.test.espresso:espresso-intents:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+
+    androidTestCompile 'com.android.support:support-annotations:25.3.1'
+
+    testCompile 'junit:junit:4.12'
+
+    // Android runner and rules support
+    androidTestCompile 'com.android.support.test:runner:0.5'
+    androidTestCompile 'com.android.support.test:rules:0.5'
+
     compile 'com.android.support:appcompat-v7:25.3.1'
     compile 'com.android.support:design:25.3.1'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'com.android.support:support-v4:25.3.1'
-    compile 'com.google.android.gms:play-services-plus:10.2.4'
-    compile 'com.google.android.gms:play-services-gcm:10.2.4'
+    compile 'com.google.android.gms:play-services:10.2.6'
     compile 'com.google.firebase:firebase-database:10.2.4'
     compile 'com.google.firebase:firebase-auth:10.2.4'
     compile 'com.google.firebase:firebase-core:10.2.4'
     compile 'com.google.firebase:firebase-storage:10.0.1'
-    testCompile 'junit:junit:4.12'
+
+
 }
 
 

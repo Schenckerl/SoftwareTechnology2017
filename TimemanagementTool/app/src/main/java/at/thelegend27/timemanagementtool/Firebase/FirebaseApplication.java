@@ -7,7 +7,7 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.View;
-import android.widget.FrameLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,6 +21,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
 
 import at.thelegend27.timemanagementtool.LoginActivity;
+import at.thelegend27.timemanagementtool.SignUpActivity;
 import at.thelegend27.timemanagementtool.TimemanagementActivity;
 
 /**
@@ -81,6 +82,8 @@ public class FirebaseApplication extends Application {
                             Intent timemanagementIntent = new Intent(context, TimemanagementActivity.class);
                             context.startActivity(timemanagementIntent);
                         }
+
+                        SignUpActivity.visibilityProgressbarSignUp(View.INVISIBLE);
                     }
                 });
     }
@@ -98,11 +101,13 @@ public class FirebaseApplication extends Application {
                             Intent timemanagementIntent = new Intent(context, TimemanagementActivity.class);
                             context.startActivity(timemanagementIntent);
                         }
+
+                        LoginActivity.visibilityProgressbarLogin(View.INVISIBLE);
                     }
                 });
     }
 
-    public void updateUserProfile(final Context context, FirebaseUser user, String name, final FrameLayout frameLayout) {
+    public void updateUserProfile(final Context context, FirebaseUser user, String name, final ProgressBar progressBar) {
 
         UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
                 .setDisplayName(name)
@@ -118,8 +123,8 @@ public class FirebaseApplication extends Application {
                     Toast.makeText(context, "User profile not updated. Try again!", Toast.LENGTH_LONG).show();
                 }
 
-                if (frameLayout != null) {
-                    frameLayout.setVisibility(View.INVISIBLE);
+                if (progressBar != null) {
+                    progressBar.setVisibility(View.INVISIBLE);
                 }
             }
         });
@@ -127,7 +132,7 @@ public class FirebaseApplication extends Application {
 
     public void changeUserPassword(final Context context, final FirebaseUser user,
                                    String oldPassword, final String password,
-                                   final FrameLayout frameLayout) {
+                                   final ProgressBar progressBar) {
 
         AuthCredential credential = EmailAuthProvider.getCredential(user.getEmail(), oldPassword);
 
@@ -146,8 +151,8 @@ public class FirebaseApplication extends Application {
                                     Toast.makeText(context, "Error: User password not updated. Try again!", Toast.LENGTH_LONG).show();
                                 }
 
-                                if (frameLayout != null) {
-                                    frameLayout.setVisibility(View.INVISIBLE);
+                                if (progressBar != null) {
+                                    progressBar.setVisibility(View.INVISIBLE);
                                 }
                             }
                         });
@@ -155,8 +160,8 @@ public class FirebaseApplication extends Application {
                         Log.d(TAG, "Error auth failed");
                         Toast.makeText(context, "Error: authentication failed. Old password is wrong!", Toast.LENGTH_LONG).show();
 
-                        if (frameLayout != null) {
-                            frameLayout.setVisibility(View.INVISIBLE);
+                        if (progressBar != null) {
+                            progressBar.setVisibility(View.INVISIBLE);
                         }
                     }
                 }
