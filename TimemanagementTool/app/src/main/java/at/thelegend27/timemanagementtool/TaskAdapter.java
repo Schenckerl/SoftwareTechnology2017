@@ -1,28 +1,37 @@
 package at.thelegend27.timemanagementtool;
 
-import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.List;
+
+import at.thelegend27.timemanagementtool.HelperClasses.CurrentSession;
+import at.thelegend27.timemanagementtool.database.User;
+
+import static android.content.ContentValues.TAG;
 
 /**
  * Created by a1 on 20.05.17.
  */
 
-public class TaskAdaptor extends RecyclerView.Adapter<TaskAdaptor.UserViewFolder> {
-
+public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.UserViewFolder> {
     private List<Task> list;
     private Listener listener;
-    public TaskAdaptor(List<Task> list) {
+    public TaskAdapter(List<Task> list) {
         this.list = list;
     }
-
 
     public static interface Listener {
         public void onClick(int position);
@@ -40,9 +49,11 @@ public class TaskAdaptor extends RecyclerView.Adapter<TaskAdaptor.UserViewFolder
     @Override
     public void onBindViewHolder(final UserViewFolder holder, final int position) {
         Task task = list.get(position);
-        holder.textTaskName.setText(task.taskname);
+
+        holder.textTaskName.setText(task.task_name);
         holder.textDate.setText(task.date);
-        holder.textAuthor.setText(task.author);
+        holder.textAuthor.setText(task.author_id);
+
         holder.itemView.setOnCreateContextMenuListener(new View.OnCreateContextMenuListener() {
             @Override
             public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
@@ -50,6 +61,9 @@ public class TaskAdaptor extends RecyclerView.Adapter<TaskAdaptor.UserViewFolder
                 menu.add(holder.getAdapterPosition(), 1, 0, "Change");
             }
         });
+
+
+
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -58,6 +72,8 @@ public class TaskAdaptor extends RecyclerView.Adapter<TaskAdaptor.UserViewFolder
                 }
             }
         });
+
+
     }
 
 

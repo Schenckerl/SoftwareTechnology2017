@@ -16,7 +16,8 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 
-import at.thelegend27.timemanagementtool.HelperClasses.Helper;
+import at.thelegend27.timemanagementtool.Firebase.FirebaseApplication;
+import at.thelegend27.timemanagementtool.HelperClasses.BaseValidatorHelper;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -74,7 +75,7 @@ public class LoginActivity extends AppCompatActivity {
                     Toast.makeText(LoginActivity.this, "Login fields must be filled", Toast.LENGTH_LONG).show();
                     return;
                 }
-                if (!Helper.isValidEmail(enteredEmail)) {
+                if (!BaseValidatorHelper.isValidEmail(enteredEmail)) {
                     Toast.makeText(LoginActivity.this, "Invalidate email entered", Toast.LENGTH_LONG).show();
                     return;
                 }

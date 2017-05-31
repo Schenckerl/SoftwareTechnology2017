@@ -56,4 +56,29 @@
         <item name="android:textSize">36sp</item>
     </style>
 
+    <style name="AppTheme.TextInputEditText">
+        <item name="android:textSize">14sp</item>
+
+    </style>
+
+    <style name="AppTheme.TextInputLayout">
+        <item name="android:layout_marginTop">8dp</item>
+        <item name="android:layout_marginBottom">8dp</item>
+        <item name="android:textColorHint">?android:textColorHint</item>
+    </style>
+
+    <style name="AppTheme.Text">
+        <item name="android:textSize">14sp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="AppTheme.Text.ErrorText">
+        <item name="android:textColor">@color/colorRed</item>
+    </style>
+
+    <style name="AppTheme.Text.HintText">
+        <item name="android:textColor">@color/colorDarkGray</item>
+    </style>
+
 </resources>

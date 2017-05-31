@@ -11,31 +11,28 @@ import java.util.Map;
  */
 
 public class  Task implements Parcelable{
-    String author, date, taskname;
-    int id;
+    String author_id, date, task_name, task_description, user_id, task_id;
 
 
-
-    public Task(String author, String date, String taskname, int id) {
-        this.author = author;
+    public Task(String author_id, String date, String task_name, String task_description, String user_id, String task_id) {
+        this.author_id = author_id;
         this.date = date;
-        this.taskname = taskname;
-        this.id = id;
+        this.task_name = task_name;
+        this.task_description = task_description;
+        this.user_id = user_id;
+        this.task_id = task_id;
     }
 
     public Task() {
-        author = "";
-        date = "";
-        taskname = "";
-        id = 0;
     }
 
     public Task (Parcel in) {
-        author = in.readString();
+        author_id = in.readString();
         date = in.readString();
-        taskname = in.readString();
-        id = in.readInt();
-
+        task_name = in.readString();
+        task_description = in.readString();
+        user_id = in.readString();
+        task_id = in.readString();
     }
 
     public static final Creator<Task> CREATOR = new Creator<Task>() {
@@ -52,10 +49,12 @@ public class  Task implements Parcelable{
 
     public Map<String, Object> toMap() {                   // convert object user in Map<> form
         HashMap<String, Object> result = new HashMap<>();
-        result.put("author", author);
+        result.put("author_id", author_id);
         result.put("date", date);
-        result.put("taskname", taskname);
-        result.put("id", id);
+        result.put("task_name", task_name);
+        result.put("user_id", user_id);
+        result.put("task_description", task_description);
+        result.put("task_id", task_id);
 
         return result;
     }
@@ -67,45 +66,61 @@ public class  Task implements Parcelable{
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(author);
+        dest.writeString(author_id);
         dest.writeString(date);
-        dest.writeString(taskname);
-        dest.writeInt(id);
+        dest.writeString(task_name);
+        dest.writeString(task_description);
+        dest.writeString(user_id);
+        dest.writeString(task_id);
     }
 
 
 
-    public void setAuthor(String author) {
-        this.author = author;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
-    }
-
-    public void setTaskname(String taskname) {
-        this.taskname = taskname;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getAuthor() {
-
-        return author;
+    public String getAuthor_id() {
+        return author_id;
     }
 
     public String getDate() {
         return date;
     }
 
-    public String getTaskname() {
-        return taskname;
+    public String getTask_name() {
+        return task_name;
     }
 
-    public int getId() {
+    public String getTask_description() {
+        return task_description;
+    }
 
-        return id;
+    public String getUser_id() {
+        return user_id;
+    }
+
+    public void setAuthor_id(String author_id) {
+        this.author_id = author_id;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public void setTask_name(String task_name) {
+        this.task_name = task_name;
+    }
+
+    public void setTask_description(String task_description) {
+        this.task_description = task_description;
+    }
+
+    public void setUser_id(String user_id) {
+        this.user_id = user_id;
+    }
+
+    public void setTask_id(String task_id) {
+        this.task_id = task_id;
+    }
+
+    public String getTask_id() {
+        return task_id;
     }
 }
