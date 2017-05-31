@@ -120,7 +120,7 @@
     <string name="edit_profile_email">Email</string>
     <string name="edit_profile_password">New password</string>
     <string name="save_name">Save name</string>
-    <string name="edit_profile_repeat_password">Repeat new password</string>
+    <string name="edit_profile_confirm_password">Confirrm new password</string>
     <string name="save_password">save password</string>
     <string name="edit_profile_old_password">Old password</string>
     <string name="logout">Logout</string>
