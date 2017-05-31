@@ -9,8 +9,21 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
+
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.Date;
 
 import at.thelegend27.timemanagementtool.HelperClasses.CurrentSession;
 import at.thelegend27.timemanagementtool.HelperClasses.UserUtils;
@@ -42,6 +55,42 @@ public class AdminFragment extends Fragment {
         //you can set the title for your toolbar here for different fragments different titles
         getActivity().setTitle("Admin Section");
 
+        DatabaseReference md = FirebaseDatabase.getInstance().getReference("Departments");
+        md.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Spinner spinner = (Spinner)view.findViewById(R.id.department_selector);
+                ArrayList<String> possible_departments = new ArrayList<>();
+
+                for(DataSnapshot dep : dataSnapshot.getChildren()){
+                    possible_departments.add(dep.getKey());
+                }
+
+                ArrayAdapter < String > adapter = new ArrayAdapter<>(getActivity(),
+                        android.R.layout.simple_spinner_item, possible_departments);
+
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+                spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                        Log.d("INT ADMIN", "item has been selected");
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> parent) {
+
+                    }
+                });
+                spinner.setAdapter(adapter);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
         final Button submit = (Button)view.findViewById(R.id.submit_user);
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -52,11 +101,11 @@ public class AdminFragment extends Fragment {
                 String email = ((EditText)view.findViewById(R.id.email)).getText().toString();
                 String password = ((EditText)view.findViewById(R.id.password)).getText().toString();
                 int target_hours = Integer.parseInt(((EditText)view.findViewById(R.id.target_hour)).getText().toString());
-                int department = Integer.parseInt(((EditText)view.findViewById(R.id.department)).getText().toString());
+                int department = 0;//Integer.parseInt(((EditText)view.findViewById(R.id.department)).getText().toString());
 
                 new_user = new User(department, null, target_hours, 0, 0, null, full_name, email);
 
-                UserUtils.registerUser(new_user, password);
+                UserUtils.registerUser(new_user, password, getActivity());
             }
         });
 

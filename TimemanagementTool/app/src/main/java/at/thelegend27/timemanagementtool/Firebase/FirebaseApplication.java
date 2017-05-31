@@ -20,6 +20,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
 
+import at.thelegend27.timemanagementtool.HelperClasses.CurrentSession;
 import at.thelegend27.timemanagementtool.HelperClasses.UserUtils;
 import at.thelegend27.timemanagementtool.LoginActivity;
 import at.thelegend27.timemanagementtool.TimemanagementActivity;
@@ -49,7 +50,9 @@ public class FirebaseApplication extends Application {
     }
 
     public void checkUserLogin(final Context context) {
+
         if (firebaseAuth.getCurrentUser() != null) {
+            CurrentSession.init(firebaseAuth.getCurrentUser().getUid());
             Intent timemanagementIntent = new Intent(context, TimemanagementActivity.class);
             context.startActivity(timemanagementIntent);
         }
@@ -85,6 +88,7 @@ public class FirebaseApplication extends Application {
                             Toast.makeText(context, "User has been created", Toast.LENGTH_LONG).show();
                             Intent timemanagementIntent = new Intent(context, TimemanagementActivity.class);
                             context.startActivity(timemanagementIntent);
+
                             User new_user = new User(0, null, 40, 0, 0, task.getResult().getUser().getUid(),name , email);
                             new_user.setCeo();
                             DatabaseHelper.createNewCompany(new_user, company_name);
@@ -106,8 +110,11 @@ public class FirebaseApplication extends Application {
                             Toast.makeText(context, "User has been login", Toast.LENGTH_LONG).show();
                             Log.d("Login", "User logged in fetching information");
 
+                            String current_user_id = task.getResult().getUser().getUid();
+                            CurrentSession.init(current_user_id);
                             Intent timemanagementIntent = new Intent(context, TimemanagementActivity.class);
                             context.startActivity(timemanagementIntent);
+
                         }
                     }
                 });

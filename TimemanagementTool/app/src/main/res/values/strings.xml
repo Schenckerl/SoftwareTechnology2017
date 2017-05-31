@@ -130,6 +130,12 @@
     <string name="forename_hint">Forename</string>
     <string name="surename_hint">Surename</string>
     <string name="company_hint">Company name</string>
+    <string name="submit_user">Submit User</string>
+    <string name="create_a_new_department">Create a new Department</string>
+    <string name="department_name">Department Name</string>
+    <string name="department_supervisor">Department Supervisor</string>
+    <string name="submit_department">Submit Department</string>
+    <string name="department_dropdown_title">Department</string>
 
     <plurals name="error_week_password">
         <item quantity="one">Password not strong enough. Use at least %1$d character and a mix of letters and numbers</item>

@@ -7,11 +7,11 @@ import java.util.Map;
 public class User {
     public String email;
     public String uid;
-    public String fullname;
+    public String fullName;
     public int department;
     public ArrayList<String> working_hours;
-    public int targetHour;
-    public int overtime_pool;
+    public int targetHours;
+    public int overtimePool;
     public int holidays;
     public boolean isCEO;
 
@@ -22,11 +22,11 @@ public class User {
                 int overtime_pool, int holidays, String uid, String fullname, String email){
         this.department = departmnet;
         this.working_hours = working_hours;
-        this.targetHour = targetHour;
-        this.overtime_pool = overtime_pool;
+        this.targetHours = targetHour;
+        this.overtimePool = overtime_pool;
         this.holidays = holidays;
         this.uid = uid;
-        this.fullname = fullname;
+        this.fullName = fullname;
         this.email = email;
         this.isCEO = false;
     }
@@ -37,11 +37,11 @@ public class User {
 
     public Map<String, Object> toMap(){
         HashMap<String, Object> ret = new HashMap<>();
-        ret.put("fullName", fullname);
+        ret.put("fullName", fullName);
         ret.put("email", email);
         ret.put("department", department);
-        ret.put("targetHours", targetHour);
-        ret.put("overtimePool", overtime_pool);
+        ret.put("targetHours", targetHours);
+        ret.put("overtimePool", overtimePool);
         ret.put("holidays", holidays);
         ret.put("isCEO", isCEO);
 

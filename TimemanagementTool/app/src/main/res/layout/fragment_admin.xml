@@ -36,13 +36,21 @@
                 android:hint="Email"
                 android:layout_margin="@dimen/_8sdp"
                 android:inputType="textEmailAddress" />
-            <EditText
-                android:id="@+id/department"
+            <!--<EditText-->
+                <!--android:id="@+id/department"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:hint="Department"-->
+                <!--android:layout_margin="@dimen/_8sdp"-->
+                <!--android:inputType="textEmailAddress" />-->
+
+            <Spinner
+                android:id="@+id/department_selector"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Department"
                 android:layout_margin="@dimen/_8sdp"
-                android:inputType="textEmailAddress" />
+                android:dropDownWidth="match_parent"
+                android:prompt="@string/department_dropdown_title" />
 
             <EditText
                 android:id="@+id/target_hour"
@@ -67,13 +75,13 @@
                 android:textColor="@color/colorWhite"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="@dimen/_32sdp"
-                android:text="Submit User"/>
+                android:text="@string/submit_user"/>
 
             <TextView
                 android:layout_marginTop="@dimen/_32sdp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Create a new Department"
+                android:text="@string/create_a_new_department"
                 android:gravity="center_horizontal"
                 android:textSize="24dp"
                 android:textColor="@android:color/black"
@@ -86,14 +94,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/_8sdp"
-                android:hint="Department Name"/>
+                android:hint="@string/department_name"/>
+
 
             <EditText
                 android:id="@+id/department_supervisor"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/_8sdp"
-                android:hint="Department Supervisor"/>
+                android:hint="@string/department_supervisor"/>
 
             <Button
                 android:id="@+id/submit_dep"
@@ -103,7 +112,7 @@
                 android:textColor="@color/colorWhite"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="@dimen/_32sdp"
-                android:text="Submit Department"/>
+                android:text="@string/submit_department"/>
 
         </LinearLayout>
     </LinearLayout>

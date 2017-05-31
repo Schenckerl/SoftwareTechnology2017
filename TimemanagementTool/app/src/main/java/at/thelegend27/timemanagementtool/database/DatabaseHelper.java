@@ -26,8 +26,8 @@ public class DatabaseHelper {
     }
 
     public static void createNewDepartment(String department_name, String department_supervisor){
-        DatabaseReference db = FirebaseDatabase.getInstance().getReference();
-        Department new_department = new Department(CurrentSession.getInstance().getCompany().id, department_supervisor);
+        DatabaseReference db = FirebaseDatabase.getInstance().getReference("");
+        Department new_department = new Department(CurrentSession.getInstance().getCompany().company_id, department_supervisor);
         db.child("Departments").child(department_name).setValue(new_department);
     }
 }

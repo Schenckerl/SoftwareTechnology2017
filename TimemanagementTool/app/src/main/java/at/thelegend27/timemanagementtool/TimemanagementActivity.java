@@ -136,6 +136,9 @@ public class TimemanagementActivity extends AppCompatActivity
             case R.id.admin:
                 fragment = new AdminFragment();
                 break;
+            case R.layout.fragment_dashboard:
+                fragment = new DashboardFragment();
+                break;
         }
 
         //replacing the fragment
