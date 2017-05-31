@@ -102,7 +102,7 @@ public class FirebaseApplication extends Application {
                             context.startActivity(timemanagementIntent);
                         }
 
-                        LoginActivity.visibilityProgressbarSignUp(View.INVISIBLE);
+                        LoginActivity.visibilityProgressbarLogin(View.INVISIBLE);
                     }
                 });
     }

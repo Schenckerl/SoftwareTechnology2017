@@ -3,6 +3,8 @@ package at.thelegend27.timemanagementtool.HelperClasses;
 import android.support.design.widget.TextInputLayout;
 import android.util.Patterns;
 
+import at.thelegend27.timemanagementtool.R;
+
 /**
  * Created by markusfriedl on 24/05/2017.
  */
@@ -10,8 +12,8 @@ import android.util.Patterns;
 public class EmailFieldValidatorHelper extends BaseValidatorHelper {
     public EmailFieldValidatorHelper(TextInputLayout errorContainer) {
         super(errorContainer);
-        mErrorMessage = "Invalid Email Address";
-        mEmptyMessage = "Missing Email Address";
+        mErrorMessage = errorContainer.getResources().getString(R.string.invalid_email_address);
+        mEmptyMessage = errorContainer.getResources().getString(R.string.missing_email_address);
     }
 
     @Override

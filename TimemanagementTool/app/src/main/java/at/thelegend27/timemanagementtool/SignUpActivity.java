@@ -18,6 +18,7 @@ import android.widget.Toast;
 import com.google.firebase.auth.FirebaseAuth;
 
 import at.thelegend27.timemanagementtool.Firebase.FirebaseApplication;
+import at.thelegend27.timemanagementtool.HelperClasses.ConfirmFieldValidatorHelper;
 import at.thelegend27.timemanagementtool.HelperClasses.EmailFieldValidatorHelper;
 import at.thelegend27.timemanagementtool.HelperClasses.PasswordFieldValidatorHelper;
 import at.thelegend27.timemanagementtool.HelperClasses.RequiredFieldValidatorHelper;
@@ -25,15 +26,18 @@ import at.thelegend27.timemanagementtool.HelperClasses.RequiredFieldValidatorHel
 public class SignUpActivity extends AppCompatActivity implements View.OnFocusChangeListener, View.OnClickListener {
     private static final int PASS_MIN_LENGTH = 6;
     private static final String TAG = SignUpActivity.class.getSimpleName();
+
     private TextInputEditText forenameInput;
     private TextInputEditText surenameInput;
     private TextInputEditText emailInput;
     private TextInputEditText passwordInput;
+    private TextInputEditText confirmPasswordInput;
     private TextInputEditText companyInput;
     private RequiredFieldValidatorHelper foreameFieldValidator;
     private RequiredFieldValidatorHelper sureameFieldValidator;
     private EmailFieldValidatorHelper emailFieldValidator;
     private PasswordFieldValidatorHelper passwordFieldValidator;
+    private ConfirmFieldValidatorHelper confirmPasswordFieldValidator;
     private RequiredFieldValidatorHelper companyFieldValidator;
     private TextView switchLoginTextView;
     private TextView loginError;
@@ -59,6 +63,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnFocusCha
         surenameInput = (TextInputEditText) findViewById(R.id.surename);
         emailInput = (TextInputEditText) findViewById(R.id.email);
         passwordInput = (TextInputEditText) findViewById(R.id.password);
+        confirmPasswordInput = (TextInputEditText) findViewById(R.id.confirm_password);
         companyInput = (TextInputEditText) findViewById(R.id.company);
         switchLoginTextView = (TextView) findViewById(R.id.switch_login_text_view);
         progressBar = (ProgressBar) findViewById(R.id.progressBarSignUp);
@@ -67,6 +72,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnFocusCha
         TextInputLayout surenameWrapper = (TextInputLayout) findViewById(R.id.surename_wrapper);
         TextInputLayout emailWrapper = (TextInputLayout) findViewById(R.id.email_wrapper);
         TextInputLayout passwordWrapper = (TextInputLayout) findViewById(R.id.password_wrapper);
+        TextInputLayout confirmPasswordWrapper = (TextInputLayout) findViewById(R.id.confirm_password_wrapper);
         TextInputLayout companyWrapper = (TextInputLayout) findViewById(R.id.company_wrapper);
 
         //set onFocus change Listener to all the EditText Views
@@ -74,6 +80,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnFocusCha
         surenameInput.setOnFocusChangeListener(this);
         emailInput.setOnFocusChangeListener(this);
         passwordInput.setOnFocusChangeListener(this);
+        confirmPasswordInput.setOnFocusChangeListener(this);
         companyInput.setOnFocusChangeListener(this);
 
         //init all the validators
@@ -81,6 +88,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnFocusCha
         sureameFieldValidator = new RequiredFieldValidatorHelper(surenameWrapper);
         emailFieldValidator = new EmailFieldValidatorHelper(emailWrapper);
         passwordFieldValidator = new PasswordFieldValidatorHelper(passwordWrapper, PASS_MIN_LENGTH);
+        confirmPasswordFieldValidator = new ConfirmFieldValidatorHelper(confirmPasswordWrapper);
         companyFieldValidator = new RequiredFieldValidatorHelper(companyWrapper);
 
         Button loginButton = (Button) findViewById(R.id.sign_up_button);
@@ -104,6 +112,8 @@ public class SignUpActivity extends AppCompatActivity implements View.OnFocusCha
             emailFieldValidator.validate(emailInput.getText().toString());
         } else if (id == R.id.password) {
             passwordFieldValidator.validate(passwordInput.getText().toString());
+        } else if (id == R.id.confirm_password) {
+            confirmPasswordFieldValidator.confirm(passwordInput.getText().toString(), confirmPasswordInput.getText().toString());
         } else if (id == R.id.company) {
             companyFieldValidator.validate(companyInput.getText().toString());
         }
@@ -120,18 +130,20 @@ public class SignUpActivity extends AppCompatActivity implements View.OnFocusCha
             String enteredSurename = surenameInput.getText().toString();
             String enteredEmail = emailInput.getText().toString();
             String enteredPassword = passwordInput.getText().toString();
+            String enteredConfirmPassword = confirmPasswordInput.getText().toString();
             String enteredCompany = companyInput.getText().toString();
 
             boolean isForeameValid = foreameFieldValidator.validate(enteredForename);
             boolean isSurenameValid = sureameFieldValidator.validate(enteredSurename);
             boolean isEmailValid = emailFieldValidator.validate(enteredEmail);
             boolean isPasswordValid= passwordFieldValidator.validate(enteredPassword);
+            boolean isConfirmPasswordValid= confirmPasswordFieldValidator.confirm(enteredPassword, enteredConfirmPassword);
             boolean isCompanyValid= companyFieldValidator.validate(enteredCompany);
 
-            if (!isForeameValid || !isSurenameValid || !isEmailValid || !isPasswordValid || !isCompanyValid) {
+            if (!isForeameValid || !isSurenameValid || !isEmailValid || !isPasswordValid || !isConfirmPasswordValid || !isCompanyValid) {
                 //go ahead ans submit the form for all things are fine now
                 Toast.makeText(this, "Field Validations failed! Please check your inputs", Toast.LENGTH_SHORT).show();
-                visibilityProgressbarSignUp(View.VISIBLE);
+                visibilityProgressbarSignUp(View.INVISIBLE);
                 return;
             }
 

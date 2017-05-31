@@ -2,6 +2,8 @@ package at.thelegend27.timemanagementtool.HelperClasses;
 
 import android.support.design.widget.TextInputLayout;
 
+import at.thelegend27.timemanagementtool.R;
+
 /**
  * Created by markusfriedl on 24/05/2017.
  */
@@ -9,7 +11,7 @@ import android.support.design.widget.TextInputLayout;
 public class RequiredFieldValidatorHelper extends BaseValidatorHelper {
     public RequiredFieldValidatorHelper(TextInputLayout errorContainer) {
         super(errorContainer);
-        mEmptyMessage = "This Field is required";
+        mEmptyMessage = errorContainer.getResources().getString(R.string.error_field_required);
     }
 
     @Override
