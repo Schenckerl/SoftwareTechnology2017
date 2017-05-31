@@ -1,7 +1,5 @@
 package at.thelegend27.timemanagementtool.HelperClasses;
 
-import android.nfc.Tag;
-import android.provider.ContactsContract;
 import android.util.Log;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -21,6 +19,7 @@ public class CurrentSession {
     private User current_user;
     private Company company;
     private Department department;
+    public boolean loaded;
 
     private static CurrentSession instance;
 
@@ -31,10 +30,15 @@ public class CurrentSession {
         return instance;
     }
 
-    public static void init(final String current_user_id){
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+    public void init(final String current_user_id){
+        CurrentSession.getInstance().loaded = false;
+
         Log.d("INIT", "initiationg singelton");
         DatabaseReference md = FirebaseDatabase.getInstance().getReference("Users/"+current_user_id);
+        if(md == null){
+            Log.d("INIT", "The user does not exist!!");
+            System.exit(500);
+        }
 
         md.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -90,7 +94,7 @@ public class CurrentSession {
                             Department department = dataSnapshot.getValue(Department.class);
                             CurrentSession.getInstance().setDepartment(department);
 
-                            DatabaseReference md = FirebaseDatabase.getInstance().getReference("Companies/"+department.company_id);
+                            DatabaseReference md = FirebaseDatabase.getInstance().getReference("Companies/"+department.company);
                             md.addListenerForSingleValueEvent(new ValueEventListener() {
                                 @Override
                                 public void onDataChange(DataSnapshot dataSnapshot) {
@@ -112,11 +116,10 @@ public class CurrentSession {
                         }
                     });
                 }
+                CurrentSession.getInstance().loaded = true;
             }
-
             @Override
             public void onCancelled(DatabaseError databaseError) {
-
             }
         });
   }

@@ -91,6 +91,9 @@ public class AdminFragment extends Fragment {
             }
         });
 
+        DatabaseHelper.getUsersForCompany(CurrentSession.getInstance().getCompany().name, getActivity());
+
+
         final Button submit = (Button)view.findViewById(R.id.submit_user);
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -105,10 +108,8 @@ public class AdminFragment extends Fragment {
                 md.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-
                         User new_user = new User(dataSnapshot.getKey(), null, target_hours, 0, 0, null, full_name, email,
                                 CurrentSession.getInstance().getCompany().name);
-
                         UserUtils.registerUser(new_user, password, getActivity());
                     }
 
@@ -124,9 +125,10 @@ public class AdminFragment extends Fragment {
         submit_dep.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String department =( (EditText)view.findViewById(R.id.department_name)).getText().toString();
+                String department = ((EditText)view.findViewById(R.id.department_name)).getText().toString();
                 String supervisor = ((Spinner)view.findViewById(R.id.supervisor_name)).getSelectedItem().toString();
-                DatabaseHelper.createNewDepartment(department, supervisor);
+
+                DatabaseHelper.createNewDepartment(department, supervisor, getActivity());
             }
         });
     }
