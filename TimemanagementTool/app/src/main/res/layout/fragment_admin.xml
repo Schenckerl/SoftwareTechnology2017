@@ -97,12 +97,12 @@
                 android:hint="@string/department_name"/>
 
 
-            <EditText
-                android:id="@+id/department_supervisor"
+            <Spinner
+                android:id="@+id/supervisor_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/_8sdp"
-                android:hint="@string/department_supervisor"/>
+                />
 
             <Button
                 android:id="@+id/submit_dep"

@@ -8,7 +8,8 @@ public class User {
     public String email;
     public String uid;
     public String fullName;
-    public int department;
+    public String department;
+    public String company;
     public ArrayList<String> working_hours;
     public int targetHours;
     public int overtimePool;
@@ -18,8 +19,9 @@ public class User {
     public User(){
     }
 
-    public User(int departmnet, ArrayList<String> working_hours, int targetHour,
-                int overtime_pool, int holidays, String uid, String fullname, String email){
+    public User(String departmnet, ArrayList<String> working_hours, int targetHour,
+                int overtime_pool, int holidays, String uid, String fullname, String email,
+                String company){
         this.department = departmnet;
         this.working_hours = working_hours;
         this.targetHours = targetHour;
@@ -29,6 +31,7 @@ public class User {
         this.fullName = fullname;
         this.email = email;
         this.isCEO = false;
+        this.company = company;
     }
 
     public void setCeo(){
@@ -44,6 +47,7 @@ public class User {
         ret.put("overtimePool", overtimePool);
         ret.put("holidays", holidays);
         ret.put("isCEO", isCEO);
+        ret.put("company", company);
 
         return ret;
     }

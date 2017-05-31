@@ -118,7 +118,7 @@ public class CurrentSession {
 
             }
         });
-    }
+  }
 
     public void setUser(User user){this.current_user = user;}
     public void setCompany(Company company){this.company = company;}

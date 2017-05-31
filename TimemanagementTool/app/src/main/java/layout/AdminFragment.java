@@ -95,17 +95,28 @@ public class AdminFragment extends Fragment {
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                User new_user;
                 Log.d("User" ,"Creating new user");
-                String full_name = ((EditText)view.findViewById(R.id.username)).getText().toString();
-                String email = ((EditText)view.findViewById(R.id.email)).getText().toString();
-                String password = ((EditText)view.findViewById(R.id.password)).getText().toString();
-                int target_hours = Integer.parseInt(((EditText)view.findViewById(R.id.target_hour)).getText().toString());
-                int department = 0;//Integer.parseInt(((EditText)view.findViewById(R.id.department)).getText().toString());
+                final String full_name = ((EditText)view.findViewById(R.id.username)).getText().toString();
+                final String email = ((EditText)view.findViewById(R.id.email)).getText().toString();
+                final String password = ((EditText)view.findViewById(R.id.password)).getText().toString();
+                final int target_hours = Integer.parseInt(((EditText)view.findViewById(R.id.target_hour)).getText().toString());
+                String selected_dep = ((Spinner)view.findViewById(R.id.department_selector)).getSelectedItem().toString();
+                DatabaseReference md = FirebaseDatabase.getInstance().getReference("Departments/" + selected_dep);
+                md.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
 
-                new_user = new User(department, null, target_hours, 0, 0, null, full_name, email);
+                        User new_user = new User(dataSnapshot.getKey(), null, target_hours, 0, 0, null, full_name, email,
+                                CurrentSession.getInstance().getCompany().name);
 
-                UserUtils.registerUser(new_user, password, getActivity());
+                        UserUtils.registerUser(new_user, password, getActivity());
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
             }
         });
 
@@ -114,7 +125,7 @@ public class AdminFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 String department =( (EditText)view.findViewById(R.id.department_name)).getText().toString();
-                String supervisor = ((EditText)view.findViewById(R.id.department_supervisor)).getText().toString();
+                String supervisor = ((Spinner)view.findViewById(R.id.supervisor_name)).getSelectedItem().toString();
                 DatabaseHelper.createNewDepartment(department, supervisor);
             }
         });
