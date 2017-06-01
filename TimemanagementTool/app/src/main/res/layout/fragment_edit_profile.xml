@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="layout.EidtProfileFragment"
+    tools:context="layout.EditProfileFragment"
     android:id="@+id/edit_profile_fragment"
     android:descendantFocusability="beforeDescendants"
     android:focusableInTouchMode="true">
@@ -51,6 +51,8 @@
             android:layout_below="@+id/save_edit_button"
             android:layout_marginTop="@dimen/_32sdp"
             android:hint="@string/edit_profile_old_password"
+            app:passwordToggleEnabled="true"
+
             app:errorTextAppearance="@style/AppTheme.Text.ErrorText"
             app:hintTextAppearance="@style/AppTheme.Text.ErrorText">
 
@@ -71,6 +73,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/profile_old_password_wrapper"
             android:hint="@string/edit_profile_password"
+            app:passwordToggleEnabled="true"
             app:errorTextAppearance="@style/AppTheme.Text.ErrorText"
             app:hintTextAppearance="@style/AppTheme.Text.ErrorText">
 

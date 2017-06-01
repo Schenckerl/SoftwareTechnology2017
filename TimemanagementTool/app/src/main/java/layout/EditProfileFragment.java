@@ -2,6 +2,7 @@ package layout;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.annotation.VisibleForTesting;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
@@ -21,7 +22,8 @@ import at.thelegend27.timemanagementtool.HelperClasses.PasswordFieldValidatorHel
 import at.thelegend27.timemanagementtool.R;
 import at.thelegend27.timemanagementtool.TimemanagementActivity;
 
-public class EidtProfileFragment extends Fragment implements View.OnFocusChangeListener, View.OnClickListener {
+@VisibleForTesting
+public class EditProfileFragment extends Fragment implements View.OnFocusChangeListener, View.OnClickListener {
     private static final int PASS_MIN_LENGTH = 6;
 
     private TextInputEditText editProfileName;
@@ -78,6 +80,9 @@ public class EidtProfileFragment extends Fragment implements View.OnFocusChangeL
         editProfilePassword.setOnFocusChangeListener(this);
         editProfileRepeatPassword.setOnFocusChangeListener(this);
 
+        editProfileOldPassword.setOnClickListener(this);
+        editProfilePassword.setOnClickListener(this);
+        editProfileRepeatPassword.setOnClickListener(this);
         saveEditButton.setOnClickListener(this);
         savePasswordButton.setOnClickListener(this);
     }
@@ -141,7 +146,16 @@ public class EidtProfileFragment extends Fragment implements View.OnFocusChangeL
     public void onClick(View view) {
         int id = view.getId();
 
-        if (id == R.id.save_edit_button) {
+        if (id == R.id.profile_old_password) {
+            editProfileOldPassword.getText().clear();
+        }
+        else if (id == R.id.profile_password) {
+            editProfilePassword.getText().clear();
+        }
+        else if (id == R.id.profile_repeat_password) {
+            editProfileRepeatPassword.getText().clear();
+        }
+        else if (id == R.id.save_edit_button) {
             saveUserProfile(user, firebaseApplication);
         }
         else if (id == R.id.save_password_button) {

@@ -21,7 +21,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 import at.thelegend27.timemanagementtool.Firebase.FirebaseApplication;
 import layout.DashboardFragment;
-import layout.EidtProfileFragment;
+import layout.EditProfileFragment;
 import layout.StatisticsFragment;
 import layout.TasksFragment;
 
@@ -131,7 +131,7 @@ public class TimemanagementActivity extends AppCompatActivity
                 logoutCurrentUser();
                 break;
             case R.id.edit_profile_fragment:
-                fragment = new EidtProfileFragment();
+                fragment = new EditProfileFragment();
                 break;
         }
 
@@ -165,12 +165,14 @@ public class TimemanagementActivity extends AppCompatActivity
         FirebaseApplication firebaseApplication = new FirebaseApplication();
         FirebaseUser user = firebaseApplication.getCurrentFirebaseUser();
 
-        String userName = user.getDisplayName();
-        String userEmail = user.getEmail();
+        if (user != null) {
+            String userName = user.getDisplayName();
+            String userEmail = user.getEmail();
 
 
-        userNameTextView.setText(userName);
-        userEmailTextView.setText(userEmail);
+            userNameTextView.setText(userName);
+            userEmailTextView.setText(userEmail);
+        }
     }
 
     private void logoutCurrentUser() {
