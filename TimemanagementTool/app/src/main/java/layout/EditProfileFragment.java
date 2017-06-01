@@ -80,9 +80,6 @@ public class EditProfileFragment extends Fragment implements View.OnFocusChangeL
         editProfilePassword.setOnFocusChangeListener(this);
         editProfileRepeatPassword.setOnFocusChangeListener(this);
 
-        editProfileOldPassword.setOnClickListener(this);
-        editProfilePassword.setOnClickListener(this);
-        editProfileRepeatPassword.setOnClickListener(this);
         saveEditButton.setOnClickListener(this);
         savePasswordButton.setOnClickListener(this);
     }
@@ -146,16 +143,7 @@ public class EditProfileFragment extends Fragment implements View.OnFocusChangeL
     public void onClick(View view) {
         int id = view.getId();
 
-        if (id == R.id.profile_old_password) {
-            editProfileOldPassword.getText().clear();
-        }
-        else if (id == R.id.profile_password) {
-            editProfilePassword.getText().clear();
-        }
-        else if (id == R.id.profile_repeat_password) {
-            editProfileRepeatPassword.getText().clear();
-        }
-        else if (id == R.id.save_edit_button) {
+        if (id == R.id.save_edit_button) {
             saveUserProfile(user, firebaseApplication);
         }
         else if (id == R.id.save_password_button) {

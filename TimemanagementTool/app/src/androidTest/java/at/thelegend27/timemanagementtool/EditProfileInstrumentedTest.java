@@ -65,4 +65,52 @@ public class EditProfileInstrumentedTest {
         Espresso.closeSoftKeyboard();
         onView(withId(R.id.save_password_button)).perform(click());
     }
+
+    @Test
+    public void changeUserPasswortFailed() {
+        mFragementTestRule.launchActivity(null);
+        onView(withId(R.id.profile_old_password)).perform(clearText());
+        onView(withId(R.id.profile_old_password)).perform(typeText("test123"));
+        Espresso.closeSoftKeyboard();
+        onView(withId(R.id.profile_password)).perform(clearText());
+        onView(withId(R.id.profile_password)).perform(typeText("321tset"));
+        Espresso.closeSoftKeyboard();
+        onView(withId(R.id.profile_repeat_password)).perform(clearText());
+        onView(withId(R.id.profile_repeat_password)).perform(typeText("321tse"));
+        Espresso.closeSoftKeyboard();
+        onView(withId(R.id.save_password_button)).perform(click());
+
+        onView(withId(R.id.profile_old_password)).perform(clearText());
+        onView(withId(R.id.profile_old_password)).perform(typeText("test"));
+        Espresso.closeSoftKeyboard();
+        onView(withId(R.id.profile_password)).perform(clearText());
+        onView(withId(R.id.profile_password)).perform(typeText("test123"));
+        Espresso.closeSoftKeyboard();
+        onView(withId(R.id.profile_repeat_password)).perform(clearText());
+        onView(withId(R.id.profile_repeat_password)).perform(typeText("test123"));
+        Espresso.closeSoftKeyboard();
+        onView(withId(R.id.save_password_button)).perform(click());
+
+        onView(withId(R.id.profile_old_password)).perform(clearText());
+        onView(withId(R.id.profile_old_password)).perform(typeText("test123"));
+        Espresso.closeSoftKeyboard();
+        onView(withId(R.id.profile_password)).perform(clearText());
+        onView(withId(R.id.profile_password)).perform(typeText("test"));
+        Espresso.closeSoftKeyboard();
+        onView(withId(R.id.profile_repeat_password)).perform(clearText());
+        onView(withId(R.id.profile_repeat_password)).perform(typeText("test"));
+        Espresso.closeSoftKeyboard();
+        onView(withId(R.id.save_password_button)).perform(click());
+
+        onView(withId(R.id.profile_old_password)).perform(clearText());
+        onView(withId(R.id.profile_old_password)).perform(typeText("test123"));
+        Espresso.closeSoftKeyboard();
+        onView(withId(R.id.profile_password)).perform(clearText());
+        onView(withId(R.id.profile_password)).perform(typeText("test123"));
+        Espresso.closeSoftKeyboard();
+        onView(withId(R.id.profile_repeat_password)).perform(clearText());
+        onView(withId(R.id.profile_repeat_password)).perform(typeText("test12"));
+        Espresso.closeSoftKeyboard();
+        onView(withId(R.id.save_password_button)).perform(click());
+    }
 }
