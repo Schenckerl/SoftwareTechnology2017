@@ -67,6 +67,13 @@ public class EditProfileInstrumentedTest {
     }
 
     @Test
+    public void changeUserNameFailed() {
+        mFragementTestRule.launchActivity(null);
+        onView(withId(R.id.profile_name)).perform(clearText());
+        onView(withId(R.id.save_edit_button)).perform(click());
+    }
+
+    @Test
     public void changeUserPasswortFailed() {
         mFragementTestRule.launchActivity(null);
         onView(withId(R.id.profile_old_password)).perform(clearText());
