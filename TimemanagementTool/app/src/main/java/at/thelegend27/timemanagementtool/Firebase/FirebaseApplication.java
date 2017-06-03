@@ -20,9 +20,14 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
 
+import at.thelegend27.timemanagementtool.HelperClasses.CurrentSession;
+import at.thelegend27.timemanagementtool.HelperClasses.UserUtils;
 import at.thelegend27.timemanagementtool.LoginActivity;
+import at.thelegend27.timemanagementtool.R;
 import at.thelegend27.timemanagementtool.SignUpActivity;
 import at.thelegend27.timemanagementtool.TimemanagementActivity;
+import at.thelegend27.timemanagementtool.database.DatabaseHelper;
+import at.thelegend27.timemanagementtool.database.User;
 
 /**
  * Created by markusfriedl on 08/05/2017.
@@ -47,7 +52,9 @@ public class FirebaseApplication extends Application {
     }
 
     public void checkUserLogin(final Context context) {
+
         if (firebaseAuth.getCurrentUser() != null) {
+            CurrentSession.getInstance().init(firebaseAuth.getCurrentUser().getUid());
             Intent timemanagementIntent = new Intent(context, TimemanagementActivity.class);
             context.startActivity(timemanagementIntent);
         }
@@ -69,9 +76,11 @@ public class FirebaseApplication extends Application {
         };
     }
 
-    public void createNewUser(final Context context, String email, String password, final TextView errorMessage) {
+    public void createNewUser(final Context context, final String email, String password, final TextView errorMessage, final String name,
+                              final String company_name) {
         firebaseAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener((Activity) context, new OnCompleteListener<AuthResult>() {
+                    String uid;
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         Log.d(TAG, "createUserWithEmail:onComplete:" + task.isSuccessful());
@@ -81,6 +90,15 @@ public class FirebaseApplication extends Application {
                             Toast.makeText(context, "User has been created", Toast.LENGTH_LONG).show();
                             Intent timemanagementIntent = new Intent(context, TimemanagementActivity.class);
                             context.startActivity(timemanagementIntent);
+
+                            User new_user = new User(null, null, 40, 0, 0, task.getResult().getUser().getUid(),name , email, company_name);
+                            new_user.uid = task.getResult().getUser().getUid();
+                            new_user.setCeo();
+                            DatabaseHelper.createNewCompany(new_user, company_name);
+                            DatabaseHelper.initDepartment(company_name);
+
+                            UserUtils.createNewDbUser(new_user);
+                            CurrentSession.getInstance().init(new_user.uid);
                         }
 
                         SignUpActivity.visibilityProgressbarSignUp(View.INVISIBLE);
@@ -97,9 +115,17 @@ public class FirebaseApplication extends Application {
                             Log.w(TAG, "signInWithEmail", task.getException());
                             errorMessage.setText("Failed to login");
                         } else {
-                            Toast.makeText(context, "User has been login", Toast.LENGTH_LONG).show();
+                            Log.d("Login", "User logged in fetching information");
+
+                            String current_user_id = task.getResult().getUser().getUid();
+                            ProgressBar spinner = (ProgressBar)(((LoginActivity)context).findViewById(R.id.loading_progress));
+                            spinner.setVisibility(View.VISIBLE);
+
+                            CurrentSession.getInstance().init(current_user_id);
                             Intent timemanagementIntent = new Intent(context, TimemanagementActivity.class);
                             context.startActivity(timemanagementIntent);
+
+                            Toast.makeText(context, "User has been login", Toast.LENGTH_LONG).show();
                         }
 
                         LoginActivity.visibilityProgressbarLogin(View.INVISIBLE);
@@ -150,13 +176,10 @@ public class FirebaseApplication extends Application {
                                 } else {
                                     Toast.makeText(context, "Error: User password not updated. Try again!", Toast.LENGTH_LONG).show();
                                 }
-
-                                if (progressBar != null) {
-                                    progressBar.setVisibility(View.INVISIBLE);
-                                }
                             }
                         });
-                    } else {
+                    }
+                    else {
                         Log.d(TAG, "Error auth failed");
                         Toast.makeText(context, "Error: authentication failed. Old password is wrong!", Toast.LENGTH_LONG).show();
 

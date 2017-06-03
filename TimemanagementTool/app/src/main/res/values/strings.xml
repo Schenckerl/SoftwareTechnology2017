@@ -8,6 +8,7 @@
     <string name="current_recording">Current recording</string>
     <string name="tasks">Tasks</string>
     <string name="statistics">Statistics</string>
+    <string name="test">Test</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -122,6 +123,9 @@
     <string name="save_name">Save name</string>
     <string name="edit_profile_confirm_password">Confirrm new password</string>
     <string name="save_password">save password</string>
+    <string name="department">Department</string>
+    <string name="new_key">New</string>
+    <string name="administration">Administration</string>
     <string name="edit_profile_old_password">Old password</string>
     <string name="logout">Logout</string>
     <string name="forename_hint">Forename</string>
@@ -133,6 +137,12 @@
     <string name="password_must_be_same">Passwords must be the same</string>
     <string name="confirm_field_empty">Confirm field can not be empty</string>
     <string name="original_field_empty">Original Field can not be empty</string>
+    <string name="submit_user">Submit User</string>
+    <string name="create_a_new_department">Create a new Department</string>
+    <string name="department_name">Department Name</string>
+    <string name="department_supervisor">Department Supervisor</string>
+    <string name="submit_department">Submit Department</string>
+    <string name="department_dropdown_title">Department</string>
 
     <plurals name="error_week_password">
         <item quantity="one">Password not strong enough. Use at least %1$d character and a mix of letters and numbers</item>

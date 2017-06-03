@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
 
+import layout.AdminFragment;
 import com.google.firebase.auth.FirebaseUser;
 
 import at.thelegend27.timemanagementtool.Firebase.FirebaseApplication;
@@ -34,7 +35,6 @@ public class TimemanagementActivity extends AppCompatActivity
 
     private static TextView userNameTextView;
     private static TextView userEmailTextView;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -132,6 +132,12 @@ public class TimemanagementActivity extends AppCompatActivity
                 break;
             case R.id.edit_profile_fragment:
                 fragment = new EditProfileFragment();
+                break;
+            case R.id.admin:
+                fragment = new AdminFragment();
+                break;
+            case R.layout.fragment_dashboard:
+                fragment = new DashboardFragment();
                 break;
         }
 
