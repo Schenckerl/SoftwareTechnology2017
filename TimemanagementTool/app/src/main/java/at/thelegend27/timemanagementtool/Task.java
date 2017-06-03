@@ -2,7 +2,9 @@ package at.thelegend27.timemanagementtool;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.support.annotation.NonNull;
 
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -10,7 +12,7 @@ import java.util.Map;
  * Created by a1 on 20.05.17.
  */
 
-public class  Task implements Parcelable{
+public class  Task implements Parcelable, Comparator<Task>, Comparable<Task>{
     String author_id, date, task_name, task_description, user_id, task_id;
 
 
@@ -122,5 +124,15 @@ public class  Task implements Parcelable{
 
     public String getTask_id() {
         return task_id;
+    }
+
+    @Override
+    public int compareTo(@NonNull Task o) {
+        return (this.date).compareTo(o.date);
+    }
+
+    @Override
+    public int compare(Task o1, Task o2) {
+        return 0;
     }
 }

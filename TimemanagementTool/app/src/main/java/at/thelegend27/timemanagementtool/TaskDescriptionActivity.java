@@ -48,10 +48,7 @@ public class TaskDescriptionActivity extends AppCompatActivity {
         date.setText(output.get(taskNo).getDate());
         taskname.setText(output.get(taskNo).getTask_name());
         description.setText(output.get(taskNo).getTask_description());
-
-
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -86,6 +83,4 @@ public class TaskDescriptionActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-
-
 }

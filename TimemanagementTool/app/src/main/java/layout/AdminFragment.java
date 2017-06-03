@@ -109,7 +109,7 @@ public class AdminFragment extends Fragment {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         User new_user = new User(dataSnapshot.getKey(), null, target_hours, 0, 0, null, full_name, email,
-                                CurrentSession.getInstance().getCompany().name);
+                                CurrentSession.getInstance().getCompany().name, false);
                         UserUtils.registerUser(new_user, password, getActivity());
                     }
 

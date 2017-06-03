@@ -57,12 +57,9 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.UserViewFolder
         holder.itemView.setOnCreateContextMenuListener(new View.OnCreateContextMenuListener() {
             @Override
             public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
-                menu.add(holder.getAdapterPosition(), 0, 0, "Delete");
-                menu.add(holder.getAdapterPosition(), 1, 0, "Change");
+                menu.add(holder.getAdapterPosition(), 0, 0, "Done");
             }
         });
-
-
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,8 +72,6 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.UserViewFolder
 
 
     }
-
-
 
     @Override
     public int getItemCount() { return list.size(); }
@@ -97,7 +92,4 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.UserViewFolder
         notifyItemRemoved(position);
         notifyItemRangeChanged(position, list.size());
     }
-
-
-
 }

@@ -4,32 +4,42 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="at.thelegend27.timemanagementtool.AddNewTaskActivity">
+    tools:context="at.thelegend27.timemanagementtool.AddTasksForEmployeeActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <EditText
-            android:id="@+id/addTaskName"
+        <Spinner
+            android:id="@+id/department_task_id"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Task name"
-            android:layout_marginRight="16dp"
-            android:layout_marginLeft="16dp"
+            android:layout_margin="16dp"
+            android:dropDownWidth="match_parent"
+            android:prompt="@string/department_dropdown_title"
+            />
+
+
+
+        <Spinner
+            android:id="@+id/employee_task_id"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:dropDownWidth="match_parent"
+            android:prompt="@string/employee_dropdown_title"
             />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-
             android:orientation="horizontal"
             >
 
             <EditText
-                android:id="@+id/addTaskDeadline"
+                android:id="@+id/addTaskDeadlineAdmin"
                 android:layout_width="200dp"
                 android:gravity="center"
                 android:layout_height="wrap_content"
@@ -37,10 +47,10 @@
                 android:focusable="false"
                 android:layout_marginTop="8dp"
                 android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp"/>
+                android:layout_marginRight="16dp" />
 
             <Button
-                android:id="@+id/addTaskDeadlineButton"
+                android:id="@+id/addTaskDeadlineButtonAdmin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="16dp"
@@ -55,7 +65,18 @@
         </LinearLayout>
 
         <EditText
-            android:id="@+id/addTaskDescription"
+            android:id="@+id/addTaskNameAdmin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Task name"
+            android:focusableInTouchMode="true"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="8dp"
+            />
+
+        <EditText
+            android:id="@+id/addTaskDescriptionAdmin"
             android:layout_width="match_parent"
             android:layout_marginTop="8dp"
             android:layout_height="wrap_content"
@@ -66,7 +87,7 @@
             />
 
         <Button
-            android:id="@+id/addTaskButton"
+            android:id="@+id/addTaskButtonAdmin"
             android:layout_width="135dp"
             android:layout_height="wrap_content"
             android:text="Add"
@@ -79,6 +100,6 @@
             android:layout_marginRight="16dp"
             android:layout_gravity="right"
             />
-
     </LinearLayout>
+
 </ScrollView>

@@ -15,13 +15,14 @@ public class User {
     public int overtimePool;
     public int holidays;
     public boolean isCEO;
+    public boolean isSupervisor;
 
     public User(){
     }
 
     public User(String departmnet, ArrayList<String> working_hours, int targetHour,
                 int overtime_pool, int holidays, String uid, String fullname, String email,
-                String company){
+                String company, boolean isSupervisor){
         this.department = departmnet;
         this.working_hours = working_hours;
         this.targetHours = targetHour;
@@ -32,11 +33,14 @@ public class User {
         this.email = email;
         this.isCEO = false;
         this.company = company;
+        this.isSupervisor = isSupervisor;
     }
 
     public void setCeo(){
         this.isCEO = true;
     }
+
+
 
     public Map<String, Object> toMap(){
         HashMap<String, Object> ret = new HashMap<>();
@@ -50,6 +54,7 @@ public class User {
         ret.put("company", company);
 
         return ret;
+
     }
 
     public String getEmail() {
@@ -90,5 +95,9 @@ public class User {
 
     public boolean isCEO() {
         return isCEO;
+    }
+
+    public boolean isSupervisor() {
+        return isSupervisor;
     }
 }

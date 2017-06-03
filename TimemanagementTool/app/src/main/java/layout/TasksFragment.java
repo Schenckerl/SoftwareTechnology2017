@@ -20,12 +20,16 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 
 
 import at.thelegend27.timemanagementtool.AddNewTaskActivity;
+import at.thelegend27.timemanagementtool.AddTasksForEmployeeActivity;
 import at.thelegend27.timemanagementtool.HelperClasses.CurrentSession;
 import at.thelegend27.timemanagementtool.R;
 import at.thelegend27.timemanagementtool.Task;
@@ -40,12 +44,14 @@ public class TasksFragment extends Fragment {
     private TaskAdapter adapter;
     private FirebaseDatabase database;
     private DatabaseReference reference;
-   // ArrayList<String> tasksList = new ArrayList<>();
+    User isExistUser;
+    final User user = CurrentSession.getInstance().getCurrent_user();
+
+    // ArrayList<String> tasksList = new ArrayList<>();
 
 
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         //returning our layout file
-        User user = CurrentSession.getInstance().getCurrent_user();
         setHasOptionsMenu(true);
         database = FirebaseDatabase.getInstance();
         reference = database.getReference("Tasks");
@@ -53,16 +59,17 @@ public class TasksFragment extends Fragment {
         output = new ArrayList<>();
         tasks_list = (RecyclerView) view.findViewById(R.id.tasks_list);
         tasks_list.setHasFixedSize(true);
+        sortTasks();
         updateList();
         return view;
     }
 
     private void updateList() {
-        final User user = CurrentSession.getInstance().getCurrent_user();
         reference.orderByChild("user_id").equalTo(user.getUid()).addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 output.add(dataSnapshot.getValue(Task.class));
+                sortTasks();
                 adapter.notifyDataSetChanged();
 
             }
@@ -71,9 +78,8 @@ public class TasksFragment extends Fragment {
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
                 Task task = dataSnapshot.getValue(Task.class);
                 int index = getTaskIndex(task);
-
                 output.set(index, task);
-
+                sortTasks();
                 adapter.notifyItemChanged(index);
             }
 
@@ -82,6 +88,7 @@ public class TasksFragment extends Fragment {
                 Task task = dataSnapshot.getValue(Task.class);
                 int index = getTaskIndex(task);
                 output.remove(index);
+                sortTasks();
                 adapter.notifyItemRemoved(index);
             }
 
@@ -98,9 +105,15 @@ public class TasksFragment extends Fragment {
     }
 
     @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater)
-    {
-        inflater.inflate(R.menu.add_new_task, menu);
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        if(user.isCEO == true) {
+            inflater.inflate(R.menu.add_new_task_admin, menu);
+        }
+        else if (user.isSupervisor) {
+            inflater.inflate(R.menu.add_new_task_admin, menu);
+        } else {
+            inflater.inflate(R.menu.add_new_task, menu);
+        }
         return;
     }
 
@@ -110,14 +123,9 @@ public class TasksFragment extends Fragment {
         //you can set the title for your toolbar here for different fragments different titles
         LinearLayoutManager llm = new LinearLayoutManager(this.getActivity());
         llm.setOrientation(LinearLayoutManager.VERTICAL);
-
         tasks_list.setLayoutManager(llm);
-
-
-
         adapter = new TaskAdapter(output);
         tasks_list.setAdapter(adapter);
-
         adapter.setListener(new TaskAdapter.Listener() {
             public void onClick(int position) {
                 Intent intent = new Intent(getActivity(), TaskDescriptionActivity.class);
@@ -128,9 +136,7 @@ public class TasksFragment extends Fragment {
                 getActivity().startActivity(intent);
             }
         });
-
         super.onViewCreated(view, savedInstanceState);
-
         getActivity().setTitle("Tasks");
     }
 
@@ -139,8 +145,6 @@ public class TasksFragment extends Fragment {
         switch (item.getItemId()) {
             case 0 :
                 removeTask(item.getGroupId());
-                break;
-            case 1:
                 break;
         }
         return super.onContextItemSelected(item);
@@ -163,6 +167,14 @@ public class TasksFragment extends Fragment {
                 Intent intent = new Intent(getActivity(), AddNewTaskActivity.class);
                 startActivity(intent);
                 break;
+            case R.id.add_new_task_admin:
+                Intent adminIntent = new Intent(getActivity(), AddNewTaskActivity.class);
+                startActivity(adminIntent);
+                break;
+            case R.id.add_new_task_for_employee:
+                Intent adminEmployeeIntent = new Intent(getActivity(), AddTasksForEmployeeActivity.class);
+                startActivity(adminEmployeeIntent);
+                break;
         }
 
         return super.onOptionsItemSelected(item);
@@ -175,5 +187,7 @@ public class TasksFragment extends Fragment {
 
     }
 
-
+    private void sortTasks() {
+        Collections.sort(output);
+    }
 }

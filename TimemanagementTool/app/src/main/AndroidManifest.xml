@@ -38,7 +38,8 @@
         <activity android:name=".TaskDescriptionActivity" />
         <activity android:name=".HelperClasses.AddNewFragmentActivity" />
         <activity android:name=".AddNewFragmentActivity" />
-        <activity android:name=".AddNewTaskActivity"></activity>
+        <activity android:name=".AddNewTaskActivity" />
+        <activity android:name=".AddTasksForEmployeeActivity"></activity>
     </application>
 
 </manifest>
