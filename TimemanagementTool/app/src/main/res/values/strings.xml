@@ -145,7 +145,8 @@
     <string name="department_supervisor">Department Supervisor</string>
     <string name="submit_department">Submit Department</string>
     <string name="department_dropdown_title">Department</string>
-    <string name="employee_overview">Employee Overview</string>n
+    <string name="employee_overview">Employee Overview</string>
+    <string name="relogging_user_please_wait">Relogging User Please wait</string>n
 
     <plurals name="error_week_password">
         <item quantity="one">Password not strong enough. Use at least %1$d character and a mix of letters and numbers</item>

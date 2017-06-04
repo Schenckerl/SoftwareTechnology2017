@@ -23,6 +23,8 @@ import com.google.firebase.auth.UserProfileChangeRequest;
 import at.thelegend27.timemanagementtool.HelperClasses.CurrentSession;
 import at.thelegend27.timemanagementtool.HelperClasses.UserUtils;
 import at.thelegend27.timemanagementtool.LoginActivity;
+import at.thelegend27.timemanagementtool.R;
+import at.thelegend27.timemanagementtool.RelogActivity;
 import at.thelegend27.timemanagementtool.SignUpActivity;
 import at.thelegend27.timemanagementtool.TimemanagementActivity;
 import at.thelegend27.timemanagementtool.database.DatabaseHelper;
@@ -51,8 +53,15 @@ public class FirebaseApplication extends Application {
     }
 
     public void checkUserLogin(final Context context) {
-
         if (firebaseAuth.getCurrentUser() != null) {
+            Intent RelogIntent = new Intent(context, RelogActivity.class);
+            context.startActivity(RelogIntent);
+            try {
+                Thread.sleep(500);
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+
             CurrentSession.getInstance().init(firebaseAuth.getCurrentUser().getUid(), context);
 //            Intent timemanagementIntent = new Intent(context, TimemanagementActivity.class);
 //            context.startActivity(timemanagementIntent);
