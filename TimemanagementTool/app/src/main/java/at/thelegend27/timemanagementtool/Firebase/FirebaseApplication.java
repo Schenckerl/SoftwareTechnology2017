@@ -93,7 +93,7 @@ public class FirebaseApplication extends Application {
                             Intent timemanagementIntent = new Intent(context, TimemanagementActivity.class);
                             context.startActivity(timemanagementIntent);
 
-                            User new_user = new User(null, null, 40, 0, 0, task.getResult().getUser().getUid(),name , email, company_name);
+                            User new_user = new User(null, null, 40, 0, 0, task.getResult().getUser().getUid(),name , email, company_name, false);
                             new_user.uid = task.getResult().getUser().getUid();
                             new_user.setCeo();
                             DatabaseHelper.createNewCompany(new_user, company_name);

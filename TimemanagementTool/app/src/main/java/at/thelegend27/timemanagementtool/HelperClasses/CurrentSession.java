@@ -19,7 +19,6 @@ public class CurrentSession {
     private User current_user;
     private Company company;
     private Department department;
-    public boolean loaded;
 
     private static CurrentSession instance;
 
@@ -31,7 +30,6 @@ public class CurrentSession {
     }
 
     public void init(final String current_user_id){
-        CurrentSession.getInstance().loaded = false;
 
         Log.d("INIT", "initiationg singelton");
         DatabaseReference md = FirebaseDatabase.getInstance().getReference("Users/"+current_user_id);
@@ -50,18 +48,13 @@ public class CurrentSession {
                 if(current_user.isCEO){
                     Log.d("CREATING INSTANCE", "The user to login is CEO");
                     DatabaseReference md = FirebaseDatabase.getInstance().getReference("Companies");
-                    md.addChildEventListener(new ChildEventListener() {
+                    md.orderByChild("ceo_id").equalTo(current_user.uid).addChildEventListener(new ChildEventListener() {
                         @Override
                         public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                            Log.d("INIT", "checking Company");
+                            Log.d("INIT", "we got our company");
                             Company to_check = dataSnapshot.getValue(Company.class);
                             to_check.name = dataSnapshot.getKey();
-
-                            Log.d("INIT", "current user id:" + current_user_id);
-                            if(to_check.ceo_id.equals(current_user_id)){
-                                Log.d("INIT", "We got our company");
-                                CurrentSession.getInstance().setCompany(to_check);
-                            }
+                            CurrentSession.getInstance().setCompany(to_check);
                         }
                         @Override
                         public void onChildChanged(DataSnapshot dataSnapshot, String s) {
@@ -116,7 +109,6 @@ public class CurrentSession {
                         }
                     });
                 }
-                CurrentSession.getInstance().loaded = true;
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
@@ -128,7 +120,26 @@ public class CurrentSession {
     public void setCompany(Company company){this.company = company;}
     public void setDepartment(Department department){this.department = department;}
 
-    public User getCurrent_user() {return current_user;}
-    public Company getCompany() {return company;}
+    public User getCurrent_user() {
+        //waitning for data to get availabel
+        while(current_user == null){
+            try {
+                wait(100);
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+        }
+        return current_user;
+    }
+    public Company getCompany() {
+        while(company == null){
+            try{
+                wait(100);
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+        }
+        return company;
+    }
     public Department getDepartment() {return department;}
 }
