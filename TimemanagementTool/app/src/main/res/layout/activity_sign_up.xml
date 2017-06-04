@@ -120,9 +120,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/password_wrapper"
             android:hint="@string/confirm_password_hint"
-            app:errorTextAppearance="@style/AppTheme.Text.ErrorText"
-            app:hintTextAppearance="@style/AppTheme.Text.ErrorText">
-
+            >
             <android.support.design.widget.TextInputEditText
                 android:id="@+id/confirm_password"
                 style="@style/AppTheme.TextInputEditText"

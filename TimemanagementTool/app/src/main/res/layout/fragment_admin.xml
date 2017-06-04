@@ -1,0 +1,121 @@
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="@dimen/_12sdp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Create a new User"
+                android:gravity="center_horizontal"
+                android:textSize="24dp"
+                android:textColor="@android:color/black"
+                android:layout_marginBottom="@dimen/_24sdp"
+                />
+            <EditText
+                android:id="@+id/username"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Username"
+                android:layout_margin="@dimen/_8sdp"/>
+            <EditText
+                android:id="@+id/email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Email"
+                android:layout_margin="@dimen/_8sdp"
+                android:inputType="textEmailAddress" />
+            <!--<EditText-->
+                <!--android:id="@+id/department"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:hint="Department"-->
+                <!--android:layout_margin="@dimen/_8sdp"-->
+                <!--android:inputType="textEmailAddress" />-->
+
+            <Spinner
+                android:id="@+id/department_selector"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_8sdp"
+                android:dropDownWidth="match_parent"
+                android:prompt="@string/department_dropdown_title" />
+
+            <EditText
+                android:id="@+id/target_hour"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Target Hours"
+                android:layout_margin="@dimen/_8sdp" />
+
+            <EditText
+                android:id="@+id/password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Password"
+                android:layout_margin="@dimen/_8sdp"
+                android:inputType="textPassword" />
+
+            <Button
+                android:id="@+id/submit_user"
+                android:layout_width="139dp"
+                android:layout_height="wrap_content"
+                android:background="@color/colorPrimaryMiddle"
+                android:textColor="@color/colorWhite"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/_32sdp"
+                android:text="@string/submit_user"/>
+
+            <TextView
+                android:layout_marginTop="@dimen/_32sdp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/create_a_new_department"
+                android:gravity="center_horizontal"
+                android:textSize="24dp"
+                android:textColor="@android:color/black"
+                android:layout_marginBottom="@dimen/_24sdp"
+                />
+
+            <EditText
+                android:id="@+id/department_name"
+                android:layout_marginTop="50dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_8sdp"
+                android:hint="@string/department_name"/>
+
+
+            <Spinner
+                android:id="@+id/supervisor_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_8sdp"
+                />
+
+            <Button
+                android:id="@+id/submit_dep"
+                android:layout_width="139dp"
+                android:layout_height="wrap_content"
+                android:background="@color/colorPrimaryMiddle"
+                android:textColor="@color/colorWhite"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/_32sdp"
+                android:text="@string/submit_department"/>
+
+
+
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>
