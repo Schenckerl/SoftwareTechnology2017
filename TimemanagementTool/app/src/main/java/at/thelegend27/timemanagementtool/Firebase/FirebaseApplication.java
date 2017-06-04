@@ -24,7 +24,6 @@ import at.thelegend27.timemanagementtool.HelperClasses.CurrentSession;
 import at.thelegend27.timemanagementtool.HelperClasses.UserUtils;
 import at.thelegend27.timemanagementtool.LoginActivity;
 import at.thelegend27.timemanagementtool.SignUpActivity;
-import at.thelegend27.timemanagementtool.R;
 import at.thelegend27.timemanagementtool.TimemanagementActivity;
 import at.thelegend27.timemanagementtool.database.DatabaseHelper;
 import at.thelegend27.timemanagementtool.database.User;
@@ -54,9 +53,9 @@ public class FirebaseApplication extends Application {
     public void checkUserLogin(final Context context) {
 
         if (firebaseAuth.getCurrentUser() != null) {
-            CurrentSession.getInstance().init(firebaseAuth.getCurrentUser().getUid());
-            Intent timemanagementIntent = new Intent(context, TimemanagementActivity.class);
-            context.startActivity(timemanagementIntent);
+            CurrentSession.getInstance().init(firebaseAuth.getCurrentUser().getUid(), context);
+//            Intent timemanagementIntent = new Intent(context, TimemanagementActivity.class);
+//            context.startActivity(timemanagementIntent);
         }
     }
 
@@ -98,7 +97,7 @@ public class FirebaseApplication extends Application {
                             DatabaseHelper.initDepartment(company_name);
 
                             UserUtils.createNewDbUser(new_user);
-                            CurrentSession.getInstance().init(new_user.uid);
+                            CurrentSession.getInstance().init(new_user.uid, context);
                         }
 
                         SignUpActivity.visibilityProgressbarSignUp(View.INVISIBLE);
@@ -119,14 +118,10 @@ public class FirebaseApplication extends Application {
 
                             String current_user_id = task.getResult().getUser().getUid();
 
-                            CurrentSession.getInstance().init(current_user_id);
-                            Intent timemanagementIntent = new Intent(context, TimemanagementActivity.class);
-                            context.startActivity(timemanagementIntent);
-
-                            Toast.makeText(context, "User has been login", Toast.LENGTH_LONG).show();
+                            CurrentSession.getInstance().init(current_user_id, context);
                         }
 
-                        LoginActivity.visibilityProgressbarLogin(View.INVISIBLE);
+                        //LoginActivity.visibilityProgressbarLogin(View.INVISIBLE);
                     }
                 });
     }
@@ -198,4 +193,5 @@ public class FirebaseApplication extends Application {
     public static void logoutCurrentFirebaseUser() {
         FirebaseAuth.getInstance().signOut();
     }
+
 }

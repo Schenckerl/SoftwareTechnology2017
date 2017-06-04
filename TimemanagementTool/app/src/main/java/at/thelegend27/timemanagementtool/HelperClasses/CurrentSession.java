@@ -1,5 +1,6 @@
 package at.thelegend27.timemanagementtool.HelperClasses;
 
+import android.content.Context;
 import android.util.Log;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -19,6 +20,7 @@ public class CurrentSession {
     private User current_user;
     private Company company;
     private Department department;
+    public boolean loaded = false;
 
     private static CurrentSession instance;
 
@@ -29,14 +31,18 @@ public class CurrentSession {
         return instance;
     }
 
-    public void init(final String current_user_id){
+    public void init(final String current_user_id, Context context){
+
+        current_user = null;
+        company = null;
+        department = null;
+        loaded = false;
+
+        checkerThread thread = new checkerThread(context);
+        thread.start();
 
         Log.d("INIT", "initiationg singelton");
         DatabaseReference md = FirebaseDatabase.getInstance().getReference("Users/"+current_user_id);
-        if(md == null){
-            Log.d("INIT", "The user does not exist!!");
-            System.exit(500);
-        }
 
         md.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -122,23 +128,9 @@ public class CurrentSession {
 
     public User getCurrent_user() {
         //waitning for data to get availabel
-        while(current_user == null){
-            try {
-                wait(100);
-            }catch (Exception e){
-                e.printStackTrace();
-            }
-        }
         return current_user;
     }
     public Company getCompany() {
-        while(company == null){
-            try{
-                wait(100);
-            }catch (Exception e){
-                e.printStackTrace();
-            }
-        }
         return company;
     }
     public Department getDepartment() {return department;}

@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
 
+import at.thelegend27.timemanagementtool.HelperClasses.CurrentSession;
 import layout.AdminFragment;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -57,6 +58,9 @@ public class TimemanagementActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        if(CurrentSession.getInstance().getCurrent_user().isCEO) {
+            navigationView.getMenu().findItem(R.id.admin).setVisible(true);
+        }
 
         View v = navigationView.getHeaderView(0);
         userNameTextView = (TextView) v.findViewById(R.id.nav_name);

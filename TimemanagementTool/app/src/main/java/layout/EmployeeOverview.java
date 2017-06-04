@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import at.thelegend27.timemanagementtool.HelperClasses.CurrentSession;
 import at.thelegend27.timemanagementtool.R;
 
 /**
@@ -28,6 +29,7 @@ public class EmployeeOverview extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        getActivity().setTitle("Employees for Company " + CurrentSession.getInstance().getCompany().name);
         return inflater.inflate(R.layout.fragment_employee_overview, container, false);
     }
 }
