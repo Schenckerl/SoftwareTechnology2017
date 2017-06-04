@@ -30,6 +30,8 @@ public class EmployeeOverview extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         getActivity().setTitle("Employees for Company " + CurrentSession.getInstance().getCompany().name);
+
+        
         return inflater.inflate(R.layout.fragment_employee_overview, container, false);
     }
 }

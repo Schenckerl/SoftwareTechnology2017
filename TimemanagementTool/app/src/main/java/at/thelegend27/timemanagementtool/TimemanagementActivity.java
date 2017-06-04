@@ -24,6 +24,7 @@ import com.google.firebase.auth.FirebaseUser;
 import at.thelegend27.timemanagementtool.Firebase.FirebaseApplication;
 import layout.DashboardFragment;
 import layout.EditProfileFragment;
+import layout.EmployeeOverview;
 import layout.StatisticsFragment;
 import layout.TasksFragment;
 
@@ -60,6 +61,7 @@ public class TimemanagementActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
         if(CurrentSession.getInstance().getCurrent_user().isCEO) {
             navigationView.getMenu().findItem(R.id.admin).setVisible(true);
+            navigationView.getMenu().findItem(R.id.nav_employee_overview).setVisible(true);
         }
 
         View v = navigationView.getHeaderView(0);
@@ -142,6 +144,9 @@ public class TimemanagementActivity extends AppCompatActivity
                 break;
             case R.layout.fragment_dashboard:
                 fragment = new DashboardFragment();
+                break;
+            case R.id.nav_employee_overview:
+                fragment = new EmployeeOverview();
                 break;
         }
 

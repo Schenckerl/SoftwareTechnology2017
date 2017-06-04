@@ -21,6 +21,11 @@
             android:title="@string/administration"
             android:visible="false"/>
         <item
+            android:id="@+id/nav_employee_overview"
+            android:icon="@drawable/ic_perm_identity_black_24dp"
+            android:title="@string/employee_overview"
+            android:visible="false"/>
+        <item
             android:id="@+id/nav_logout"
             android:icon="@drawable/ic_perm_contact_calendar_black_24dp"
             android:title="@string/logout" />
