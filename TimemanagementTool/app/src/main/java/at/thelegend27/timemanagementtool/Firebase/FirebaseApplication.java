@@ -23,7 +23,6 @@ import com.google.firebase.auth.UserProfileChangeRequest;
 import at.thelegend27.timemanagementtool.HelperClasses.CurrentSession;
 import at.thelegend27.timemanagementtool.HelperClasses.UserUtils;
 import at.thelegend27.timemanagementtool.LoginActivity;
-import at.thelegend27.timemanagementtool.R;
 import at.thelegend27.timemanagementtool.SignUpActivity;
 import at.thelegend27.timemanagementtool.TimemanagementActivity;
 import at.thelegend27.timemanagementtool.database.DatabaseHelper;
@@ -118,8 +117,6 @@ public class FirebaseApplication extends Application {
                             Log.d("Login", "User logged in fetching information");
 
                             String current_user_id = task.getResult().getUser().getUid();
-                            ProgressBar spinner = (ProgressBar)(((LoginActivity)context).findViewById(R.id.loading_progress));
-                            spinner.setVisibility(View.VISIBLE);
 
                             CurrentSession.getInstance().init(current_user_id);
                             Intent timemanagementIntent = new Intent(context, TimemanagementActivity.class);
