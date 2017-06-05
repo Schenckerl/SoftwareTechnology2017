@@ -40,6 +40,8 @@ public class User {
         this.isCEO = true;
     }
 
+
+
     public Map<String, Object> toMap(){
         HashMap<String, Object> ret = new HashMap<>();
         ret.put("fullName", fullName);
@@ -52,5 +54,50 @@ public class User {
         ret.put("company", company);
 
         return ret;
+
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getUid() {
+        return uid;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public String getDepartment() {
+        return department;
+    }
+
+    public String getCompany() {
+        return company;
+    }
+
+    public ArrayList<String> getWorking_hours() {
+        return working_hours;
+    }
+
+    public int getTargetHours() {
+        return targetHours;
+    }
+
+    public int getOvertimePool() {
+        return overtimePool;
+    }
+
+    public int getHolidays() {
+        return holidays;
+    }
+
+    public boolean isCEO() {
+        return isCEO;
+    }
+
+    public boolean isSupervisor() {
+        return isSupervisor;
     }
 }
