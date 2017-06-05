@@ -153,6 +153,9 @@
     <string name="supervisor">SuperVisor</string>
     <string name="users">Users</string>
     <string name="edit_department">Edit Department</string>
+    <string name="cancel">Cancel</string>
+    <string name="confirm">Confirm</string>
+
 
     <plurals name="error_week_password">
         <item quantity="one">Password not strong enough. Use at least %1$d character and a mix of letters and numbers</item>

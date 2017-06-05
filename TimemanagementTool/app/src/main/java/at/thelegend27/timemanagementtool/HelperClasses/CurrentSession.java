@@ -91,7 +91,7 @@ public class CurrentSession {
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             Log.d("INIT", "we got our department");
                             Department department = dataSnapshot.getValue(Department.class);
-                            department.supervisor = dataSnapshot.getKey();
+                            department.name = dataSnapshot.getKey();
                             CurrentSession.getInstance().setDepartment(department);
 
 
@@ -101,6 +101,7 @@ public class CurrentSession {
                                 public void onDataChange(DataSnapshot dataSnapshot) {
                                     Log.d("INIT", "we got our company");
                                     Company company = dataSnapshot.getValue(Company.class);
+                                    company.name = dataSnapshot.getKey();
                                     CurrentSession.getInstance().setCompany(company);
                                 }
 

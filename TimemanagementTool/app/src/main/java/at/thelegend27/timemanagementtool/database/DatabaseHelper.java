@@ -53,6 +53,8 @@ public class DatabaseHelper {
                 //updating user
                 User update = dataSnapshot.getValue(User.class);
                 update.isSupervisor = true;
+                update.department = department_name;
+
                 md.child(dataSnapshot.getKey()).setValue(update);
 
                 DatabaseReference db = FirebaseDatabase.getInstance().getReference();

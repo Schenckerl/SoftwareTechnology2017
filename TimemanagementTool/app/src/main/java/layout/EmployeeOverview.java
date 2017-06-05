@@ -40,7 +40,11 @@ public class EmployeeOverview extends Fragment {
     @Override
     public void onViewCreated(final View view, @Nullable Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        getActivity().setTitle(CurrentSession.getInstance().getCompany().name);
+        if(CurrentSession.getInstance().getCurrent_user().isSupervisor) {
+            getActivity().setTitle(CurrentSession.getInstance().getDepartment().name);
+        }else {
+            getActivity().setTitle(CurrentSession.getInstance().getCompany().name);
+        }
         activity = (TimemanagementActivity)getActivity();
         final ArrayList<Map<String, String>> items = new ArrayList<>();
 
@@ -52,15 +56,17 @@ public class EmployeeOverview extends Fragment {
                     .addChildEventListener(new ChildEventListener() {
                         @Override
                         public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                            Log.d("OVERVIEW", "we found a user");
-                            Map<String, String> current = new HashMap<>();
-                            current.put("line1", dataSnapshot.getValue(User.class).fullName);
                             if(dataSnapshot.getValue(User.class).department != null) {
-                                current.put("line2", dataSnapshot.getValue(User.class).department);
-                            }else{
-                                current.put("line2", "Ceo of "+ dataSnapshot.getValue(User.class).company);
+                                Log.d("OVERVIEW", "we found a user");
+                                Map<String, String> current = new HashMap<>();
+                                current.put("line1", dataSnapshot.getValue(User.class).fullName);
+                                if (dataSnapshot.getValue(User.class).department != null) {
+                                    current.put("line2", dataSnapshot.getValue(User.class).department);
+                                } else {
+                                    current.put("line2", "Ceo of " + dataSnapshot.getValue(User.class).company);
+                                }
+                                items.add(current);
                             }
-                            items.add(current);
                             SimpleAdapter adapter = new SimpleAdapter(activity, items,
                                     R.layout.user_info_list_item, new String[]{"line1", "line2"},
                                     new int[]{R.id.user_info_line1, R.id.user_info_line2});

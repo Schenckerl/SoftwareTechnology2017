@@ -3,12 +3,16 @@ package layout;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.TextureView;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.google.firebase.database.ChildEventListener;
@@ -23,13 +27,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import at.thelegend27.timemanagementtool.HelperClasses.CurrentSession;
 import at.thelegend27.timemanagementtool.R;
 import at.thelegend27.timemanagementtool.TimemanagementActivity;
 import at.thelegend27.timemanagementtool.database.Department;
 import at.thelegend27.timemanagementtool.database.User;
 
 public class DepartmentDetails extends Fragment {
-
     public String dep;
     private TimemanagementActivity activity;
 
@@ -47,6 +51,16 @@ public class DepartmentDetails extends Fragment {
         activity = (TimemanagementActivity) getActivity();
         activity.setTitle("Details");
         ((TextView)view.findViewById(R.id.department_info_header)).setText(dep);
+
+        Button edit = (Button)view.findViewById(R.id.edit_department);
+        edit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EditDepartmentDialog dialog = new EditDepartmentDialog();
+                //dialog.getDialog().show();
+                dialog.show(getActivity().getFragmentManager(), "nice");
+            }
+        });
         DatabaseReference db = FirebaseDatabase.getInstance().getReference("Departments/"+ dep);
         db.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -76,10 +90,12 @@ public class DepartmentDetails extends Fragment {
         md.orderByChild("department").equalTo(dep).addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                Map<String, String> current = new HashMap<>();
-                current.put("line1", dataSnapshot.getValue(User.class).fullName);
-                current.put("line2", dataSnapshot.getValue(User.class).department);
-                items.add(current);
+                if(dataSnapshot.getValue(User.class).department != null) {
+                    Map<String, String> current = new HashMap<>();
+                    current.put("line1", dataSnapshot.getValue(User.class).fullName);
+                    current.put("line2", dataSnapshot.getValue(User.class).department);
+                    items.add(current);
+                }
                 SimpleAdapter adapter = new SimpleAdapter(activity, items,
                         R.layout.user_info_list_item, new String[]{"line1", "line2"},
                         new int[]{R.id.user_info_line1, R.id.user_info_line2});

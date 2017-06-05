@@ -11,6 +11,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -68,6 +69,7 @@ public class TimemanagementActivity extends AppCompatActivity
             navigationView.getMenu().findItem(R.id.nav_department_overview).setVisible(true);
         }else if(CurrentSession.getInstance().getCurrent_user().isSupervisor){
             navigationView.getMenu().findItem(R.id.nav_employee_overview).setVisible(true);
+            navigationView.getMenu().findItem(R.id.nav_department_details).setVisible(true);
         }
 
         View v = navigationView.getHeaderView(0);
@@ -159,6 +161,10 @@ public class TimemanagementActivity extends AppCompatActivity
                 break;
             case R.layout.department_detail:
                 fragment = new DepartmentDetails();
+                break;
+            case R.id.nav_department_details:
+                Log.d("Switching", "Departmnet is: " + CurrentSession.getInstance().getDepartment().name);
+                showDepDetail(CurrentSession.getInstance().getDepartment().name);
                 break;
         }
 
