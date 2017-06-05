@@ -5,6 +5,7 @@ import java.util.ArrayList;
 public class Department {
     public String company;
     public String supervisor;
+    public String name;
 
     public Department(){
 

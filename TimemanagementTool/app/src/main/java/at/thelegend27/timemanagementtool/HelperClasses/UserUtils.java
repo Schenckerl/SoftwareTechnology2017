@@ -37,7 +37,7 @@ public class UserUtils {
                             to_register.uid = task.getResult().getUser().getUid();
                             Log.d(TAG, "ui: " + to_register.uid);
                             createNewDbUser(to_register);
-                            Toast.makeText(context, "User successfully has been created", Toast.LENGTH_LONG).show();
+                            Toast.makeText(context, "User has successfully been created", Toast.LENGTH_LONG).show();
                             ((TimemanagementActivity) context).displaySelectedScreen(R.layout.fragment_dashboard);
                         }else{
                             Toast.makeText(context, "Something went wrong, please try again!",

@@ -22,6 +22,7 @@ import layout.AdminFragment;
 import com.google.firebase.auth.FirebaseUser;
 
 import at.thelegend27.timemanagementtool.Firebase.FirebaseApplication;
+import layout.AdminTabHost;
 import layout.DashboardFragment;
 import layout.EditProfileFragment;
 import layout.EmployeeOverview;
@@ -140,7 +141,7 @@ public class TimemanagementActivity extends AppCompatActivity
                 fragment = new EditProfileFragment();
                 break;
             case R.id.admin:
-                fragment = new AdminFragment();
+                fragment = new AdminTabHost();//new AdminFragment();
                 break;
             case R.layout.fragment_dashboard:
                 fragment = new DashboardFragment();

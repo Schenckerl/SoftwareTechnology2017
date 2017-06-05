@@ -91,7 +91,9 @@ public class CurrentSession {
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             Log.d("INIT", "we got our department");
                             Department department = dataSnapshot.getValue(Department.class);
+                            department.supervisor = dataSnapshot.getKey();
                             CurrentSession.getInstance().setDepartment(department);
+
 
                             DatabaseReference md = FirebaseDatabase.getInstance().getReference("Companies/"+department.company);
                             md.addListenerForSingleValueEvent(new ValueEventListener() {
