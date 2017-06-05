@@ -24,6 +24,8 @@ import com.google.firebase.auth.FirebaseUser;
 import at.thelegend27.timemanagementtool.Firebase.FirebaseApplication;
 import layout.AdminTabHost;
 import layout.DashboardFragment;
+import layout.DepartmentDetails;
+import layout.DepartmentOverview;
 import layout.EditProfileFragment;
 import layout.EmployeeOverview;
 import layout.StatisticsFragment;
@@ -62,6 +64,9 @@ public class TimemanagementActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
         if(CurrentSession.getInstance().getCurrent_user().isCEO) {
             navigationView.getMenu().findItem(R.id.admin).setVisible(true);
+            navigationView.getMenu().findItem(R.id.nav_employee_overview).setVisible(true);
+            navigationView.getMenu().findItem(R.id.nav_department_overview).setVisible(true);
+        }else if(CurrentSession.getInstance().getCurrent_user().isSupervisor){
             navigationView.getMenu().findItem(R.id.nav_employee_overview).setVisible(true);
         }
 
@@ -149,6 +154,12 @@ public class TimemanagementActivity extends AppCompatActivity
             case R.id.nav_employee_overview:
                 fragment = new EmployeeOverview();
                 break;
+            case R.id.nav_department_overview:
+                fragment = new DepartmentOverview();
+                break;
+            case R.layout.department_detail:
+                fragment = new DepartmentDetails();
+                break;
         }
 
         //replacing the fragment
@@ -182,9 +193,8 @@ public class TimemanagementActivity extends AppCompatActivity
         FirebaseUser user = firebaseApplication.getCurrentFirebaseUser();
 
         if (user != null) {
-            String userName = user.getDisplayName();
-            String userEmail = user.getEmail();
-
+            String userName = CurrentSession.getInstance().getCurrent_user().fullName;
+            String userEmail = CurrentSession.getInstance().getCurrent_user().email;
 
             userNameTextView.setText(userName);
             userEmailTextView.setText(userEmail);
@@ -198,5 +208,14 @@ public class TimemanagementActivity extends AppCompatActivity
         Intent loginIntent = new Intent(TimemanagementActivity.this, LoginActivity.class);
         loginIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(loginIntent);
+    }
+
+    public void showDepDetail(String name){
+        DepartmentDetails fragment = new DepartmentDetails();
+        fragment.dep = name;
+
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.content_frame, fragment);
+        ft.commit();
     }
 }

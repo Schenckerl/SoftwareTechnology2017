@@ -27,10 +27,10 @@ public class AdminTabHost  extends Fragment {
         mTabHost = new FragmentTabHost(getActivity());
         mTabHost.setup(getActivity(), getChildFragmentManager(), R.layout.admin_tab_host);
 
-        mTabHost.addTab(mTabHost.newTabSpec("simple").setIndicator("Simple"),
+        mTabHost.addTab(mTabHost.newTabSpec("create").setIndicator("Create"),
                 AdminFragment.class, null);
 
-        mTabHost.addTab(mTabHost.newTabSpec("another").setIndicator("Another"),
+        mTabHost.addTab(mTabHost.newTabSpec("overview").setIndicator("Overview"),
                 EditProfileFragment.class, null);
 
         return mTabHost;

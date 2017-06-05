@@ -14,15 +14,12 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import at.thelegend27.timemanagementtool.LoginActivity;
 import at.thelegend27.timemanagementtool.R;
 import at.thelegend27.timemanagementtool.TimemanagementActivity;
 import at.thelegend27.timemanagementtool.database.User;
 
 import static android.content.ContentValues.TAG;
-
-/**
- * Created by dominik on 24.05.17.
- */
 
 public class UserUtils {
 

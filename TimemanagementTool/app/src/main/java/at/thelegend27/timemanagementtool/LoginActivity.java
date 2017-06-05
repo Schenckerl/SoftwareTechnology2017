@@ -53,7 +53,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnFocusChan
         }
 
         mAuth = ((FirebaseApplication) getApplication()).getFirebaseAuth();
-        ((FirebaseApplication) getApplication()).checkUserLogin(LoginActivity.this);
+        //((FirebaseApplication) getApplication()).checkUserLogin(LoginActivity.this);
 
         loginError = (TextView) findViewById(R.id.login_error);
         emailInput = (TextInputEditText) findViewById(R.id.login_email);
