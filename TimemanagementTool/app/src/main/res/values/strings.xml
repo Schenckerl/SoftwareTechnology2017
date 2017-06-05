@@ -153,13 +153,11 @@
     <string name="department_overview">Department Overview</string>
     <string name="details_for_department">Details for Department</string>
     <string name="supervisor_name">SuperVisor name</string>
-    <string name="supervisor">SuperVisor</string>
+    <string name="supervisor">Supervisor: </string>
     <string name="users">Users</string>
     <string name="edit_department">Edit Department</string>
     <string name="cancel">Cancel</string>
     <string name="confirm">Confirm</string>
-
->>>>>>> feature_admin_behaviour
 
     <plurals name="error_week_password">
         <item quantity="one">Password not strong enough. Use at least %1$d character and a mix of letters and numbers</item>

@@ -30,9 +30,6 @@ public class AdminTabHost  extends Fragment {
         mTabHost.addTab(mTabHost.newTabSpec("create").setIndicator("Create"),
                 AdminFragment.class, null);
 
-        mTabHost.addTab(mTabHost.newTabSpec("overview").setIndicator("Overview"),
-                EditProfileFragment.class, null);
-
         return mTabHost;
     }
 

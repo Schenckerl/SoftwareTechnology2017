@@ -20,11 +20,9 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
 
 
@@ -44,7 +42,6 @@ public class TasksFragment extends Fragment {
     private TaskAdapter adapter;
     private FirebaseDatabase database;
     private DatabaseReference reference;
-    User isExistUser;
     final User user = CurrentSession.getInstance().getCurrent_user();
 
     // ArrayList<String> tasksList = new ArrayList<>();

@@ -33,8 +33,6 @@ import at.thelegend27.timemanagementtool.TimemanagementActivity;
 import at.thelegend27.timemanagementtool.database.DatabaseHelper;
 import at.thelegend27.timemanagementtool.database.Department;
 import at.thelegend27.timemanagementtool.database.User;
-import at.thelegend27.timemanagementtool.database.WorkingHour;
-
 /**
  * A simple {@link Fragment} subclass.
  */
