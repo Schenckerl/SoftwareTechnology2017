@@ -62,6 +62,8 @@ public class TasksFragment extends Fragment {
         sortTasks();
         updateList();
         return view;
+
+        //change R.layout.yourlayoutfilename for each of your fragments
     }
 
     private void updateList() {

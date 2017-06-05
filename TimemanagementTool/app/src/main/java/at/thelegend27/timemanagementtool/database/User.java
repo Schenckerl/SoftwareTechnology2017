@@ -52,6 +52,7 @@ public class User {
         ret.put("holidays", holidays);
         ret.put("isCEO", isCEO);
         ret.put("company", company);
+        ret.put("isSupervisor", isSupervisor);
 
         return ret;
 
