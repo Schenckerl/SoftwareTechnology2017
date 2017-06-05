@@ -63,7 +63,11 @@ public class AdminFragment extends Fragment {
                 ArrayList<String> possible_departments = new ArrayList<>();
 
                 for(DataSnapshot dep : dataSnapshot.getChildren()){
-                    possible_departments.add(dep.getKey());
+                    Department to_check = dep.getValue(Department.class);
+                    if(to_check.company.equals(CurrentSession.getInstance().getCompany().name)) {
+                        Log.d("ADMIN", "we got a department for our company");
+                        possible_departments.add(dep.getKey());
+                    }
                 }
 
                 ArrayAdapter < String > adapter = new ArrayAdapter<>(getActivity(),
@@ -103,13 +107,14 @@ public class AdminFragment extends Fragment {
                 final String email = ((EditText)view.findViewById(R.id.email)).getText().toString();
                 final String password = ((EditText)view.findViewById(R.id.password)).getText().toString();
                 final int target_hours = Integer.parseInt(((EditText)view.findViewById(R.id.target_hour)).getText().toString());
+
                 String selected_dep = ((Spinner)view.findViewById(R.id.department_selector)).getSelectedItem().toString();
                 DatabaseReference md = FirebaseDatabase.getInstance().getReference("Departments/" + selected_dep);
                 md.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         User new_user = new User(dataSnapshot.getKey(), null, target_hours, 0, 0, null, full_name, email,
-                                CurrentSession.getInstance().getCompany().name);
+                                CurrentSession.getInstance().getCompany().name, false);
                         UserUtils.registerUser(new_user, password, getActivity());
                     }
 
