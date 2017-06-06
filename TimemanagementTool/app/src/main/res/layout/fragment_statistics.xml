@@ -1,4 +1,5 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -24,7 +25,9 @@
                 <TabWidget
                     android:id="@android:id/tabs"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content" >
+
+                </TabWidget>
 
                 <FrameLayout
                     android:id="@android:id/tabcontent"
@@ -38,10 +41,44 @@
                         android:padding="@dimen/_8sdp"
                         android:orientation="vertical">
 
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <ImageButton
+                                android:id="@+id/image_button_prev_day"
+                                android:layout_width="@dimen/_8sdp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:background="@android:color/transparent"
+                                android:scaleX="-1"
+                                app:srcCompat="@drawable/quantum_ic_play_arrow_grey600_48" />
+
+                            <TextView
+                                android:id="@+id/text_view_date"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical|center_horizontal"
+                                android:layout_weight="1"
+                                android:gravity="center_vertical|center_horizontal"
+                                android:text="TextView"
+                                android:textSize="@dimen/_24sdp" />
+
+                            <ImageButton
+                                android:id="@+id/image_button_next_day"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:background="@android:color/transparent"
+                                app:srcCompat="@drawable/quantum_ic_play_arrow_grey600_48" />
+
+                        </LinearLayout>
+
                         <com.github.mikephil.charting.charts.BarChart
                             android:id="@+id/chart_day"
                             android:layout_width="fill_parent"
-                            android:layout_height="fill_parent" />
+                            android:layout_height="match_parent" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -50,6 +87,40 @@
                         android:layout_height="match_parent"
                         android:padding="@dimen/_8sdp"
                         android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <ImageButton
+                                android:id="@+id/image_button_prev_week"
+                                android:layout_width="@dimen/_8sdp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:background="@android:color/transparent"
+                                android:scaleX="-1"
+                                app:srcCompat="@drawable/quantum_ic_play_arrow_grey600_48" />
+
+                            <TextView
+                                android:id="@+id/text_view_week"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical|center_horizontal"
+                                android:layout_weight="1"
+                                android:gravity="center_vertical|center_horizontal"
+                                android:text="TextView"
+                                android:textSize="@dimen/_24sdp" />
+
+                            <ImageButton
+                                android:id="@+id/image_button_next_week"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:background="@android:color/transparent"
+                                app:srcCompat="@drawable/quantum_ic_play_arrow_grey600_48" />
+
+                        </LinearLayout>
 
                         <com.github.mikephil.charting.charts.BarChart
                             android:id="@+id/chart_week"

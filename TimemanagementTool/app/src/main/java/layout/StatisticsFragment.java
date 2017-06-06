@@ -8,7 +8,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TabHost;
+import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.data.BarData;
@@ -16,13 +18,16 @@ import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import at.thelegend27.timemanagementtool.HelperClasses.CurrentSession;
 import at.thelegend27.timemanagementtool.R;
 import at.thelegend27.timemanagementtool.database.User;
 
-public class StatisticsFragment extends Fragment implements TabHost.OnTabChangeListener {
+public class StatisticsFragment extends Fragment implements TabHost.OnTabChangeListener, View.OnClickListener {
     private BarChart barChart;
     private float[] dayEntriesFloatArray ;
     private float[][] weekEntriesFloatArray ;
@@ -46,6 +51,17 @@ public class StatisticsFragment extends Fragment implements TabHost.OnTabChangeL
     private BarData barMonthData ;
     private TabHost tabHost;
     private User currentUser;
+    private Calendar calendar;
+
+    private ImageButton imageButtonPrevDay;
+    private TextView textViewDate;
+    private ImageButton imageButtonNextDay;
+
+    private ImageButton imageButtonPrevWeek;
+    private TextView textViewWeek;
+    private ImageButton imageButtonNextWeek;
+
+    private DateFormat dateFormat;
 
     private float groupSpace = 0.06f;
     private float barSpace = 0.02f; // x2 dataset
@@ -94,9 +110,30 @@ public class StatisticsFragment extends Fragment implements TabHost.OnTabChangeL
         if (currentUser == null) {
             Log.d("STATISTICS", "no currentuser available");
         }
+
+        imageButtonPrevDay = (ImageButton) getView().findViewById(R.id.image_button_prev_day);
+        imageButtonNextDay = (ImageButton) getView().findViewById(R.id.image_button_next_day);
+        textViewDate = (TextView) getView().findViewById(R.id.text_view_date);
+        imageButtonPrevWeek = (ImageButton) getView().findViewById(R.id.image_button_prev_week);
+        imageButtonNextWeek = (ImageButton) getView().findViewById(R.id.image_button_next_week);
+        textViewWeek = (TextView) getView().findViewById(R.id.text_view_week);
+
+        imageButtonPrevDay.setOnClickListener(this);
+        imageButtonNextDay.setOnClickListener(this);
+
+        imageButtonPrevWeek.setOnClickListener(this);
+        imageButtonNextWeek.setOnClickListener(this);
+
+        calendar = Calendar.getInstance();
+        dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        String currDate = dateFormat.format(calendar.getTime());
+
+        setupDayBar(currDate);
     }
 
-    private void setupDayBar() {
+    private void setupDayBar(String date) {
+        setDateOnDayTab(date);
+
         barChart = (BarChart) getActivity().findViewById(R.id.chart_day);
         dayEntries = new ArrayList<>();
         dayEntriesFloatArray = new float[3];
@@ -132,10 +169,12 @@ public class StatisticsFragment extends Fragment implements TabHost.OnTabChangeL
 
         barChart.invalidate();
 
-        barChart.animateY(2000);
+        barChart.animateY(1000);
     }
 
-    private void setupWeekBar() {
+    private void setupWeekBar(String fromDate, String tillDate) {
+        setDateOnWeekTab(fromDate, tillDate);
+
         barChart = (BarChart) getActivity().findViewById(R.id.chart_week);
         weekEntries = new ArrayList<>();
         weekEntriesFloatArray = new float[5][3];
@@ -171,7 +210,7 @@ public class StatisticsFragment extends Fragment implements TabHost.OnTabChangeL
 
         barChart.invalidate();
 
-        barChart.animateY(2000);
+        barChart.animateY(1000);
     }
 
     private int getDayTargetHours() {
@@ -211,7 +250,6 @@ public class StatisticsFragment extends Fragment implements TabHost.OnTabChangeL
     }
 
     private void AddValuesToWeekBarEntryLabels(){
-
         barWeekEntryLabels.add("Monday");
         barWeekEntryLabels.add("Tuesday");
         barWeekEntryLabels.add("Wednesday");
@@ -221,15 +259,94 @@ public class StatisticsFragment extends Fragment implements TabHost.OnTabChangeL
 
     @Override
     public void onTabChanged(String tabId) {
+        if (textViewDate == null) {
+            return;
+        }
+
         if (tabId == "Tab One") {
-            setupDayBar();
+            calendar = Calendar.getInstance();
+            String currDate = dateFormat.format(calendar.getTime());
+            setupDayBar(currDate);
         }
         else if (tabId == "Tab Two") {
-            setupWeekBar();
+            calendar = Calendar.getInstance();
+            calendar.set(Calendar.DAY_OF_WEEK, calendar.getFirstDayOfWeek());
+            calendar.add(Calendar.DATE, 1);
+            String firstDayWeek = dateFormat.format(calendar.getTime());
+            calendar.add(Calendar.DATE, 4);
+            String lastDayWeek = dateFormat.format(calendar.getTime());
+            setupWeekBar(firstDayWeek, lastDayWeek);
         }
         else if (tabId == "Tab Three") {
 
         }
+    }
+
+
+    @Override
+    public void onClick(View v) {
+        int id = v.getId();
+
+        switch (id) {
+            case R.id.image_button_prev_day:
+                onClickButtonPrevDay();
+                break;
+            case R.id.image_button_next_day:
+                onClickButtonNextDay();
+                break;
+            case R.id.image_button_prev_week:
+                onClickButtonPrevWeek();
+                break;
+            case R.id.image_button_next_week:
+                onClickButtonNextWeek();
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void onClickButtonPrevDay() {
+        if (calendar.get(Calendar.DAY_OF_WEEK) == Calendar.MONDAY) {
+            calendar.add(Calendar.DATE, -3);
+        } else {
+            calendar.add(Calendar.DATE, -1);
+        }
+        String currDate = dateFormat.format(calendar.getTime());
+        setupDayBar(currDate);
+    }
+
+    private void onClickButtonNextDay() {
+        if (calendar.get(Calendar.DAY_OF_WEEK) == Calendar.FRIDAY) {
+            calendar.add(Calendar.DATE, 3);
+        } else {
+            calendar.add(Calendar.DATE, 1);
+        }
+        String currDate = dateFormat.format(calendar.getTime());
+        setupDayBar(currDate);
+    }
+
+    private void setDateOnDayTab(String date) {
+        textViewDate.setText(date);
+    }
+
+    private void onClickButtonPrevWeek() {
+        calendar.add(Calendar.DAY_OF_WEEK, -11);
+        String firstDayWeek = dateFormat.format(calendar.getTime());
+        calendar.add(Calendar.DAY_OF_WEEK, 4);
+        String lastDayWeek = dateFormat.format(calendar.getTime());
+        setupWeekBar(firstDayWeek, lastDayWeek);
+    }
+
+    private void onClickButtonNextWeek() {
+        calendar.add(Calendar.DAY_OF_WEEK, 3);
+        String firstDayWeek = dateFormat.format(calendar.getTime());
+        calendar.add(Calendar.DAY_OF_WEEK, 4);
+        String lastDayWeek = dateFormat.format(calendar.getTime());
+        setupWeekBar(firstDayWeek, lastDayWeek);
+    }
+
+    private void setDateOnWeekTab(String fromDate, String tillDate) {
+        textViewWeek.setText(fromDate + " - " + tillDate);
     }
 }
 
