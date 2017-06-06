@@ -14,15 +14,17 @@ import java.util.Map;
 
 public class  Task implements Parcelable, Comparator<Task>, Comparable<Task>{
     String author_id, date, task_name, task_description, user_id, task_id;
+    boolean is_done;
 
 
-    public Task(String author_id, String date, String task_name, String task_description, String user_id, String task_id) {
+    public Task(String author_id, String date, String task_name, String task_description, String user_id, String task_id, boolean is_done) {
         this.author_id = author_id;
         this.date = date;
         this.task_name = task_name;
         this.task_description = task_description;
         this.user_id = user_id;
         this.task_id = task_id;
+        this.is_done = is_done;
     }
 
     public Task() {
@@ -49,7 +51,7 @@ public class  Task implements Parcelable, Comparator<Task>, Comparable<Task>{
         }
     };
 
-    public Map<String, Object> toMap() {                   // convert object user in Map<> form
+    public Map<String, Object> toMap() {
         HashMap<String, Object> result = new HashMap<>();
         result.put("author_id", author_id);
         result.put("date", date);
@@ -57,6 +59,7 @@ public class  Task implements Parcelable, Comparator<Task>, Comparable<Task>{
         result.put("user_id", user_id);
         result.put("task_description", task_description);
         result.put("task_id", task_id);
+        result.put("is_done", is_done);
 
         return result;
     }
@@ -112,6 +115,9 @@ public class  Task implements Parcelable, Comparator<Task>, Comparable<Task>{
 
     public void setTask_description(String task_description) {
         this.task_description = task_description;
+    }
+    public boolean getisDone(){
+        return is_done;
     }
 
     public void setUser_id(String user_id) {

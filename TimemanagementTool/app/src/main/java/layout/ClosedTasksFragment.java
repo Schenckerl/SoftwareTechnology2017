@@ -1,5 +1,6 @@
 package layout;
 
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
@@ -25,7 +26,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-
 import at.thelegend27.timemanagementtool.AddNewTaskActivity;
 import at.thelegend27.timemanagementtool.AddTasksForEmployeeActivity;
 import at.thelegend27.timemanagementtool.HelperClasses.CurrentSession;
@@ -35,7 +35,12 @@ import at.thelegend27.timemanagementtool.TaskAdapter;
 import at.thelegend27.timemanagementtool.TaskDescriptionActivity;
 import at.thelegend27.timemanagementtool.database.User;
 
-public class TasksFragment extends Fragment {
+/**
+ * Created by Dominik on 06.06.2017.
+ */
+
+public class ClosedTasksFragment extends Fragment {
+
     @Nullable
     RecyclerView tasks_list;
     private List<Task> output;
@@ -64,11 +69,11 @@ public class TasksFragment extends Fragment {
     }
 
     private void updateList() {
-        reference.orderByChild("user_id").equalTo(user.getUid()).addChildEventListener(new ChildEventListener() {
+        reference.orderByChild("is_done").equalTo(true).addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 Task current = dataSnapshot.getValue(Task.class);
-                if(!current.getisDone()) {
+                if(current.getisDone()) {
                     output.add(dataSnapshot.getValue(Task.class));
                     sortTasks();
                     adapter.notifyDataSetChanged();

@@ -7,14 +7,18 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,8 +55,23 @@ public class TaskDescriptionActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.task_done, menu);
+    public boolean onCreateOptionsMenu(final Menu menu) {
+        final DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Tasks/"+
+                output.get(position).getTask_id());
+        reference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot){
+                Log.d("TASK", "We got our task");
+                Task task = dataSnapshot.getValue(Task.class);
+                if(!task.is_done){
+                    getMenuInflater().inflate(R.menu.task_done, menu);
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+
         return true;
     }
 
@@ -65,8 +84,22 @@ public class TaskDescriptionActivity extends AppCompatActivity {
                 ad.setMessage("Confirm, that task is done");
                 ad.setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int arg1) {
-                        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Tasks");
-                        reference.child(output.get(position).getTask_id()).removeValue();
+                        final DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Tasks/"+
+                                output.get(position).getTask_id());
+                        reference.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot){
+                                Log.d("TASK", "We got our task");
+                                Task done = dataSnapshot.getValue(Task.class);
+                                done.is_done = true;
+                                reference.setValue(done.toMap());
+                                Log.d("TASK", "we have set our value");
+                            }
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        });
                         finish();
                         isFinish = true;
                     }

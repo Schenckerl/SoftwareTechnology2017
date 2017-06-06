@@ -74,7 +74,6 @@ public class AddTasksForEmployeeActivity extends AppCompatActivity implements Ad
                 showDialog(1);
             }
         });
-
         database = FirebaseDatabase.getInstance();
         reference = database.getReference("Departments");
         if(user.isCEO) {
@@ -194,7 +193,8 @@ public class AddTasksForEmployeeActivity extends AppCompatActivity implements Ad
         getUserId();
         reference = database.getReference("Tasks");
         String id = reference.push().getKey();
-        Task task = new Task(user.getFullName(), deadline.getText().toString(), taskName.getText().toString(), taskDescription.getText().toString(), idOfSelectedUser, id);
+        Task task = new Task(user.getFullName(), deadline.getText().toString(),
+                taskName.getText().toString(), taskDescription.getText().toString(), idOfSelectedUser, id, false);
         Map<String, Object> taskValues = task.toMap();
         Map<String, Object> newTask = new HashMap<>();
         newTask.put(id, taskValues);

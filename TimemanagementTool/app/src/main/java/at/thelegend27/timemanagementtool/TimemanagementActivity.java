@@ -33,6 +33,7 @@ import layout.EditProfileFragment;
 import layout.EmployeeOverview;
 import layout.EmployeeTabHost;
 import layout.StatisticsFragment;
+import layout.TaskTabHost;
 import layout.TasksFragment;
 
 /**
@@ -139,7 +140,11 @@ public class TimemanagementActivity extends AppCompatActivity
                 fragment = new DashboardFragment();
                 break;
             case R.id.nav_tasks:
-                fragment = new TasksFragment();
+                if(CurrentSession.getInstance().getCurrent_user().isCEO){
+                    fragment = new TaskTabHost();
+                }else{
+                    fragment = new TasksFragment();
+                }
                 break;
             case R.id.nav_statistics:
                 fragment = new StatisticsFragment();

@@ -1,5 +1,7 @@
 package layout;
 
+
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
@@ -7,6 +9,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -20,11 +23,11 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
 
 import at.thelegend27.timemanagementtool.AddNewTaskActivity;
 import at.thelegend27.timemanagementtool.AddTasksForEmployeeActivity;
@@ -35,7 +38,8 @@ import at.thelegend27.timemanagementtool.TaskAdapter;
 import at.thelegend27.timemanagementtool.TaskDescriptionActivity;
 import at.thelegend27.timemanagementtool.database.User;
 
-public class TasksFragment extends Fragment {
+public class OpenTasksFragment extends Fragment {
+
     @Nullable
     RecyclerView tasks_list;
     private List<Task> output;
@@ -59,19 +63,31 @@ public class TasksFragment extends Fragment {
         sortTasks();
         updateList();
         return view;
-
-        //change R.layout.yourlayoutfilename for each of your fragments
     }
 
     private void updateList() {
-        reference.orderByChild("user_id").equalTo(user.getUid()).addChildEventListener(new ChildEventListener() {
+        reference.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                Task current = dataSnapshot.getValue(Task.class);
+                final Task current = dataSnapshot.getValue(Task.class);
                 if(!current.getisDone()) {
-                    output.add(dataSnapshot.getValue(Task.class));
-                    sortTasks();
-                    adapter.notifyDataSetChanged();
+                    DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users/" + current.getUser_id());
+                    ref.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            User to_check = dataSnapshot.getValue(User.class);
+                            if (to_check.company.equals(CurrentSession.getInstance().getCompany().name)) {
+                                Log.d("TASKS","We found a User");
+                                output.add(current);
+                                sortTasks();
+                                adapter.notifyDataSetChanged();
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+                        }
+                    });
                 }
             }
 

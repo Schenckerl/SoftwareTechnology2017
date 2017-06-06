@@ -111,7 +111,8 @@ public class AddNewTaskActivity extends AppCompatActivity  {
     private void setTask() {
         final User user = CurrentSession.getInstance().getCurrent_user();
         String id = reference.push().getKey();
-        Task task = new Task(user.getFullName(), deadline.getText().toString(), taskName.getText().toString(), taskDescription.getText().toString(), user.uid, id);
+        Task task = new Task(user.getFullName(), deadline.getText().toString(),
+                taskName.getText().toString(), taskDescription.getText().toString(), user.uid, id, false);
         Map<String, Object> taskValues = task.toMap();
         Map<String, Object> newTask = new HashMap<>();
         newTask.put(id, taskValues);
