@@ -64,8 +64,16 @@ public class CurrentSession {
                 Log.d("TIMETRACKING", values.toString());
                 if(FirebaseAuth.getInstance().getCurrentUser().getUid().equals(values.get("user"))){
                     Log.d("TIMETRACKING", "We allready have a tracking for THIS USER");
+                    if(values.containsKey("end")){
+                        Log.d("TIMETRACING", "The User has allready finished his workingday");
+                        workingDay = new WorkingDay(values.get("begin"), values.get("end"),dataSnapshot.getKey(),
+                                Long.parseLong(values.get("duration")));
+                    }else{
+                        Log.d("TIMETRACKING", "Reinitiating working day");
+                        workingDay = new WorkingDay(values.get("begin"));
+                        workingDay.key = dataSnapshot.getKey();
+                    }
                 }
-                //workingDay = dataSnapshot.getValue(WorkingDay.class);
             }
 
             @Override
@@ -206,8 +214,11 @@ public class CurrentSession {
         md.child("WorkingDays").child(key).setValue(workingToString());
     }
     public void endWorkingDay(){
-        this.workingDay.end = new DateTime("Europe/Berlin");
-        this.workingDay.duration = (workingDay.end.getMillis() - workingDay.begin.getMillis())/1000/60;
+        this.workingDay.end = new DateTime(DateTimeZone.forID("Europe/Berlin"));
+        long duration = (workingDay.end.getMillis() - workingDay.begin.getMillis())/1000/60;
+        this.workingDay.duration = duration;
+
+        Log.d("TIMETRACKING", "we worked for "+ duration);
 
         DatabaseReference md = FirebaseDatabase.getInstance().getReference("WorkingDays/"+ workingDay.key);
         md.setValue(workingToString());

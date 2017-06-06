@@ -2,6 +2,7 @@ package at.thelegend27.timemanagementtool.HelperClasses;
 import android.content.Context;
 import android.util.Log;
 import at.thelegend27.timemanagementtool.LoginActivity;
+import layout.DashboardFragment;
 
 public class checkerThread extends Thread{
     public static boolean cancle;
