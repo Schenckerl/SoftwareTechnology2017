@@ -41,7 +41,6 @@ public class EditDepartmentDialog extends DialogFragment{
         final View view = inflater.inflate(R.layout.edit_department, null);
 
         final ArrayList<String> possible_users = new ArrayList<>();
-
         final Spinner spinner = (Spinner)(view.findViewById(R.id.new_supervisor));
 
         DatabaseReference md = FirebaseDatabase.getInstance().getReference("Users");

@@ -53,6 +53,9 @@ public class DepartmentDetails extends Fragment {
         ((TextView)view.findViewById(R.id.department_info_header)).setText(dep);
 
         Button edit = (Button)view.findViewById(R.id.edit_department);
+        if(!CurrentSession.getInstance().getCurrent_user().isCEO){
+            edit.setVisibility(View.GONE);
+        }
         edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

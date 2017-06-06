@@ -8,14 +8,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import at.thelegend27.timemanagementtool.HelperClasses.CurrentSession;
 import at.thelegend27.timemanagementtool.R;
 
-/**
- * Created by dominik on 04.06.17.
- */
-
-public class AdminTabHost  extends Fragment {
-
+public class EmployeeTabHost extends Fragment {
     private FragmentTabHost mTabHost;
 
     @Override
@@ -25,13 +21,16 @@ public class AdminTabHost  extends Fragment {
         mTabHost = new FragmentTabHost(getActivity());
         mTabHost.setup(getActivity(), getChildFragmentManager(), R.layout.tab_host);
 
-        mTabHost.addTab(mTabHost.newTabSpec("create").setIndicator("Create"),
-                AdminFragment.class, null);
+        mTabHost.addTab(mTabHost.newTabSpec("employees").setIndicator("Employees"),
+               EmployeeOverview.class, null);
+        mTabHost.addTab(mTabHost.newTabSpec("supervisors").setIndicator("Supervisors"),
+                SupervisorOverview.class, null);
 
         return mTabHost;
     }
 
     @Override
     public void onViewCreated(final View view, @Nullable Bundle savedInstanceState) {
+        getActivity().setTitle("Employees for " + CurrentSession.getInstance().getCompany().name);
     }
 }

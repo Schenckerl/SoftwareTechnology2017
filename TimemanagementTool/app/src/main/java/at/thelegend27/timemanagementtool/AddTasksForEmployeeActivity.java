@@ -49,6 +49,7 @@ public class AddTasksForEmployeeActivity extends AppCompatActivity implements Ad
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTitle("Create Task for Employee");
         setContentView(R.layout.activity_add_tasks_for_employee);
         setDate = (Button)findViewById(R.id.addTaskDeadlineButtonAdmin);
         deadline = (TextView)findViewById(R.id.addTaskDeadlineAdmin);
@@ -64,7 +65,7 @@ public class AddTasksForEmployeeActivity extends AppCompatActivity implements Ad
                 setTask();
             }
         });
-        String date = new DateTime().toString("yyyy-MM-dd");
+        final String date = new DateTime().toString("yyyy-MM-dd");
         deadline.setText(date);
 
         setDate.setOnClickListener(new View.OnClickListener() {
@@ -99,27 +100,24 @@ public class AddTasksForEmployeeActivity extends AppCompatActivity implements Ad
                     });
         }
         else {
-            reference.orderByChild("company").equalTo(user.getCompany()).
-                      orderByChild("supervisor").equalTo(user.getUid()).
-                      addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
-                            final List<String> departments = new ArrayList<String>();
-                            for (DataSnapshot departmentsSnapshot : dataSnapshot.getChildren()) {
-                                String departmentName = departmentsSnapshot.getKey();
-                                departments.add(departmentName);
-                            }
-                            ArrayAdapter<String> departments_adapter = new ArrayAdapter<String>
-                                    (AddTasksForEmployeeActivity.this,
-                                            android.R.layout.simple_spinner_item, departments);
-                            departments_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                            setDepartment.setAdapter(departments_adapter);
-                        }
+            DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Departments/"+CurrentSession.getInstance().getDepartment().name);
+            ref.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    final List<String> department = new ArrayList<String>();
+                    department.add(dataSnapshot.getKey());
+                    ArrayAdapter<String> departments_adapter = new ArrayAdapter<String>
+                            (AddTasksForEmployeeActivity.this,
+                                    android.R.layout.simple_spinner_item, department);
+                    departments_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    setDepartment.setAdapter(departments_adapter);
+                }
 
-                        @Override
-                        public void onCancelled(DatabaseError databaseError) {
-                        }
-                    });
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                }
+            });
+
         }
     }
 

@@ -31,6 +31,7 @@ import layout.DepartmentDetails;
 import layout.DepartmentOverview;
 import layout.EditProfileFragment;
 import layout.EmployeeOverview;
+import layout.EmployeeTabHost;
 import layout.StatisticsFragment;
 import layout.TasksFragment;
 
@@ -156,7 +157,11 @@ public class TimemanagementActivity extends AppCompatActivity
                 fragment = new DashboardFragment();
                 break;
             case R.id.nav_employee_overview:
-                fragment = new EmployeeOverview();
+                if(CurrentSession.getInstance().getCurrent_user().isSupervisor) {
+                    fragment = new EmployeeOverview();
+                }else{
+                    fragment = new EmployeeTabHost();
+                }
                 break;
             case R.id.nav_department_overview:
                 fragment = new DepartmentOverview();
