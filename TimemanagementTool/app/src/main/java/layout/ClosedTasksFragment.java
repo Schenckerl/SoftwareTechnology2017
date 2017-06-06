@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -21,6 +22,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -72,11 +74,37 @@ public class ClosedTasksFragment extends Fragment {
         reference.orderByChild("is_done").equalTo(true).addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                Task current = dataSnapshot.getValue(Task.class);
+                final Task current = dataSnapshot.getValue(Task.class);
                 if(current.getisDone()) {
-                    output.add(dataSnapshot.getValue(Task.class));
-                    sortTasks();
-                    adapter.notifyDataSetChanged();
+                    Log.d("TASK","found open taks for: " + current.getUser_id());
+                    DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users/" + current.getUser_id());
+                    ref.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            User to_check = dataSnapshot.getValue(User.class);
+                            if(CurrentSession.getInstance().getCurrent_user().isCEO) {
+                                if (to_check.company.equals(CurrentSession.getInstance().getCompany().name)) {
+                                    Log.d("TASKS", "We found a User");
+                                    output.add(current);
+                                    sortTasks();
+                                    adapter.notifyDataSetChanged();
+                                }
+                            }else {
+                                if(to_check.department != null) {
+                                    if (to_check.department.equals(CurrentSession.getInstance().getDepartment().name)) {
+                                        Log.d("TASKS", "We found a User");
+                                        output.add(current);
+                                        sortTasks();
+                                        adapter.notifyDataSetChanged();
+                                    }
+                                }
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+                        }
+                    });
                 }
             }
 

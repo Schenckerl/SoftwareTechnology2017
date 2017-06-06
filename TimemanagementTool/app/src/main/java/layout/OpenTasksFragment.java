@@ -71,19 +71,30 @@ public class OpenTasksFragment extends Fragment {
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 final Task current = dataSnapshot.getValue(Task.class);
                 if(!current.getisDone()) {
+                    Log.d("TASK","found open taks for: " + current.getUser_id());
                     DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users/" + current.getUser_id());
-                    ref.addListenerForSingleValueEvent(new ValueEventListener() {
+                    ref.addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             User to_check = dataSnapshot.getValue(User.class);
-                            if (to_check.company.equals(CurrentSession.getInstance().getCompany().name)) {
-                                Log.d("TASKS","We found a User");
-                                output.add(current);
-                                sortTasks();
-                                adapter.notifyDataSetChanged();
+                            if (CurrentSession.getInstance().getCurrent_user().isCEO) {
+                                if (to_check.company.equals(CurrentSession.getInstance().getCompany().name)) {
+                                    Log.d("TASKS", "We found a User");
+                                    output.add(current);
+                                    sortTasks();
+                                    adapter.notifyDataSetChanged();
+                                }
+                            } else {
+                                if(to_check.department != null) {
+                                    if (to_check.department.equals(CurrentSession.getInstance().getDepartment().name)) {
+                                        Log.d("TASKS", "We found a User");
+                                        output.add(current);
+                                        sortTasks();
+                                        adapter.notifyDataSetChanged();
+                                    }
+                                }
                             }
                         }
-
                         @Override
                         public void onCancelled(DatabaseError databaseError) {
                         }

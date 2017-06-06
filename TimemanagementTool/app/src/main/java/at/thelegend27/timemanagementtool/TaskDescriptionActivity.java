@@ -37,7 +37,6 @@ public class TaskDescriptionActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_task_description);
-
         Bundle bundle = getIntent().getExtras();
         output = new ArrayList<>();
         output = bundle.getParcelableArrayList("output");
@@ -52,6 +51,7 @@ public class TaskDescriptionActivity extends AppCompatActivity {
         date.setText(output.get(taskNo).getDate());
         taskname.setText(output.get(taskNo).getTask_name());
         description.setText(output.get(taskNo).getTask_description());
+        setTitle("Task Description");
     }
 
     @Override

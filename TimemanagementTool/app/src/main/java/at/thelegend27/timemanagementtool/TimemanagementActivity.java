@@ -140,7 +140,8 @@ public class TimemanagementActivity extends AppCompatActivity
                 fragment = new DashboardFragment();
                 break;
             case R.id.nav_tasks:
-                if(CurrentSession.getInstance().getCurrent_user().isCEO){
+                if(CurrentSession.getInstance().getCurrent_user().isCEO ||
+                        CurrentSession.getInstance().getCurrent_user().isSupervisor){
                     fragment = new TaskTabHost();
                 }else{
                     fragment = new TasksFragment();
