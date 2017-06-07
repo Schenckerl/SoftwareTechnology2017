@@ -67,6 +67,7 @@ public class TimemanagementActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
         if(CurrentSession.getInstance().getCurrent_user().isCEO) {
             navigationView.getMenu().findItem(R.id.admin).setVisible(true);
             navigationView.getMenu().findItem(R.id.nav_employee_overview).setVisible(true);
@@ -83,7 +84,6 @@ public class TimemanagementActivity extends AppCompatActivity
         setUserInfos();
 
         displaySelectedScreen(R.id.nav_dashboard);
-
     }
 
     @Override

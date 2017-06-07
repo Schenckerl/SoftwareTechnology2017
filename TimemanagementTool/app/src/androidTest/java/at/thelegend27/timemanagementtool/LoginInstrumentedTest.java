@@ -15,6 +15,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import at.thelegend27.timemanagementtool.Firebase.FirebaseApplication;
+import at.thelegend27.timemanagementtool.HelperClasses.TestHelper;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
@@ -47,9 +48,8 @@ public class LoginInstrumentedTest {
 
     @Test
     public void inputCorrectLogin() {
-        onView(withId(R.id.login_email)).perform(typeText("test@test.com"));
-        onView(withId(R.id.login_password)).perform(typeText("test123"));
-
+        onView(withId(R.id.login_email)).perform(typeText(TestHelper.test_user_email));
+        onView(withId(R.id.login_password)).perform(typeText(TestHelper.test_user_password));
         onView(withId(R.id.login_button)).perform(click());
     }
 
@@ -78,7 +78,6 @@ public class LoginInstrumentedTest {
         onView(withId(R.id.login_email_wrapper)).check(matches(hasTextInputLayoutHintText(mActivityRule.getActivity().getString(R.string.missing_email_address))));
         onView(withId(R.id.login_password_wrapper)).check(matches(hasTextInputLayoutHintText(mActivityRule.getActivity().getString(R.string.error_field_required))));
     }
-
 
     @Test
     public void switchToSignUp() {
