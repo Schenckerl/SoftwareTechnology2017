@@ -1,5 +1,7 @@
 package at.thelegend27.timemanagementtool;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
@@ -51,7 +53,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnFocusChan
         }
 
         mAuth = ((FirebaseApplication) getApplication()).getFirebaseAuth();
-        ((FirebaseApplication) getApplication()).checkUserLogin(LoginActivity.this);
+        //((FirebaseApplication) getApplication()).checkUserLogin(LoginActivity.this);
 
         loginError = (TextView) findViewById(R.id.login_error);
         emailInput = (TextInputEditText) findViewById(R.id.login_email);
@@ -130,5 +132,16 @@ public class LoginActivity extends AppCompatActivity implements View.OnFocusChan
 
     public static void visibilityProgressbarLogin(int visibility) {
         progressBar.setVisibility(visibility);
+    }
+
+    public static void completeLogin(final Context context){
+        Intent timemanagementIntent = new Intent(context, TimemanagementActivity.class);
+        context.startActivity(timemanagementIntent);
+        ((Activity)context).runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(context, "User has been logged in ", Toast.LENGTH_LONG).show();
+            }
+        });
     }
 }

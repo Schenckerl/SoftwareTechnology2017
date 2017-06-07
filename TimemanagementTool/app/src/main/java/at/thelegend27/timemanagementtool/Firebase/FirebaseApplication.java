@@ -23,6 +23,7 @@ import com.google.firebase.auth.UserProfileChangeRequest;
 import at.thelegend27.timemanagementtool.HelperClasses.CurrentSession;
 import at.thelegend27.timemanagementtool.HelperClasses.UserUtils;
 import at.thelegend27.timemanagementtool.LoginActivity;
+import at.thelegend27.timemanagementtool.RelogActivity;
 import at.thelegend27.timemanagementtool.SignUpActivity;
 import at.thelegend27.timemanagementtool.TimemanagementActivity;
 import at.thelegend27.timemanagementtool.database.DatabaseHelper;
@@ -51,11 +52,18 @@ public class FirebaseApplication extends Application {
     }
 
     public void checkUserLogin(final Context context) {
-
         if (firebaseAuth.getCurrentUser() != null) {
-            CurrentSession.getInstance().init(firebaseAuth.getCurrentUser().getUid());
-            Intent timemanagementIntent = new Intent(context, TimemanagementActivity.class);
-            context.startActivity(timemanagementIntent);
+            Intent RelogIntent = new Intent(context, RelogActivity.class);
+            context.startActivity(RelogIntent);
+            try {
+                Thread.sleep(500);
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+
+            CurrentSession.getInstance().init(firebaseAuth.getCurrentUser().getUid(), context);
+//            Intent timemanagementIntent = new Intent(context, TimemanagementActivity.class);
+//            context.startActivity(timemanagementIntent);
         }
     }
 
@@ -97,7 +105,7 @@ public class FirebaseApplication extends Application {
                             DatabaseHelper.initDepartment(company_name);
 
                             UserUtils.createNewDbUser(new_user);
-                            CurrentSession.getInstance().init(new_user.uid);
+                            CurrentSession.getInstance().init(new_user.uid, context);
                         }
 
                         SignUpActivity.visibilityProgressbarSignUp(View.INVISIBLE);
@@ -118,14 +126,10 @@ public class FirebaseApplication extends Application {
 
                             String current_user_id = task.getResult().getUser().getUid();
 
-                            CurrentSession.getInstance().init(current_user_id);
-                            Intent timemanagementIntent = new Intent(context, TimemanagementActivity.class);
-                            context.startActivity(timemanagementIntent);
-
-                            Toast.makeText(context, "User has been login", Toast.LENGTH_LONG).show();
+                            CurrentSession.getInstance().init(current_user_id, context);
                         }
 
-                        LoginActivity.visibilityProgressbarLogin(View.INVISIBLE);
+                        //LoginActivity.visibilityProgressbarLogin(View.INVISIBLE);
                     }
                 });
     }
@@ -173,6 +177,10 @@ public class FirebaseApplication extends Application {
                                 } else {
                                     Toast.makeText(context, "Error: User password not updated. Try again!", Toast.LENGTH_LONG).show();
                                 }
+
+                                if (progressBar != null) {
+                                    progressBar.setVisibility(View.INVISIBLE);
+                                }
                             }
                         });
                     }
@@ -195,4 +203,5 @@ public class FirebaseApplication extends Application {
     public static void logoutCurrentFirebaseUser() {
         FirebaseAuth.getInstance().signOut();
     }
+
 }

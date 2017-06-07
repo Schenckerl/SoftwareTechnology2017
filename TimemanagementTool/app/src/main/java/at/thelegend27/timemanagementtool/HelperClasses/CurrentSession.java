@@ -1,5 +1,6 @@
 package at.thelegend27.timemanagementtool.HelperClasses;
 
+import android.content.Context;
 import android.util.Log;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -10,15 +11,28 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.gson.Gson;
+
+import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
+import org.joda.time.LocalDate;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import at.thelegend27.timemanagementtool.database.Company;
 import at.thelegend27.timemanagementtool.database.Department;
 import at.thelegend27.timemanagementtool.database.User;
+import at.thelegend27.timemanagementtool.database.WorkingDay;
 
 public class CurrentSession {
     private User current_user;
     private Company company;
     private Department department;
+    private WorkingDay workingDay = null;
+
+    public boolean loaded = false;
 
     private static CurrentSession instance;
 
@@ -29,14 +43,61 @@ public class CurrentSession {
         return instance;
     }
 
-    public void init(final String current_user_id){
+    public void init(final String current_user_id, Context context){
+
+        current_user = null;
+        company = null;
+        department = null;
+        loaded = false;
+        workingDay = null;
+
+        checkerThread thread = new checkerThread(context);
+        thread.start();
 
         Log.d("INIT", "initiationg singelton");
+        DatabaseReference time_db = FirebaseDatabase.getInstance().getReference("WorkingDays");
+        LocalDate today = new DateTime(DateTimeZone.forID("Europe/Berlin")).toLocalDate();
+        time_db.orderByChild("day").equalTo(today.toString()).addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                Map<String, String> values = (Map<String, String>)dataSnapshot.getValue();
+                Log.d("TIMETRACKING", values.toString());
+                if(FirebaseAuth.getInstance().getCurrentUser().getUid().equals(values.get("user"))){
+                    Log.d("TIMETRACKING", "We allready have a tracking for THIS USER");
+                    if(values.containsKey("end")){
+                        Log.d("TIMETRACING", "The User has allready finished his workingday");
+                        workingDay = new WorkingDay(values.get("begin"), values.get("end"),dataSnapshot.getKey(),
+                                Long.parseLong(values.get("duration")));
+                    }else{
+                        Log.d("TIMETRACKING", "Reinitiating working day");
+                        workingDay = new WorkingDay(values.get("begin"));
+                        workingDay.key = dataSnapshot.getKey();
+                    }
+                }
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
         DatabaseReference md = FirebaseDatabase.getInstance().getReference("Users/"+current_user_id);
-        if(md == null){
-            Log.d("INIT", "The user does not exist!!");
-            System.exit(500);
-        }
 
         md.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -85,7 +146,9 @@ public class CurrentSession {
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             Log.d("INIT", "we got our department");
                             Department department = dataSnapshot.getValue(Department.class);
+                            department.name = dataSnapshot.getKey();
                             CurrentSession.getInstance().setDepartment(department);
+
 
                             DatabaseReference md = FirebaseDatabase.getInstance().getReference("Companies/"+department.company);
                             md.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -93,6 +156,7 @@ public class CurrentSession {
                                 public void onDataChange(DataSnapshot dataSnapshot) {
                                     Log.d("INIT", "we got our company");
                                     Company company = dataSnapshot.getValue(Company.class);
+                                    company.name = dataSnapshot.getKey();
                                     CurrentSession.getInstance().setCompany(company);
                                 }
 
@@ -121,25 +185,42 @@ public class CurrentSession {
     public void setDepartment(Department department){this.department = department;}
 
     public User getCurrent_user() {
-        //waitning for data to get availabel
-        while(current_user == null){
-            try {
-                wait(100);
-            }catch (Exception e){
-                e.printStackTrace();
-            }
-        }
         return current_user;
     }
     public Company getCompany() {
-        while(company == null){
-            try{
-                wait(100);
-            }catch (Exception e){
-                e.printStackTrace();
-            }
-        }
         return company;
     }
     public Department getDepartment() {return department;}
+    public WorkingDay getWorkingDay() {return workingDay;}
+
+    private Map<String, String> workingToString(){
+        Map<String, String> ret = new HashMap<>();
+        ret.put("day", workingDay.begin.toLocalDate().toString());
+        ret.put("begin", workingDay.begin.toString());
+        ret.put("user", current_user.getUid());
+        if(workingDay.end != null)
+            ret.put("end", workingDay.end.toString());
+        if(workingDay.duration != 0)
+            ret.put("duration", ""+workingDay.duration);
+
+        return ret;
+    }
+    public void startWorkingDay(){
+        Log.d("TIMETRACKING", "started new Working day");
+        this.workingDay = new WorkingDay();
+        DatabaseReference md = FirebaseDatabase.getInstance().getReference();
+        String key = md.child("WorkingDays").push().getKey();
+        this.workingDay.key = key;
+        md.child("WorkingDays").child(key).setValue(workingToString());
+    }
+    public void endWorkingDay(){
+        this.workingDay.end = new DateTime(DateTimeZone.forID("Europe/Berlin"));
+        long duration = (workingDay.end.getMillis() - workingDay.begin.getMillis())/1000/60;
+        this.workingDay.duration = duration;
+
+        Log.d("TIMETRACKING", "we worked for "+ duration);
+
+        DatabaseReference md = FirebaseDatabase.getInstance().getReference("WorkingDays/"+ workingDay.key);
+        md.setValue(workingToString());
+    }
 }

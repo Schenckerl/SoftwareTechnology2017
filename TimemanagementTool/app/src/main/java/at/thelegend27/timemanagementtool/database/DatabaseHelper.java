@@ -45,11 +45,18 @@ public class DatabaseHelper {
     }
 
     public static void createNewDepartment(final String department_name, final String department_supervisor, final Context context){
-        DatabaseReference md = FirebaseDatabase.getInstance().getReference("Users");
+        final DatabaseReference md = FirebaseDatabase.getInstance().getReference("Users");
 
         md.orderByChild("fullName").equalTo(department_supervisor).addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                //updating user
+                User update = dataSnapshot.getValue(User.class);
+                update.isSupervisor = true;
+                update.department = department_name;
+
+                md.child(dataSnapshot.getKey()).setValue(update);
+
                 DatabaseReference db = FirebaseDatabase.getInstance().getReference();
                 Department new_department = new Department(CurrentSession.getInstance().getCompany().name, dataSnapshot.getKey());
                 db.child("Departments").child(department_name).setValue(new_department);
@@ -91,7 +98,9 @@ public class DatabaseHelper {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 Log.d("User", "found user");
-                possible_users.add(dataSnapshot.getValue(User.class).fullName);
+                if(!dataSnapshot.getValue(User.class).isSupervisor) {
+                    possible_users.add(dataSnapshot.getValue(User.class).fullName);
+                }
 
                 ArrayAdapter<String> adapter = new ArrayAdapter<>(context,android.R.layout.simple_spinner_item, possible_users);
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);

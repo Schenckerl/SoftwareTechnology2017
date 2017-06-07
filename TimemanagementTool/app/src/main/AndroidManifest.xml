@@ -25,16 +25,21 @@
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity android:name=".LoginActivity" />
         <activity android:name=".SignUpActivity" />
+        <activity android:name=".RelogActivity" />
         <activity
             android:name=".TimemanagementActivity"
             android:label="TimemanagementActivity"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".TaskDescriptionActivity" />
+        <activity android:name=".HelperClasses.AddNewFragmentActivity" />
+        <activity android:name=".AddNewFragmentActivity" />
+        <activity android:name=".AddNewTaskActivity" />
+        <activity android:name=".AddTasksForEmployeeActivity"></activity>
     </application>
 
 </manifest>

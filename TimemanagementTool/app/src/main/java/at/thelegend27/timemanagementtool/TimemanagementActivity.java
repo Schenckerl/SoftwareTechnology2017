@@ -5,25 +5,35 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.app.ListFragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
 
+import at.thelegend27.timemanagementtool.HelperClasses.CurrentSession;
 import layout.AdminFragment;
 import com.google.firebase.auth.FirebaseUser;
 
 import at.thelegend27.timemanagementtool.Firebase.FirebaseApplication;
+import layout.AdminTabHost;
 import layout.DashboardFragment;
+import layout.DepartmentDetails;
+import layout.DepartmentOverview;
 import layout.EditProfileFragment;
+import layout.EmployeeOverview;
+import layout.EmployeeTabHost;
 import layout.StatisticsFragment;
+import layout.TaskTabHost;
 import layout.TasksFragment;
 
 /**
@@ -57,6 +67,14 @@ public class TimemanagementActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        if(CurrentSession.getInstance().getCurrent_user().isCEO) {
+            navigationView.getMenu().findItem(R.id.admin).setVisible(true);
+            navigationView.getMenu().findItem(R.id.nav_employee_overview).setVisible(true);
+            navigationView.getMenu().findItem(R.id.nav_department_overview).setVisible(true);
+        }else if(CurrentSession.getInstance().getCurrent_user().isSupervisor){
+            navigationView.getMenu().findItem(R.id.nav_employee_overview).setVisible(true);
+            navigationView.getMenu().findItem(R.id.nav_department_details).setVisible(true);
+        }
 
         View v = navigationView.getHeaderView(0);
         userNameTextView = (TextView) v.findViewById(R.id.nav_name);
@@ -122,7 +140,12 @@ public class TimemanagementActivity extends AppCompatActivity
                 fragment = new DashboardFragment();
                 break;
             case R.id.nav_tasks:
-                fragment = new TasksFragment();
+                if(CurrentSession.getInstance().getCurrent_user().isCEO ||
+                        CurrentSession.getInstance().getCurrent_user().isSupervisor){
+                    fragment = new TaskTabHost();
+                }else{
+                    fragment = new TasksFragment();
+                }
                 break;
             case R.id.nav_statistics:
                 fragment = new StatisticsFragment();
@@ -134,15 +157,32 @@ public class TimemanagementActivity extends AppCompatActivity
                 fragment = new EditProfileFragment();
                 break;
             case R.id.admin:
-                fragment = new AdminFragment();
+                fragment = new AdminTabHost();//new AdminFragment();
                 break;
             case R.layout.fragment_dashboard:
                 fragment = new DashboardFragment();
                 break;
+            case R.id.nav_employee_overview:
+                if(CurrentSession.getInstance().getCurrent_user().isSupervisor) {
+                    fragment = new EmployeeOverview();
+                }else{
+                    fragment = new EmployeeTabHost();
+                }
+                break;
+            case R.id.nav_department_overview:
+                fragment = new DepartmentOverview();
+                break;
+            case R.layout.department_detail:
+                fragment = new DepartmentDetails();
+                break;
+            case R.id.nav_department_details:
+                Log.d("Switching", "Departmnet is: " + CurrentSession.getInstance().getDepartment().name);
+                showDepDetail(CurrentSession.getInstance().getDepartment().name);
+                break;
         }
 
         //replacing the fragment
-        if (fragment != null) {
+        if (fragment != null ) {
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
             ft.replace(R.id.content_frame, fragment);
             ft.commit();
@@ -172,9 +212,8 @@ public class TimemanagementActivity extends AppCompatActivity
         FirebaseUser user = firebaseApplication.getCurrentFirebaseUser();
 
         if (user != null) {
-            String userName = user.getDisplayName();
-            String userEmail = user.getEmail();
-
+            String userName = CurrentSession.getInstance().getCurrent_user().fullName;
+            String userEmail = CurrentSession.getInstance().getCurrent_user().email;
 
             userNameTextView.setText(userName);
             userEmailTextView.setText(userEmail);
@@ -188,5 +227,14 @@ public class TimemanagementActivity extends AppCompatActivity
         Intent loginIntent = new Intent(TimemanagementActivity.this, LoginActivity.class);
         loginIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(loginIntent);
+    }
+
+    public void showDepDetail(String name){
+        DepartmentDetails fragment = new DepartmentDetails();
+        fragment.dep = name;
+
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.content_frame, fragment);
+        ft.commit();
     }
 }

@@ -18,11 +18,28 @@
         <item
             android:id="@+id/admin"
             android:icon="@drawable/ic_menu_manage"
-            android:title="@string/administration"/>
+            android:title="@string/administration"
+            android:visible="false"/>
+        <item
+            android:id="@+id/nav_employee_overview"
+            android:icon="@drawable/ic_perm_identity_black_24dp"
+            android:title="@string/employee_overview"
+            android:visible="false"/>
+        <item
+            android:id="@+id/nav_department_overview"
+            android:icon="@drawable/ic_domain_black_24dp"
+            android:title="@string/department_overview"
+            android:visible="false"/>
+        <item
+            android:id="@+id/nav_department_details"
+            android:icon="@drawable/ic_info_black_24dp"
+            android:title="@string/department_overview"
+            android:visible="false"/>
         <item
             android:id="@+id/nav_logout"
             android:icon="@drawable/ic_perm_contact_calendar_black_24dp"
             android:title="@string/logout" />
+
     </group>
 
 </menu>

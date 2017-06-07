@@ -110,6 +110,7 @@
     <string name="menu_logout">Logout</string>
 
     <string name="profile_names">Display name</string>
+    <string name="task_done">Task done</string>
     <string name="induce_smile">Induce Smile</string>
     <string name="edit_profile_name">Name</string>
     <string name="edit_profile_country">Country</string>
@@ -143,6 +144,17 @@
     <string name="department_supervisor">Department Supervisor</string>
     <string name="submit_department">Submit Department</string>
     <string name="department_dropdown_title">Department</string>
+    <string name="employee_dropdown_title">Employee</string>
+    <string name="employee_overview">Employee Overview</string>
+    <string name="relogging_user_please_wait">Relogging User Please wait</string>
+    <string name="department_overview">Department Overview</string>
+    <string name="details_for_department">Details for Department</string>
+    <string name="supervisor_name">SuperVisor name</string>
+    <string name="supervisor">Supervisor: </string>
+    <string name="users">Users</string>
+    <string name="edit_department">Edit Department</string>
+    <string name="cancel">Cancel</string>
+    <string name="confirm">Confirm</string>
 
     <plurals name="error_week_password">
         <item quantity="one">Password not strong enough. Use at least %1$d character and a mix of letters and numbers</item>

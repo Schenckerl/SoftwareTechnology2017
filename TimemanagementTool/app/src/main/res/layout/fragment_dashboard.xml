@@ -11,34 +11,6 @@
         android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/dashboardTextViewTaskDescription"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_margin="8dp"
-            android:text="@string/task"
-            android:textSize="24sp" />
-
-        <TextView
-            android:id="@+id/dashboardTextViewTask"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_margin="8dp"
-            android:layout_weight="1"
-            android:text="Test Task 1"
-            android:textSize="24sp" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <TextView
             android:id="@+id/dashboardTextViewArrivedDescription"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -50,55 +22,118 @@
             android:text="Arrived:"
             android:textSize="24sp" />
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:layout_weight="1"
+            android:text="Working not started"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="@color/colorRed"
+            android:id="@+id/init_arrival"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:layout_weight="1"
+            android:text="HH:MM"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="@android:color/holo_green_dark"
+            android:id="@+id/arrival"
+            android:visibility="gone"/>
         <TextClock
             android:id="@+id/dashboardTextClockArrived"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
             android:layout_weight="1"
-            android:textSize="24sp" />
+            android:textSize="24sp"
+            android:visibility="gone"/>
 
     </LinearLayout>
-
     <LinearLayout
+        android:id="@+id/workingDaySummary"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="vertical"
+        android:visibility="gone">
 
-        <TextView
-            android:id="@+id/dashboardTextViewBreakDescription"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_margin="8dp"
-            android:layout_weight="1"
-            android:maxWidth="10dp"
-            android:text="Break:"
-            android:textSize="24sp" />
+        <LinearLayout
 
-        <TextClock
-            android:id="@+id/dashboardTextClockBreak"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:layout_weight="1"
-            android:textSize="24sp" />
+            android:orientation="horizontal"
+            android:visibility="visible">
 
+            <TextView
+                android:id="@+id/dashboardTextViewDayDescription"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_margin="8dp"
+                android:layout_weight="1"
+                android:maxWidth="10dp"
+                android:text="Worked :"
+                android:textSize="24sp" />
+
+            <TextView
+                android:id="@+id/dashboardTextDay"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:layout_weight="1"
+                android:textSize="24sp"
+                android:text="Time worked"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:visibility="visible">
+
+            <TextView
+                android:id="@+id/dashboardTextViewBreakDescription"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_margin="8dp"
+                android:layout_weight="1"
+                android:maxWidth="10dp"
+                android:text="Break Time :"
+                android:textSize="24sp" />
+
+            <TextView
+                android:id="@+id/dashboardTextBreak"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:layout_weight="1"
+                android:textSize="24sp"
+                android:text="Time spent in break"/>
+
+        </LinearLayout>
     </LinearLayout>
+
 
     <Button
         android:id="@+id/dashboardButtonArrive"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="100dp"
         android:layout_marginBottom="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="30dp"
-        android:layout_weight="0.5"
+        android:layout_weight="1"
         android:background="@android:color/holo_green_light"
         android:text="@string/arrive"
-        android:textSize="18sp" />
+        android:textSize="18sp"
+        android:visibility="visible"/>
 
     <Button
         android:id="@+id/dashboardButtonLeave"
@@ -108,7 +143,8 @@
         android:layout_weight="0.5"
         android:background="@android:color/holo_red_light"
         android:text="@string/leave"
-        android:textSize="18sp" />
+        android:textSize="18sp"
+        android:visibility="gone"/>
 
     <Button
         android:id="@+id/dashboardButtonBreak"
@@ -118,6 +154,21 @@
         android:layout_weight="0.5"
         android:background="@android:color/holo_orange_light"
         android:text="@string/text_break"
-        android:textSize="18sp" />
+        android:textSize="18sp"
+        android:visibility="gone"/>
+
+    <TextView
+        android:id="@+id/finished_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="80dp"
+        android:text="Your Working day has already finished, Please come back tomorrow to start a new one."
+        android:textSize="24sp"
+        android:textAlignment="center"
+        android:textColor="@android:color/holo_green_dark"
+        android:visibility="gone"
+        android:layout_marginLeft="@dimen/_12sdp"
+        android:layout_marginRight="@dimen/_12sdp"
+        />
 
 </LinearLayout>
