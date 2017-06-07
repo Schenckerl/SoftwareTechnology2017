@@ -12,13 +12,13 @@
 
         <ImageView
             android:id="@+id/logo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="@dimen/_56sdp"
+            android:layout_height="@dimen/_56sdp"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="@dimen/_16sdp"
-            android:maxWidth="20dp"
             android:maxHeight="20dp"
+            android:maxWidth="20dp"
             android:scaleType="fitXY"
             android:src="@drawable/clock_icon" />
 
