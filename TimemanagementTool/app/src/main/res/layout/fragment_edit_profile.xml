@@ -8,119 +8,121 @@
     android:descendantFocusability="beforeDescendants"
     android:focusableInTouchMode="true">
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:layout_margin="@dimen/_12sdp">
+        android:layout_height="match_parent">
 
-        <android.support.design.widget.TextInputLayout
-            android:id="@+id/profile_name_wrapper"
-            style="@style/AppTheme.TextInputLayout"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/edit_profile_name"
-            app:errorTextAppearance="@style/AppTheme.Text.ErrorText"
-            app:hintTextAppearance="@style/AppTheme.Text.HintText">
+            android:layout_margin="@dimen/_12sdp"
+            android:orientation="vertical">
 
-            <android.support.design.widget.TextInputEditText
-                android:id="@+id/profile_name"
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/profile_name_wrapper"
                 style="@style/AppTheme.TextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:imeOptions="actionNext"
-                android:inputType="textPersonName|textCapWords"
+                android:hint="@string/edit_profile_name"
                 app:errorTextAppearance="@style/AppTheme.Text.ErrorText"
-                app:hintTextAppearance="@style/AppTheme.Text.HintText" />
-        </android.support.design.widget.TextInputLayout>
+                app:hintTextAppearance="@style/AppTheme.Text.HintText">
 
-        <Button
-            android:id="@+id/save_edit_button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_8sdp"
-            android:background="@color/colorPrimaryDark"
-            android:padding="@dimen/_12sdp"
-            android:text="@string/save_name"
-            android:textColor="@color/colorWhite" />
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/profile_name"
+                    style="@style/AppTheme.TextInputLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:imeOptions="actionNext"
+                    android:inputType="textPersonName|textCapWords"
+                    app:errorTextAppearance="@style/AppTheme.Text.ErrorText"
+                    app:hintTextAppearance="@style/AppTheme.Text.HintText" />
+            </android.support.design.widget.TextInputLayout>
 
-        <android.support.design.widget.TextInputLayout
-            android:id="@+id/profile_old_password_wrapper"
-            style="@style/AppTheme.TextInputLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/save_edit_button"
-            android:layout_marginTop="@dimen/_32sdp"
-            android:hint="@string/edit_profile_old_password"
-            app:passwordToggleEnabled="true"
-
-            app:errorTextAppearance="@style/AppTheme.Text.ErrorText"
-            app:hintTextAppearance="@style/AppTheme.Text.HintText">
-
-            <android.support.design.widget.TextInputEditText
-                android:id="@+id/profile_old_password"
-                style="@style/AppTheme.TextInputEditText"
+            <Button
+                android:id="@+id/save_edit_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textPassword"
-                app:errorTextAppearance="@style/AppTheme.Text.ErrorText"
-                app:hintTextAppearance="@style/AppTheme.Text.HintText" />
-        </android.support.design.widget.TextInputLayout>
+                android:layout_marginTop="@dimen/_8sdp"
+                android:background="@color/colorPrimaryDark"
+                android:padding="@dimen/_12sdp"
+                android:text="@string/save_name"
+                android:textColor="@color/colorWhite" />
 
-        <android.support.design.widget.TextInputLayout
-            android:id="@+id/profile_password_wrapper"
-            style="@style/AppTheme.TextInputLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/profile_old_password_wrapper"
-            android:hint="@string/edit_profile_password"
-            app:passwordToggleEnabled="true"
-            app:errorTextAppearance="@style/AppTheme.Text.ErrorText"
-            app:hintTextAppearance="@style/AppTheme.Text.HintText">
-
-            <android.support.design.widget.TextInputEditText
-                android:id="@+id/profile_password"
-                style="@style/AppTheme.TextInputEditText"
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/profile_old_password_wrapper"
+                style="@style/AppTheme.TextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textPassword"
+                android:layout_marginTop="@dimen/_32sdp"
+                android:hint="@string/edit_profile_old_password"
                 app:errorTextAppearance="@style/AppTheme.Text.ErrorText"
-                app:hintTextAppearance="@style/AppTheme.Text.HintText" />
-        </android.support.design.widget.TextInputLayout>
+                app:hintTextAppearance="@style/AppTheme.Text.HintText"
+                app:passwordToggleEnabled="true">
 
-        <android.support.design.widget.TextInputLayout
-            android:id="@+id/profile_repeat_password_wrapper"
-            style="@style/AppTheme.TextInputLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/password_wrapper"
-            app:passwordToggleEnabled="true"
-            android:hint="@string/edit_profile_confirm_password"
-            app:errorTextAppearance="@style/AppTheme.Text.ErrorText"
-            app:hintTextAppearance="@style/AppTheme.Text.HintText">
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/profile_old_password"
+                    style="@style/AppTheme.TextInputEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPassword"
+                    app:errorTextAppearance="@style/AppTheme.Text.ErrorText"
+                    app:hintTextAppearance="@style/AppTheme.Text.HintText" />
+            </android.support.design.widget.TextInputLayout>
 
-            <android.support.design.widget.TextInputEditText
-                android:id="@+id/profile_repeat_password"
-                style="@style/AppTheme.TextInputEditText"
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/profile_password_wrapper"
+                style="@style/AppTheme.TextInputLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textPassword"
+                android:hint="@string/edit_profile_password"
                 app:errorTextAppearance="@style/AppTheme.Text.ErrorText"
-                app:hintTextAppearance="@style/AppTheme.Text.HintText" />
-        </android.support.design.widget.TextInputLayout>
+                app:hintTextAppearance="@style/AppTheme.Text.HintText"
+                app:passwordToggleEnabled="true">
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/profile_password"
+                    style="@style/AppTheme.TextInputEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPassword"
+                    app:errorTextAppearance="@style/AppTheme.Text.ErrorText"
+                    app:hintTextAppearance="@style/AppTheme.Text.HintText" />
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/profile_repeat_password_wrapper"
+                style="@style/AppTheme.TextInputLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/edit_profile_confirm_password"
+                app:errorTextAppearance="@style/AppTheme.Text.ErrorText"
+                app:hintTextAppearance="@style/AppTheme.Text.HintText"
+                app:passwordToggleEnabled="true">
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/profile_repeat_password"
+                    style="@style/AppTheme.TextInputEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPassword"
+                    app:errorTextAppearance="@style/AppTheme.Text.ErrorText"
+                    app:hintTextAppearance="@style/AppTheme.Text.HintText" />
+            </android.support.design.widget.TextInputLayout>
 
 
-        <Button
-            android:id="@+id/save_password_button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_8sdp"
-            android:background="@color/colorPrimaryDark"
-            android:padding="@dimen/_12sdp"
-            android:text="@string/save_password"
-            android:textColor="@color/colorWhite" />
+            <Button
+                android:id="@+id/save_password_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:background="@color/colorPrimaryDark"
+                android:padding="@dimen/_12sdp"
+                android:text="@string/save_password"
+                android:textColor="@color/colorWhite" />
 
-    </LinearLayout>
+        </LinearLayout>
+
+    </ScrollView>
 
     <ProgressBar
         android:id="@+id/progressBarEditProfil"
