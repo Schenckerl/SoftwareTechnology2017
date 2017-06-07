@@ -1,5 +1,6 @@
 package at.thelegend27.timemanagementtool;
 
+import android.support.test.espresso.Espresso;
 import android.support.test.espresso.contrib.NavigationViewActions;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
@@ -39,6 +40,7 @@ public class TimeTrackingInstrumentedTest {
     public void setUp() {
         onView(withId(R.id.login_email)).perform(typeText(TestHelper.working_user));
         onView(withId(R.id.login_password)).perform(typeText(TestHelper.working_password));
+        Espresso.closeSoftKeyboard();
         onView(withId(R.id.login_button)).perform(click());
     }
     @Test

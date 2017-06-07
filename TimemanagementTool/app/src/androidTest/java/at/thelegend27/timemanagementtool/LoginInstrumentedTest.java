@@ -2,6 +2,7 @@ package at.thelegend27.timemanagementtool;
 
 import android.content.Intent;
 import android.support.design.widget.TextInputLayout;
+import android.support.test.espresso.Espresso;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.view.View;
@@ -50,6 +51,7 @@ public class LoginInstrumentedTest {
     public void inputCorrectLogin() {
         onView(withId(R.id.login_email)).perform(typeText(TestHelper.test_user_email));
         onView(withId(R.id.login_password)).perform(typeText(TestHelper.test_user_password));
+        Espresso.closeSoftKeyboard();
         onView(withId(R.id.login_button)).perform(click());
     }
 
@@ -57,6 +59,7 @@ public class LoginInstrumentedTest {
     public void checkInvalidEmailLogin() {
         onView(withId(R.id.login_email)).perform(typeText("test@test"));
         onView(withId(R.id.login_password)).perform(typeText("test123"));
+        Espresso.closeSoftKeyboard();
         onView(withId(R.id.login_email_wrapper)).check(matches(hasTextInputLayoutHintText(mActivityRule.getActivity().getString(R.string.invalid_email_address))));
     }
 
@@ -64,6 +67,7 @@ public class LoginInstrumentedTest {
     public void checkShortPasswordLogin() {
         onView(withId(R.id.login_email)).perform(typeText("test@test.com"));
         onView(withId(R.id.login_password)).perform(typeText("tes"));
+        Espresso.closeSoftKeyboard();
         onView(withId(R.id.login_button)).perform(click());
 
         onView(withId(R.id.login_password_wrapper)).check(matches(hasTextInputLayoutHintText(mActivityRule.getActivity().getString(R.string.short_password))));
@@ -73,6 +77,7 @@ public class LoginInstrumentedTest {
     public void checkMissingPasswordLogin() {
         onView(withId(R.id.login_email)).perform(typeText(""));
         onView(withId(R.id.login_password)).perform(typeText(""));
+        Espresso.closeSoftKeyboard();
         onView(withId(R.id.login_button)).perform(click());
 
         onView(withId(R.id.login_email_wrapper)).check(matches(hasTextInputLayoutHintText(mActivityRule.getActivity().getString(R.string.missing_email_address))));

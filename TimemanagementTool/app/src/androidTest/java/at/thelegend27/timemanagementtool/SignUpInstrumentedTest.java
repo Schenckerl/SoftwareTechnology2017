@@ -28,6 +28,7 @@ import at.thelegend27.timemanagementtool.Firebase.FirebaseApplication;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
+import static android.support.test.espresso.action.ViewActions.scrollTo;
 import static android.support.test.espresso.action.ViewActions.typeText;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
@@ -87,6 +88,7 @@ public class SignUpInstrumentedTest {
         onView(withId(R.id.company)).perform(typeText(""));
         Espresso.closeSoftKeyboard();
 
+        onView(withId(R.id.sign_up_button)).perform(scrollTo());
         onView(withId(R.id.sign_up_button)).perform(click());
 
         onView(withId(R.id.forename_wrapper)).check(matches(hasTextInputLayoutHintText(mActivityRule.getActivity().getString(R.string.error_field_required))));

@@ -45,6 +45,7 @@ public class TasksInstrumentedTest {
     public void setUp() {
         onView(withId(R.id.login_email)).perform(typeText(TestHelper.boss_email));
         onView(withId(R.id.login_password)).perform(typeText(TestHelper.boss_password));
+        Espresso.closeSoftKeyboard();
         onView(withId(R.id.login_button)).perform(click());
     }
 
