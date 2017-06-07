@@ -135,6 +135,40 @@
                         android:padding="@dimen/_8sdp"
                         android:orientation="vertical">
 
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <ImageButton
+                                android:id="@+id/image_button_prev_month"
+                                android:layout_width="@dimen/_8sdp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:background="@android:color/transparent"
+                                android:scaleX="-1"
+                                app:srcCompat="@drawable/quantum_ic_play_arrow_grey600_48" />
+
+                            <TextView
+                                android:id="@+id/text_view_month"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical|center_horizontal"
+                                android:layout_weight="1"
+                                android:gravity="center_vertical|center_horizontal"
+                                android:text="TextView"
+                                android:textSize="@dimen/_24sdp" />
+
+                            <ImageButton
+                                android:id="@+id/image_button_next_month"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:background="@android:color/transparent"
+                                app:srcCompat="@drawable/quantum_ic_play_arrow_grey600_48" />
+
+                        </LinearLayout>
+
                         <com.github.mikephil.charting.charts.BarChart
                             android:id="@+id/chart_month"
                             android:layout_width="fill_parent"

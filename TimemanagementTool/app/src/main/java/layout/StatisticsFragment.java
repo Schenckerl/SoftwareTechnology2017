@@ -61,6 +61,10 @@ public class StatisticsFragment extends Fragment implements TabHost.OnTabChangeL
     private TextView textViewWeek;
     private ImageButton imageButtonNextWeek;
 
+    private ImageButton imageButtonPrevMonth;
+    private TextView textViewMonth;
+    private ImageButton imageButtonNextMonth;
+
     private DateFormat dateFormat;
 
     private float groupSpace = 0.06f;
@@ -117,12 +121,18 @@ public class StatisticsFragment extends Fragment implements TabHost.OnTabChangeL
         imageButtonPrevWeek = (ImageButton) getView().findViewById(R.id.image_button_prev_week);
         imageButtonNextWeek = (ImageButton) getView().findViewById(R.id.image_button_next_week);
         textViewWeek = (TextView) getView().findViewById(R.id.text_view_week);
+        imageButtonPrevMonth = (ImageButton) getView().findViewById(R.id.image_button_prev_month);
+        imageButtonNextMonth = (ImageButton) getView().findViewById(R.id.image_button_next_month);
+        textViewMonth = (TextView) getView().findViewById(R.id.text_view_month);
 
         imageButtonPrevDay.setOnClickListener(this);
         imageButtonNextDay.setOnClickListener(this);
 
         imageButtonPrevWeek.setOnClickListener(this);
         imageButtonNextWeek.setOnClickListener(this);
+
+        imageButtonPrevMonth.setOnClickListener(this);
+        imageButtonNextMonth.setOnClickListener(this);
 
         calendar = Calendar.getInstance();
         dateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -347,6 +357,26 @@ public class StatisticsFragment extends Fragment implements TabHost.OnTabChangeL
 
     private void setDateOnWeekTab(String fromDate, String tillDate) {
         textViewWeek.setText(fromDate + " - " + tillDate);
+    }
+
+    private void onClickButtonPrevMonth() {
+        calendar.add(Calendar.DAY_OF_WEEK, -11);
+        String firstDayWeek = dateFormat.format(calendar.getTime());
+        calendar.add(Calendar.DAY_OF_WEEK, 4);
+        String lastDayWeek = dateFormat.format(calendar.getTime());
+        setupWeekBar(firstDayWeek, lastDayWeek);
+    }
+
+    private void onClickButtonNextMonth() {
+        calendar.add(Calendar.DAY_OF_WEEK, 3);
+        String firstDayWeek = dateFormat.format(calendar.getTime());
+        calendar.add(Calendar.DAY_OF_WEEK, 4);
+        String lastDayWeek = dateFormat.format(calendar.getTime());
+        setupWeekBar(firstDayWeek, lastDayWeek);
+    }
+
+    private void setDateOnMonthTab(String date) {
+        textViewMonth.setText(date);
     }
 }
 
