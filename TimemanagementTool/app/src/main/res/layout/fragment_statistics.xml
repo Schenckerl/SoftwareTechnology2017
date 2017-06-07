@@ -3,181 +3,55 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="layout.StatisticsFragment">
+    tools:context="layout.StatisticsFragmentDay">
 
     <!-- TODO: Update blank fragment layout -->
 
+
     <LinearLayout
+        android:id="@+id/tab_day"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="horizontal">
+        android:padding="@dimen/_8sdp"
+        android:orientation="vertical">
 
-        <TabHost
-            android:id="@+id/statistics_tabHost"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
+            <ImageButton
+                android:id="@+id/image_button_prev"
+                android:layout_width="@dimen/_8sdp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@android:color/transparent"
+                app:srcCompat="@drawable/ic_keyboard_arrow_left_black_24dp" />
 
-                <TabWidget
-                    android:id="@android:id/tabs"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" >
+            <TextView
+                android:id="@+id/text_view_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical|center_horizontal"
+                android:layout_weight="1"
+                android:gravity="center_vertical|center_horizontal"
+                android:text="TextView"
+                android:textSize="@dimen/_24sdp" />
 
-                </TabWidget>
+            <ImageButton
+                android:id="@+id/image_button_next"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@android:color/transparent"
+                app:srcCompat="@drawable/ic_keyboard_arrow_right_black_24dp" />
 
-                <FrameLayout
-                    android:id="@android:id/tabcontent"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+        </LinearLayout>
 
-                    <LinearLayout
-                        android:id="@+id/tab_day"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:padding="@dimen/_8sdp"
-                        android:orientation="vertical">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal">
-
-                            <ImageButton
-                                android:id="@+id/image_button_prev_day"
-                                android:layout_width="@dimen/_8sdp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:background="@android:color/transparent"
-                                android:scaleX="-1"
-                                app:srcCompat="@drawable/quantum_ic_play_arrow_grey600_48" />
-
-                            <TextView
-                                android:id="@+id/text_view_date"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center_vertical|center_horizontal"
-                                android:layout_weight="1"
-                                android:gravity="center_vertical|center_horizontal"
-                                android:text="TextView"
-                                android:textSize="@dimen/_24sdp" />
-
-                            <ImageButton
-                                android:id="@+id/image_button_next_day"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:background="@android:color/transparent"
-                                app:srcCompat="@drawable/quantum_ic_play_arrow_grey600_48" />
-
-                        </LinearLayout>
-
-                        <com.github.mikephil.charting.charts.BarChart
-                            android:id="@+id/chart_day"
-                            android:layout_width="fill_parent"
-                            android:layout_height="match_parent" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/tab_week"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:padding="@dimen/_8sdp"
-                        android:orientation="vertical">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal">
-
-                            <ImageButton
-                                android:id="@+id/image_button_prev_week"
-                                android:layout_width="@dimen/_8sdp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:background="@android:color/transparent"
-                                android:scaleX="-1"
-                                app:srcCompat="@drawable/quantum_ic_play_arrow_grey600_48" />
-
-                            <TextView
-                                android:id="@+id/text_view_week"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center_vertical|center_horizontal"
-                                android:layout_weight="1"
-                                android:gravity="center_vertical|center_horizontal"
-                                android:text="TextView"
-                                android:textSize="@dimen/_24sdp" />
-
-                            <ImageButton
-                                android:id="@+id/image_button_next_week"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:background="@android:color/transparent"
-                                app:srcCompat="@drawable/quantum_ic_play_arrow_grey600_48" />
-
-                        </LinearLayout>
-
-                        <com.github.mikephil.charting.charts.BarChart
-                            android:id="@+id/chart_week"
-                            android:layout_width="fill_parent"
-                            android:layout_height="fill_parent" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/tab_month"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:padding="@dimen/_8sdp"
-                        android:orientation="vertical">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal">
-
-                            <ImageButton
-                                android:id="@+id/image_button_prev_month"
-                                android:layout_width="@dimen/_8sdp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:background="@android:color/transparent"
-                                android:scaleX="-1"
-                                app:srcCompat="@drawable/quantum_ic_play_arrow_grey600_48" />
-
-                            <TextView
-                                android:id="@+id/text_view_month"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center_vertical|center_horizontal"
-                                android:layout_weight="1"
-                                android:gravity="center_vertical|center_horizontal"
-                                android:text="TextView"
-                                android:textSize="@dimen/_24sdp" />
-
-                            <ImageButton
-                                android:id="@+id/image_button_next_month"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:background="@android:color/transparent"
-                                app:srcCompat="@drawable/quantum_ic_play_arrow_grey600_48" />
-
-                        </LinearLayout>
-
-                        <com.github.mikephil.charting.charts.BarChart
-                            android:id="@+id/chart_month"
-                            android:layout_width="fill_parent"
-                            android:layout_height="fill_parent" />
-                    </LinearLayout>
-                </FrameLayout>
-            </LinearLayout>
-        </TabHost>
-
+        <com.github.mikephil.charting.charts.BarChart
+            android:id="@+id/chart_stat"
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent" />
     </LinearLayout>
 
 </FrameLayout>

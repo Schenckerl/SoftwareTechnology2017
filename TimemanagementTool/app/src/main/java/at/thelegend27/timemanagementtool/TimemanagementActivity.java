@@ -5,9 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.app.ListFragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -20,11 +18,10 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
 
-import at.thelegend27.timemanagementtool.HelperClasses.CurrentSession;
-import layout.AdminFragment;
 import com.google.firebase.auth.FirebaseUser;
 
 import at.thelegend27.timemanagementtool.Firebase.FirebaseApplication;
+import at.thelegend27.timemanagementtool.HelperClasses.CurrentSession;
 import layout.AdminTabHost;
 import layout.DashboardFragment;
 import layout.DepartmentDetails;
@@ -32,7 +29,7 @@ import layout.DepartmentOverview;
 import layout.EditProfileFragment;
 import layout.EmployeeOverview;
 import layout.EmployeeTabHost;
-import layout.StatisticsFragment;
+import layout.StatisticsTabHost;
 import layout.TaskTabHost;
 import layout.TasksFragment;
 
@@ -148,7 +145,7 @@ public class TimemanagementActivity extends AppCompatActivity
                 }
                 break;
             case R.id.nav_statistics:
-                fragment = new StatisticsFragment();
+                fragment = new StatisticsTabHost();
                 break;
             case R.id.nav_logout:
                 logoutCurrentUser();

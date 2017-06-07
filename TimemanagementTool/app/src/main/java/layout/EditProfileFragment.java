@@ -108,17 +108,12 @@ public class EditProfileFragment extends Fragment implements View.OnFocusChangeL
     private void saveUserPassword(FirebaseUser user, FirebaseApplication firebaseApplication) {
         String profileOldPassword = editProfileOldPassword.getText().toString();
         String profilePassword = editProfilePassword.getText().toString();
-        String profileRepeatPassword = editProfileRepeatPassword.getText().toString();
 
         TimemanagementActivity.hideKeyboard(getActivity());
 
         visibilityProgressbarEditProfile(View.VISIBLE);
 
         if (user != null) {
-            String userId = user.getProviderId();
-            String id = user.getUid();
-            String profileEmail = user.getEmail();
-
             firebaseApplication.changeUserPassword(getActivity(), user, profileOldPassword, profilePassword, progressBar);
         }
     }
