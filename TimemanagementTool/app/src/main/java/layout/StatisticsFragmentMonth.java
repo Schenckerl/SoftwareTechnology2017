@@ -34,9 +34,12 @@ import java.util.Map;
 
 import at.thelegend27.timemanagementtool.HelperClasses.CurrentSession;
 import at.thelegend27.timemanagementtool.R;
+import at.thelegend27.timemanagementtool.TimemanagementActivity;
 
 public class StatisticsFragmentMonth extends Fragment implements View.OnClickListener {
     public String userId;
+
+    private TimemanagementActivity activity;
 
     private BarChart barChart;
     private List<Float> entriesFloatArray = new ArrayList<>();
@@ -76,6 +79,7 @@ public class StatisticsFragmentMonth extends Fragment implements View.OnClickLis
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         //you can set the title for your toolbar here for different fragments different titles
+        activity = (TimemanagementActivity) getActivity();
         imageButtonPrev = (ImageButton) getView().findViewById(R.id.image_button_prev);
         imageButtonNext = (ImageButton) getView().findViewById(R.id.image_button_next);
         textViewDate = (TextView) getView().findViewById(R.id.text_view_date);
@@ -120,7 +124,7 @@ public class StatisticsFragmentMonth extends Fragment implements View.OnClickLis
         setDateOnMonthTab(date);
         setDaysOfMonth(date);
 
-        barChart = (BarChart) getActivity().findViewById(R.id.chart_stat);
+        barChart = (BarChart) activity.findViewById(R.id.chart_stat);
         entries = new ArrayList<>();
 
         entriesSetpoint = new ArrayList<>();
