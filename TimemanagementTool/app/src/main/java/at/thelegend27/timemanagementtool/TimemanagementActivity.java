@@ -81,7 +81,6 @@ public class TimemanagementActivity extends AppCompatActivity
         setUserInfos();
 
         displaySelectedScreen(R.id.nav_dashboard);
-
     }
 
     @Override

@@ -13,8 +13,8 @@ import java.util.Map;
  */
 
 public class  Task implements Parcelable, Comparator<Task>, Comparable<Task>{
-    String author_id, date, task_name, task_description, user_id, task_id;
-    boolean is_done;
+    public String author_id, date, task_name, task_description, user_id, task_id;
+    public boolean is_done;
 
 
     public Task(String author_id, String date, String task_name, String task_description, String user_id, String task_id, boolean is_done) {

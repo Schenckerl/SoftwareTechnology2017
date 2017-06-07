@@ -86,11 +86,11 @@ public class TasksFragment extends Fragment {
 
             @Override
             public void onChildRemoved(DataSnapshot dataSnapshot) {
-                Task task = dataSnapshot.getValue(Task.class);
+/*                Task task = dataSnapshot.getValue(Task.class);
                 int index = getTaskIndex(task);
                 output.remove(index);
                 sortTasks();
-                adapter.notifyItemRemoved(index);
+                adapter.notifyItemRemoved(index);*/
             }
 
             @Override

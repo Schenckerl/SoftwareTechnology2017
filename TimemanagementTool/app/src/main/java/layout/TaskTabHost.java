@@ -11,10 +11,6 @@ import android.view.ViewGroup;
 import at.thelegend27.timemanagementtool.HelperClasses.CurrentSession;
 import at.thelegend27.timemanagementtool.R;
 
-/**
- * Created by Dominik on 06.06.2017.
- */
-
 public class TaskTabHost extends Fragment {
     private FragmentTabHost mTabHost;
 

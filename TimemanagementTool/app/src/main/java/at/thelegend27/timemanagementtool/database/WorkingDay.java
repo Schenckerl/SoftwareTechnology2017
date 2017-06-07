@@ -8,7 +8,7 @@ public class WorkingDay {
     public DateTime begin;
     public DateTime end;
     public String key = null;
-    public long duration = 0;
+    public long duration = -1;
     public int break_time = 0;
 
     public WorkingDay(){
