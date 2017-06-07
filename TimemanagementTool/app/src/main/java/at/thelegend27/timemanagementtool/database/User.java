@@ -55,7 +55,6 @@ public class User {
         ret.put("isSupervisor", isSupervisor);
 
         return ret;
-
     }
 
     public String getEmail() {

@@ -200,7 +200,7 @@ public class CurrentSession {
         ret.put("user", current_user.getUid());
         if(workingDay.end != null)
             ret.put("end", workingDay.end.toString());
-        if(workingDay.duration != 0)
+        if(workingDay.duration != -1)
             ret.put("duration", ""+workingDay.duration);
 
         return ret;
