@@ -1,18 +1,19 @@
 package at.thelegend27.timemanagementtool;
 
-import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.design.widget.TextInputEditText;
+import android.support.design.widget.TextInputLayout;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
-import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -28,13 +29,15 @@ import java.util.List;
 import java.util.Map;
 
 import at.thelegend27.timemanagementtool.HelperClasses.CurrentSession;
-import at.thelegend27.timemanagementtool.database.Department;
+import at.thelegend27.timemanagementtool.HelperClasses.RequiredFieldValidatorHelper;
 import at.thelegend27.timemanagementtool.database.User;
 
-public class AddTasksForEmployeeActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+public class AddTasksForEmployeeActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener, View.OnFocusChangeListener {
     Spinner setDepartment, setEmployee;
-    EditText taskName, taskDescription;
+    TextInputEditText taskName, taskDescription;
     TextView deadline;
+    private RequiredFieldValidatorHelper taskNameFieldValidator;
+    TextInputLayout taskNameWrapper;
     Map<String, String> usersId = new HashMap<String, String>();
     String idOfSelectedUser;
     Button addButton, setDate;
@@ -55,18 +58,28 @@ public class AddTasksForEmployeeActivity extends AppCompatActivity implements Ad
         deadline = (TextView)findViewById(R.id.addTaskDeadlineAdmin);
         setDepartment = (Spinner)findViewById(R.id.department_task_id);
         setDepartment.setOnItemSelectedListener(this);
-        taskDescription = (EditText)findViewById(R.id.addTaskDescriptionAdmin);
+        taskDescription = (TextInputEditText) findViewById(R.id.addTaskDescriptionAdmin);
         setEmployee = (Spinner)findViewById(R.id.employee_task_id);
         addButton = (Button)findViewById(R.id.addTaskButtonAdmin);
-        taskName = (EditText)findViewById(R.id.addTaskNameAdmin);
+        taskName = (TextInputEditText) findViewById(R.id.addTaskNameAdmin);
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                boolean isTaskNameValid = taskNameFieldValidator.validate(taskName.getText().toString());
+                if (!isTaskNameValid) {
+                    //go ahead ans submit the form for all things are fine now
+                    Toast.makeText(getBaseContext(), "Field Validations failed! Please check your inputs", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 setTask();
             }
         });
         final String date = new DateTime().toString("yyyy-MM-dd");
         deadline.setText(date);
+
+        taskNameWrapper = (TextInputLayout)findViewById(R.id.addTaskNameAdmin_wrapper);
+        taskNameFieldValidator = new RequiredFieldValidatorHelper(taskNameWrapper);
+        taskName.setOnFocusChangeListener(this);
 
         setDate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -207,6 +220,18 @@ public class AddTasksForEmployeeActivity extends AppCompatActivity implements Ad
         for(Map.Entry<String, String> entry : usersId.entrySet()) {
             if(entry.getValue() == userName)
                 idOfSelectedUser = entry.getKey();
+        }
+    }
+
+    @Override
+    public void onFocusChange(View v, boolean hasFocus) {
+        if (hasFocus) {
+            return; //we want to validate only fields loosing focus and not fields gaining focus
+        }
+
+        int id = v.getId();
+        if (id == R.id.addTaskNameAdmin) {
+            taskNameFieldValidator.validate(taskName.getText().toString());
         }
     }
 }

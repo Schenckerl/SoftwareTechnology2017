@@ -97,10 +97,6 @@ public class EditProfileFragment extends Fragment implements View.OnFocusChangeL
         visibilityProgressbarEditProfile(View.VISIBLE);
 
         if (user != null) {
-            String userId = user.getProviderId();
-            String id = user.getUid();
-            String profileEmail = user.getEmail();
-
             firebaseApplication.updateUserProfile(getActivity(), user, profileName, progressBar);
         }
     }

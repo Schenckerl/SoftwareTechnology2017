@@ -64,27 +64,49 @@
 
         </LinearLayout>
 
-        <EditText
-            android:id="@+id/addTaskNameAdmin"
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/addTaskNameAdmin_wrapper"
+            style="@style/AppTheme.TextInputLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Task name"
-            android:focusableInTouchMode="true"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:layout_marginTop="8dp"
-            />
+            android:layout_marginLeft="@dimen/_16sdp"
+            android:layout_marginRight="@dimen/_16sdp"
+            app:errorTextAppearance="@style/AppTheme.Text.ErrorText"
+            app:hintTextAppearance="@style/AppTheme.Text.HintText">
 
-        <EditText
-            android:id="@+id/addTaskDescriptionAdmin"
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/addTaskNameAdmin"
+                style="@style/AppTheme.TextInputLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:imeOptions="actionNext"
+                android:inputType="textPersonName|textCapWords"
+                app:errorTextAppearance="@style/AppTheme.Text.ErrorText"
+                app:hintTextAppearance="@style/AppTheme.Text.HintText" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/addTaskDescriptionAdmin_wrapper"
+            style="@style/AppTheme.TextInputLayout"
             android:layout_width="match_parent"
-            android:layout_marginTop="8dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
             android:hint="Task description"
-            android:inputType="textMultiLine"
-            />
+            android:layout_marginLeft="@dimen/_16sdp"
+            android:layout_marginRight="@dimen/_16sdp"
+            app:errorTextAppearance="@style/AppTheme.Text.ErrorText"
+            app:hintTextAppearance="@style/AppTheme.Text.HintText">
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/addTaskDescriptionAdmin"
+                style="@style/AppTheme.TextInputLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:imeOptions="actionNext"
+                android:inputType="textPersonName|textCapWords"
+                app:errorTextAppearance="@style/AppTheme.Text.ErrorText"
+                app:hintTextAppearance="@style/AppTheme.Text.HintText" />
+        </android.support.design.widget.TextInputLayout>
 
         <Button
             android:id="@+id/addTaskButtonAdmin"

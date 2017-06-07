@@ -2,30 +2,32 @@ package at.thelegend27.timemanagementtool;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.design.widget.TextInputEditText;
+import android.support.design.widget.TextInputLayout;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
-import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import org.joda.time.DateTime;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
 import at.thelegend27.timemanagementtool.HelperClasses.CurrentSession;
+import at.thelegend27.timemanagementtool.HelperClasses.RequiredFieldValidatorHelper;
 import at.thelegend27.timemanagementtool.database.User;
 
-public class AddNewTaskActivity extends AppCompatActivity  {
-    EditText taskName, taskDescription;
+public class AddNewTaskActivity extends AppCompatActivity implements View.OnFocusChangeListener {
+    TextInputEditText taskName, taskDescription;
+    private RequiredFieldValidatorHelper taskNameFieldValidator;
+    TextInputLayout taskNameWrapper;
     TextView deadline;
     Button addButton, setDate;
     FirebaseDatabase database;
@@ -40,11 +42,15 @@ public class AddNewTaskActivity extends AppCompatActivity  {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_new_task);
 
-        taskDescription = (EditText)findViewById(R.id.addTaskDescription);
-        taskName = (EditText)findViewById(R.id.addTaskName);
+        taskDescription = (TextInputEditText) findViewById(R.id.addTaskDescription);
+        taskName = (TextInputEditText) findViewById(R.id.addTaskName);
         addButton = (Button)findViewById(R.id.addTaskButton);
         setDate = (Button)findViewById(R.id.addTaskDeadlineButton);
         deadline = (TextView)findViewById(R.id.addTaskDeadline);
+
+        taskNameWrapper = (TextInputLayout)findViewById(R.id.addTaskName_wrapper);
+        taskNameFieldValidator = new RequiredFieldValidatorHelper(taskNameWrapper);
+        taskName.setOnFocusChangeListener(this);
 
         String date = new DateTime().toString("yyyy-MM-dd");
         deadline.setText(date);
@@ -60,6 +66,13 @@ public class AddNewTaskActivity extends AppCompatActivity  {
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                boolean isTaskNameValid = taskNameFieldValidator.validate(taskName.getText().toString());
+                if (!isTaskNameValid) {
+                    //go ahead ans submit the form for all things are fine now
+                    Toast.makeText(getBaseContext(), "Field Validations failed! Please check your inputs", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
                 database = FirebaseDatabase.getInstance();
                 reference = database.getReference("Tasks");
                 setTask();
@@ -120,4 +133,15 @@ public class AddNewTaskActivity extends AppCompatActivity  {
         this.finish();
     }
 
+    @Override
+    public void onFocusChange(View v, boolean hasFocus) {
+        if (hasFocus) {
+            return; //we want to validate only fields loosing focus and not fields gaining focus
+        }
+
+        int id = v.getId();
+        if (id == R.id.addTaskName) {
+            taskNameFieldValidator.validate(taskName.getText().toString());
+        }
+    }
 }
