@@ -9,68 +9,100 @@
     android:layout_marginBottom="0dp"
     tools:context="at.thelegend27.timemanagementtool.TaskDescriptionActivity">
 
-    <android.support.constraint.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <TextView
-        android:id="@+id/task_name"
-        android:layout_width="0dp"
-        android:layout_height="68dp"
-        android:gravity="center_vertical"
-        android:text="Task name"
-        android:textColor="@android:color/black"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintHorizontal_bias="0.053"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginLeft="16dp"
-        android:layout_marginStart="16dp" />
-
-    <TextView
-        android:id="@+id/task_description"
-        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:scrollbars="vertical"
-        android:text="Task Description"
-        android:textColor="@android:color/black"
-        android:textSize="15sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/task_name"
-        app:layout_constraintVertical_bias="0.118"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintHorizontal_bias="0.666" />
+        android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/task_author"
-        android:layout_width="117dp"
-        android:layout_height="39dp"
-        android:text="Author"
-        android:textColor="@android:color/black"
-        android:textStyle="bold"
-        app:layout_constraintBaseline_toBaselineOf="@+id/task_date"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        app:layout_constraintLeft_toLeftOf="parent" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+
+            <TextView
+                android:id="@+id/task_name"
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:layout_marginLeft="8dp"
+                android:text="@string/task_name"
+                android:textColor="@android:color/black"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                />
+
+        </LinearLayout>
 
         <TextView
-            android:id="@+id/task_date"
-            android:layout_width="117dp"
-            android:layout_height="39dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginRight="16dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/task_description"
+            android:textSize="12sp"
             android:layout_marginTop="20dp"
-            android:gravity="right"
-            android:text="Date"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"/>
+
+
+
+        <TextView
+            android:id="@+id/task_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="8dp"
+            android:scrollbars="vertical"
+            android:text="@string/task_description"
             android:textColor="@android:color/black"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/task_description"
-            app:layout_constraintVertical_bias="0.0" />
-    </android.support.constraint.ConstraintLayout>
+            android:textSize="15sp"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp">
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/task_author"
+                android:textSize="12sp"
+                android:layout_marginRight="8dp"/>
+
+            <TextView
+                android:id="@+id/task_author"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/task_author"
+                android:textColor="@android:color/black"
+                android:textStyle="bold"
+                android:layout_weight="1" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/task_deadline"
+                android:textSize="12sp"
+                android:layout_marginRight="8dp"/>
+
+            <TextView
+                android:id="@+id/task_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/task_deadline"
+                android:textColor="@android:color/black"
+                android:textStyle="bold"
+                />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
 </ScrollView>
