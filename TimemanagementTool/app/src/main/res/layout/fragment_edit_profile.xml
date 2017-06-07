@@ -94,6 +94,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/password_wrapper"
+            app:passwordToggleEnabled="true"
             android:hint="@string/edit_profile_confirm_password"
             app:errorTextAppearance="@style/AppTheme.Text.ErrorText"
             app:hintTextAppearance="@style/AppTheme.Text.HintText">
