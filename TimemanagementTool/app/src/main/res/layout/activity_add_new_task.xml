@@ -11,22 +11,34 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <EditText
-            android:id="@+id/addTaskName"
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/addTaskName_wrapper"
+            style="@style/AppTheme.TextInputLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Task name"
-            android:layout_marginRight="16dp"
             android:layout_marginLeft="16dp"
-            />
+            android:layout_marginRight="16dp"
+            app:errorTextAppearance="@style/AppTheme.Text.ErrorText"
+            app:hintTextAppearance="@style/AppTheme.Text.HintText">
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/addTaskName"
+                style="@style/AppTheme.TextInputLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:imeOptions="actionNext"
+                android:inputType="textPersonName|textCapWords"
+                app:errorTextAppearance="@style/AppTheme.Text.ErrorText"
+                app:hintTextAppearance="@style/AppTheme.Text.HintText" />
+        </android.support.design.widget.TextInputLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
 
-            android:orientation="horizontal"
-            >
+            android:orientation="horizontal">
 
             <EditText
                 android:id="@+id/addTaskDeadline"
@@ -49,21 +61,31 @@
                 android:textColor="@color/colorWhite"
                 android:layout_centerHorizontal="true"
                 android:paddingBottom="@dimen/_16sdp"
-                android:paddingTop="@dimen/_16sdp"
-                />
+                android:paddingTop="@dimen/_16sdp" />
 
         </LinearLayout>
 
-        <EditText
-            android:id="@+id/addTaskDescription"
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/addTaskDescription_wrapper"
+            style="@style/AppTheme.TextInputLayout"
             android:layout_width="match_parent"
-            android:layout_marginTop="8dp"
             android:layout_height="wrap_content"
+            android:hint="Task description"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
-            android:hint="Task description"
-            android:inputType="textMultiLine"
-            />
+            app:errorTextAppearance="@style/AppTheme.Text.ErrorText"
+            app:hintTextAppearance="@style/AppTheme.Text.HintText">
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/addTaskDescription"
+                style="@style/AppTheme.TextInputLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:imeOptions="actionNext"
+                android:inputType="textPersonName|textCapWords"
+                app:errorTextAppearance="@style/AppTheme.Text.ErrorText"
+                app:hintTextAppearance="@style/AppTheme.Text.HintText" />
+        </android.support.design.widget.TextInputLayout>
 
         <Button
             android:id="@+id/addTaskButton"

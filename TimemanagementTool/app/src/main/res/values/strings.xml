@@ -160,4 +160,8 @@
         <item quantity="one">Password not strong enough. Use at least %1$d character and a mix of letters and numbers</item>
         <item quantity="other">Password not strong enough. Use at least %1$d characters and a mix of letters and numbers</item>
     </plurals>
+    <string name="task_description">Description:</string>
+    <string name="task_author">Author:</string>
+    <string name="task_name">Name:</string>
+    <string name="task_deadline">Deadline:</string>
 </resources>
