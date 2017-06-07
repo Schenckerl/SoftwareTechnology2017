@@ -178,7 +178,7 @@ public class ClosedTasksFragment extends Fragment {
     public boolean onContextItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case 0 :
-                removeTask(item.getGroupId());
+                //removeTask(item.getGroupId());
                 break;
         }
         return super.onContextItemSelected(item);
@@ -214,12 +214,12 @@ public class ClosedTasksFragment extends Fragment {
         return super.onOptionsItemSelected(item);
     }
 
-    private void removeTask(int position) {
+/*    private void removeTask(int position) {
         Toast toast = Toast.makeText(getContext(), "Task \"" + output.get(position).getTask_name() + "\" done!", Toast.LENGTH_SHORT);
         toast.show();
         reference.child(output.get(position).getTask_id()).removeValue();
 
-    }
+    }*/
 
     private void sortTasks() {
         Collections.sort(output);

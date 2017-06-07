@@ -20,6 +20,6 @@ public class TestHelper {
     public static String working_user = "workee@test.com";
     public static String working_password = "Gulasch1994";
 
-    public static void resetWorkingUser(){
-    }
+    public static String supervisor_user = "manu@test.com";
+    public static String supervisor_password = "Gulasch1994";
 }

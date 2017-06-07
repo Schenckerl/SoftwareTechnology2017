@@ -79,7 +79,7 @@ public class OpenTasksFragment extends Fragment {
                             User to_check = dataSnapshot.getValue(User.class);
                             if (CurrentSession.getInstance().getCurrent_user().isCEO) {
                                 if (to_check.company.equals(CurrentSession.getInstance().getCompany().name)) {
-                                    Log.d("TASKS", "We found a User");
+                                    Log.d("TASKS", "We found a Task");
                                     output.add(current);
                                     sortTasks();
                                     adapter.notifyDataSetChanged();
@@ -87,7 +87,7 @@ public class OpenTasksFragment extends Fragment {
                             } else {
                                 if(to_check.department != null) {
                                     if (to_check.department.equals(CurrentSession.getInstance().getDepartment().name)) {
-                                        Log.d("TASKS", "We found a User");
+                                        Log.d("TASKS", "We found a Task");
                                         output.add(current);
                                         sortTasks();
                                         adapter.notifyDataSetChanged();
@@ -172,7 +172,7 @@ public class OpenTasksFragment extends Fragment {
     public boolean onContextItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case 0 :
-                removeTask(item.getGroupId());
+                //removeTask(item.getGroupId());
                 break;
         }
         return super.onContextItemSelected(item);
@@ -208,12 +208,14 @@ public class OpenTasksFragment extends Fragment {
         return super.onOptionsItemSelected(item);
     }
 
+/*
     private void removeTask(int position) {
         Toast toast = Toast.makeText(getContext(), "Task \"" + output.get(position).getTask_name() + "\" done!", Toast.LENGTH_SHORT);
         toast.show();
         reference.child(output.get(position).getTask_id()).removeValue();
 
     }
+*/
 
     private void sortTasks() {
         Collections.sort(output);

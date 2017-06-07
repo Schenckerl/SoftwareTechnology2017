@@ -1,6 +1,7 @@
 package at.thelegend27.timemanagementtool;
 
 import android.content.Intent;
+import android.provider.ContactsContract;
 import android.support.design.widget.TextInputLayout;
 import android.support.test.espresso.Espresso;
 import android.support.test.espresso.action.ViewActions;
@@ -8,9 +9,16 @@ import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.view.View;
 
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
+import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -53,14 +61,15 @@ public class SignUpInstrumentedTest {
         Espresso.closeSoftKeyboard();
         onView(withId(R.id.surename)).perform(typeText("Mustermann"));
         Espresso.closeSoftKeyboard();
-        onView(withId(R.id.email)).perform(typeText("test@test.com"));
+        onView(withId(R.id.email)).perform(typeText("muster@test.com"));
         Espresso.closeSoftKeyboard();
         onView(withId(R.id.password)).perform(typeText("test123"));
         Espresso.closeSoftKeyboard();
         onView(withId(R.id.confirm_password)).perform(typeText("test123"));
         Espresso.closeSoftKeyboard();
-        onView(withId(R.id.company)).perform(typeText("Test company"));
+        onView(withId(R.id.company)).perform(typeText("Muster company"));
         Espresso.closeSoftKeyboard();
+        //onView(withId(R.id.sign_up_button)).perform(click());
     }
 
     @Test
@@ -103,6 +112,38 @@ public class SignUpInstrumentedTest {
     public void switchToLogin() {
         onView(withId(R.id.switch_login_text_view)).perform(ViewActions.scrollTo());
         onView(withId(R.id.switch_login_text_view)).perform(click());
+    }
+    @AfterClass
+    public static void teardown(){
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Companies");
+        ref.child("Muster Company").removeValue();
+        final DatabaseReference md = FirebaseDatabase.getInstance().getReference("Users");
+        md.orderByChild("email").equalTo("muster@test.com").addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                md.child(dataSnapshot.getKey()).removeValue();
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
     public static Matcher<View> hasTextInputLayoutHintText(final String expectedErrorText) {
